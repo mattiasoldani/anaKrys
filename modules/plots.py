@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import succolib as sl
 from scipy.optimize import curve_fit
-from matplotlib.colors import LogNorm
+from matplotlib.colors import LogNorm, Normalize
 
 ###############################################################################
 ###############################################################################
@@ -92,6 +92,7 @@ def plot_runInfo(
 ###############################################################################
 
 # x-y angle distribution histograms, with fits (optional) & range delimiters (optional)
+# returns a dictionary -- see below...
 def plot_th(
     df,  # MANDATORY
     var,  # MANDATORY -- full df name of the set of (x & y) angle distributions without the vista index 0/1 (e.g. "thIn")
@@ -507,15 +508,17 @@ def plot_digi(
 ###############################################################################
 ############################################################################### 
 
-# 
+# 1d single energy spectrum -- can also be coupled to an already existing figure
+# returns a dictionary -- see below...
 def plot_energySingle(
     df,  # MANDATORY
-    var,  # MANDATORY
+    var,  # MANDATORY -- energy value, format: part of the variable name following "E"
     binSize,  # MANDATORY -- can't be set to None
 
-    fig = None,  # 1st output of a figure created externally with plt.subplots() -- if None, brand new figure is created here -- it must have 2 subplots
-    ax = None,  # 2nd output of a figure created externally with plt.subplots() -- if None, brand new figure is created here -- it must have 2 subplots
+    fig = None,  # 1st output of a figure created externally with plt.subplots() -- if None, 1*1 brand new figure is created here
+    ax = None,  # 2nd output of a figure created externally with plt.subplots() -- if None, 1*1 brand new figure is created here
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
+    bLog = False,  # if True (False), log (lin) scale on y
     label = None,  # plot label in the final legend -- if None, plot is not added to legend or, if no legend already existing, legend is not created
     title0 = None,  # figure title -- if None, title is created automatically according to lsBool
     outPar = {},  # dictionary that will be updated with the spectrum values -- details below...
@@ -529,61 +532,57 @@ def plot_energySingle(
     # new figure is created only if fig or ax argument is not passed or is None, i.e. if figure isn't already existing
     if ((fig is None) | (ax is None)):
         plt.close(figName)
-        fig, ax = plt.subplots(nrows=2, ncols=1, figsize=[newXSize, newYSize], num=newFigName)
+        fig, ax = plt.subplots(nrows=1, ncols=1, figsize=[newXSize, newYSize], num=newFigName)
             
-    # spectrum is created only if figure has the right shape, i.e. with 2 subplots
-    if type(ax)==np.ndarray:
-        if len(ax)==2:
- 
-            # plot boolean & title (corresponding to boolean if title0 is None, else title0) & variable
-            title = "" if title0==None else title0
-            if len(lsBool)>0:
-                dfBool = True
-                for iBool in [df[s] for s in lsBool]:
-                    dfBool = dfBool & iBool
-                x = df[dfBool]["E"+var]
-                if title0==None:
-                    for i in range(len(lsBool)-1):
-                        title += lsBool[i] + " & "
-                    title += lsBool[len(lsBool)-1]
-            else:
-                x = df["E"+var]
-            xName = x.name
-            xFullName = x.name+units[xName]
-
-            xRange = [x.min(), x.max()]
-            bins = int(abs(xRange[1] - xRange[0]) / binSize)
-
-            for i in range(2):
-                ax[i].set_title(title, fontsize="small")
-                ax[i].set_xlabel(xFullName, fontsize="small")
-
-                # histogram
-                histo = ax[i].hist(x, bins, range=xRange, density=True, histtype="step", log=False if i==0 else True, label=label if i==0 else None, color=histC)
-
-                # errorbars
-                xBars = [x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]]
-                yBars = histo[0]
-                yErrs = np.sqrt(yBars / (binSize * x.shape[0]))
-                ax[i].errorbar(xBars, yBars, yerr=yErrs, fmt="none", c=histC)
-                
-            # (leftmost) spectrum max
-            xMax = xBars[np.argmax(yBars)]
-            print("spectrum created, with (leftmost) maximum @ E%s = %.3f" % (var, xMax))
-                
-            # filling output dictionary with the spectrum
-            outName = (xName+"_"+label) if label!=None else xName
-            outPar[outName] = [xBars, yBars, yErrs]
-            print("spectrum returned in a dictionary with key %s -- x, y, ey" % outName)
-            
-            if label != None:  # legend is updated (or created, if not already existing) only if label isn't None
-                ax[0].legend(fontsize="small")
-            fig.tight_layout()
+    # spectrum is created only if ax has the right typing (plt.subplots() output np.array in case of multidimensional figures)
+    if str(type(ax))=="<class 'matplotlib.axes._subplots.AxesSubplot'>":
         
+        # plot boolean & title (corresponding to boolean if title0 is None, else title0) & variable
+        title = "" if title0==None else title0
+        if len(lsBool)>0:
+            dfBool = True
+            for iBool in [df[s] for s in lsBool]:
+                dfBool = dfBool & iBool
+            x = df[dfBool]["E"+var]
+            if title0==None:
+                for i in range(len(lsBool)-1):
+                    title += lsBool[i] + " & "
+                title += lsBool[len(lsBool)-1]
         else:
-            print("figure subplots organisation mismatch --> no E%s plot performed\n--" % var)
+            x = df["E"+var]
+        xName = x.name
+        xFullName = x.name+units[xName]
+
+        xRange = [x.min(), x.max()]
+        bins = int(abs(xRange[1] - xRange[0]) / binSize)
+
+        ax.set_title(title, fontsize="small")
+        ax.set_xlabel(xFullName, fontsize="small")
+
+        # histogram
+        histo = ax.hist(x, bins, range=xRange, density=True, log=bLog, histtype="step", label=label, color=histC)
+
+        # errorbars
+        xBars = [x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]]
+        yBars = histo[0]
+        yErrs = np.sqrt(yBars / (binSize * x.shape[0]))
+        ax.errorbar(xBars, yBars, yerr=yErrs, fmt="none", c=histC)
+
+        # (leftmost) spectrum max
+        xMax = xBars[np.argmax(yBars)]
+        print("spectrum created, with (leftmost) maximum @ E%s = %.3f" % (var, xMax))
+
+        # filling output dictionary with the spectrum
+        outName = (xName+"_"+label) if label!=None else xName
+        outPar[outName] = [xBars, yBars, yErrs]
+        print("spectrum returned in a dictionary with key %s -- x, y, ey" % outName)
+
+        if label != None:  # legend is updated (or created, if not already existing) only if label isn't None
+            ax.legend(fontsize="small")
+        fig.tight_layout()
+            
     else:
-        print("figure subplots organisation mismatch --> no E%s plot performed\n--" % var)
+        print("subplot typing mismatch --> no E%s plot performed\n--" % var)
 
     # careful with outPar:
     #     if a dictionary is given as argument and the spectrum is created, a list with x, y & ey is added to the dictionary with key xName_label (or xName if label=None) & the updated dictionary is returned
@@ -595,15 +594,20 @@ def plot_energySingle(
 ###############################################################################
 ###############################################################################
 
-# 
+# 1d energy typeRun-by-typeRun spectra & 2d trend vs time
+# returns a dictionary -- see below...
 def plot_energyRuns(
     df,  # MANDATORY
-    var,  # MANDATORY -- part of the df variable name following "E"
-    bE,  # MANDATORY -- dictionary with the run numbers as keys & True/False as values, depending on the variable existence in df (check carefully!)
+    var,  # MANDATORY -- energy value, format: part of the variable name following "E"
     binSize,  # MANDATORY -- can't be set to None
+    bE,  # MANDATORY -- dictionary with the run numbers as keys & True/False as values, depending on the variable existence in df (check carefully!)
 
+    bEpoch=False,  # set it True only if the epoch variable actually exists in df
+    bUseEpoch=False,  # if False, event index in the current execution (always available) is used -- only if epoch in df, otherwise index anyway
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
+    bLog = False,  # if True (False), log (lin) scale on y
     outPar = {},  # dictionary that will be updated with all the spectra values bin by bin -- details in plot_energySingle()
+    pal2d = plt.rcParams["image.cmap"],
     units={}, 
     xSize=plt.rcParams["figure.figsize"][0],
     ySize=plt.rcParams["figure.figsize"][1],
@@ -613,18 +617,43 @@ def plot_energyRuns(
     plt.close(figName)
     fig, ax = plt.subplots(nrows=2, ncols=1, figsize=[xSize, ySize], num=figName)
     
-    # title is not defined here -- only the overall global boolean
-    # lsBool is passed to the single-plot function anyway, to create the figure title
+#     # title is not defined here -- only the overall global boolean
+#     # lsBool is passed to the single-plot function anyway, to create the figure title
+#     if len(lsBool)>0:
+#         dfBool = True
+#         for iBool in [df[s] for s in lsBool]:
+#             dfBool = dfBool & iBool
+        # plot boolean & title (corresponding to boolean if title0 is None, else title0) & variable
+    # plot boolean & corresponding title
+    # also x & y for the 2d plot -- 1d is dealt with in plot_energySingle()
+    title = ""
     if len(lsBool)>0:
         dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
+        x2d = df[dfBool]["epoch"] if (bEpoch & bUseEpoch) else df[dfBool].index
+        y2d = df[dfBool]["E"+var]
+        for i in range(len(lsBool)-1):
+            title += lsBool[i] + " & "
+        title += lsBool[len(lsBool)-1]
+    else:
+        x2d = df["epoch"] if (bEpoch & bUseEpoch) else df.index
+        y2d = df["E"+var]
+    x2dFullName = x2d.name+units[x2d.name] if (bEpoch & bUseEpoch) else "index"
+    y2dFullName = y2d.name+units[y2d.name]
 
+    # 1d spectra (run-by-run)
     for i, iTypeRun in enumerate(np.unique([df[dfBool & (df["iRun"]==s)]["typeRun"].unique()[0] for s in bE if bE[s]])):
         print("studying E%s when typeRun = %s" % (var, iTypeRun))
         histC = plt.rcParams['axes.prop_cycle'].by_key()['color'][i]
-        outPar = plot_energySingle(df[dfBool & (df["typeRun"] == iTypeRun)], var, binSize, fig, ax, lsBool, iTypeRun, None, outPar, units, histC)
+        outPar = plot_energySingle(df[dfBool & (df["typeRun"] == iTypeRun)], var, binSize, fig, ax[0], lsBool, bLog, iTypeRun, title, outPar, units, histC)
         print("--")
+        
+    # 2d -- value over time
+    bins = [min(1000, x2d.max() - x2d.min()), 100]
+    ax[1].hist2d(x2d, y2d, bins, norm=LogNorm() if bLog else Normalize(), cmap=pal2d)
+    ax[1].set_xlabel(x2dFullName, fontsize="small")
+    ax[1].set_ylabel(y2dFullName, fontsize="small")
         
     # careful with outPar: see details in plot_energySingle()
     return outPar
@@ -632,7 +661,8 @@ def plot_energyRuns(
 ###############################################################################
 ###############################################################################
 
-#
+# custom variable trend vs one or more goniometer DOF + profile plot (always) + degree-0, -1 or -2 polynomial fit (optional) -- also check dictGonioX format for analysis parameters
+# returns a dictionary -- see below...
 def plot_gonioTrends(
     df,  # MANDATORY
     varY,  # MANDATORY -- full variable name in df
@@ -720,27 +750,30 @@ def plot_gonioTrends(
         xProf = [k for j, k in enumerate(profile[0]) if profile[2][j] != 0]
         yProf = [k for j, k in enumerate(profile[1]) if profile[2][j] != 0]
         eyProf = [j for j in profile[2] if j != 0]
-        if len(xProf) > 1:  # drawing only profile plots with at least 2 points (with nonzero error)
+        if len(xProf) > 1:  # using only profile plots with at least 2 points (with nonzero error)
             outPar["%s_%s_prof" % (varY, xName)] = [xProf, yProf, eyProf]
             print("profile plot returned in a dictionary with key %s -- x, y, ey" % ("%s_%s_prof" % (varY, xName)))
-            ax[i, 0].plot(xProf, yProf, color=lineC, linewidth=lineW)
-            ax[i, 0].plot(xProf, [yProf[j] - eyProf[j] for j in range(len(xProf))], color=lineC, linestyle=":", linewidth=lineW)
-            ax[i, 0].plot(xProf, [yProf[j] + eyProf[j] for j in range(len(xProf))], color=lineC, linestyle=":", linewidth=lineW)
+            if dictGonioX[iX][2][0]:  # profile plot drawn only if requested (while outPar is filled anyway with "..._prof" entry)
+                ax[i, 0].plot(xProf, yProf, color=lineC, linewidth=lineW)
+                ax[i, 0].plot(xProf, [yProf[j] - eyProf[j] for j in range(len(xProf))], color=lineC, linestyle=":", linewidth=lineW)
+                ax[i, 0].plot(xProf, [yProf[j] + eyProf[j] for j in range(len(xProf))], color=lineC, linestyle=":", linewidth=lineW)
+            else:
+                print("as requested, profile plot not drawn")
             
         else:
             print("no profile plot drawn (0 or 1 points only)")
             
         # polynomial fit
         if len(xProf) > 1:  # also fit only profile plots with at least 2 points (with nonzero error)
-            if dictGonioX[iX][2][0]:
-                xFitL = dictGonioX[iX][2][2] if dictGonioX[iX][2][2] != None else min(xProf)
-                xFitR = dictGonioX[iX][2][3] if dictGonioX[iX][2][3] != None else max(xProf)
+            if dictGonioX[iX][2][1]:  # fit only if requested (also applied to outPar "..._fit" entry)
+                xFitL = dictGonioX[iX][2][3] if dictGonioX[iX][2][3] != None else min(xProf)
+                xFitR = dictGonioX[iX][2][4] if dictGonioX[iX][2][4] != None else max(xProf)
                 xFit = [k for k in xProf if ((k>=xFitL) & (k<=xFitR))]
                 yFit = [k for j, k in enumerate(yProf) if ((xProf[j]>=xFitL) & (xProf[j]<=xFitR))]
                 eFit = [k for j, k in enumerate(eyProf) if ((xProf[j]>=xFitL) & (xProf[j]<=xFitR))]
                 
                 # polynomial degree -- if None, degree 0 polynomial (i.e. offset) if selected
-                polyDeg = dictGonioX[iX][2][1] if dictGonioX[iX][2][1]!=None else 0
+                polyDeg = dictGonioX[iX][2][2] if dictGonioX[iX][2][2]!=None else 0
                 if polyDeg==0:
                     polyName = "offset"
                 elif polyDeg==1:

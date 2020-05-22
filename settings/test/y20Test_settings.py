@@ -42,10 +42,10 @@ for i in range(6): asciiMap.append("nHit"+str(i))
 for i in range(8): asciiMap.append("digiBase"+str(i))
 for i in range(8): asciiMap.append("digiPHRaw"+str(i))
 for i in range(8): asciiMap.append("digiTime"+str(i))
-asciiMap.append("xGonioRawAngle")
-asciiMap.append("xGonioRawCradle")
+asciiMap.append("xGonioRawRot")
+asciiMap.append("xGonioRawCrad")
 asciiMap.append("xGonioRawHorsa")
-asciiMap.append("xGonioRawHorsaCoarse")
+asciiMap.append("xGonioRawHorsaBig")
 asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
@@ -64,10 +64,10 @@ for i in range(6): treeMap.update({"xRaw%d" % i: "x%d" % i})
 for i in range(6): treeMap.update({"nHit%d" % i: "nclu%d" % i})
 for i in range(8): treeMap.update({"digiPHRaw%d" % i: "ph%d" % i})
 for i in range(8): treeMap.update({"digiTime%d" % i: "time%d" % i})
-treeMap.update({"xGonioRawAngle": "xgonio0"})
-treeMap.update({"xGonioRawCradle": "xgonio1"})
+treeMap.update({"xGonioRawRot": "xgonio0"})
+treeMap.update({"xGonioRawCrad": "xgonio1"})
 treeMap.update({"xGonioRawHorsa": "xgonio2"})
-treeMap.update({"xGonioRawHorsaCoarse": "xgonio3"})
+treeMap.update({"xGonioRawHorsaBig": "xgonio3"})
 treeMap.update({"xGonioRawVersa": "xgonio4"})
 treeMap.update({"epoch": "atime"})
     
@@ -180,10 +180,10 @@ for iRun in nRun0:
 # scale can be negative to adjust relative verso
 # mandatory, but can be left empty --> no goniometer DOF pairing
 gonioMap = { 
-    "Angle": ["thIn0", False, -10**6],
-    "Cradle": ["thIn1", False, 10**6],
+    "Rot": ["thIn0", False, -10**6],
+    "Crad": ["thIn1", False, 10**6],
     "Horsa": ["xCry0", True, 10],
-    "HorsaCoarse": ["xCry0", True, 20],
+    "HorsaBig": ["xCry0", True, 20],
     "Versa": ["xCry1", True, -10],
 }
 

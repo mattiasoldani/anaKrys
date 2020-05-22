@@ -341,20 +341,24 @@ def calibrate(df, bE0, calibMap, caloName, bOverwrite=True):
                 print("E%s already in df with (mean, std) = (%f, %f) --> keeping it" % (caloName, df[dfBool]["E"+caloName].mean(), df[dfBool]["E"+caloName].std()))
 
         # E... (according to caloName) only created if
-        #     - not already in df
-        #     - a priori existing in df, but overwriting is required (True by default)
+        #     - not already in df or a priori existing in df, but overwriting is required (True by default)
+        #     - calibration function is defined (for each run)
+        #     - total detector PH is available in df
         if (not bE0) | (bE0 & bOverwrite):
             if iRun in calibMap:
-                func = calibMap[iRun][0]
-                args = [df["PHCalo" + caloName]] + calibMap[iRun][1]
-                funcSrc = inspect.getsource(func)
-                funcStr = (funcSrc.partition("lambda ")[1]+funcSrc.partition("lambda ")[2]).partition(", 'end'")[0]
-                df.loc[dfBool, "E" + caloName] = func(*args)
-                bE.update({iRun: True})
-                print("E%s %s df -- obtained via %s" % (caloName, strChange, funcStr))
+                if "PHCalo"+caloName in df.columns:
+                    func = calibMap[iRun][0]
+                    args = [df["PHCalo" + caloName]] + calibMap[iRun][1]
+                    funcSrc = inspect.getsource(func)
+                    funcStr = (funcSrc.partition("lambda ")[1]+funcSrc.partition("lambda ")[2]).partition(", 'end'")[0]
+                    df.loc[dfBool, "E" + caloName] = func(*args)
+                    bE.update({iRun: True})
+                    print("E%s %s df -- obtained via %s" % (caloName, strChange, funcStr))
+                else:
+                    print("E%s not %s df (run not in list of calo. channels)" % (caloName, strChange))
             else:
                 bE.update({iRun: False})
-                print("E%s not %s df (run not in list of calo. channels)" % (caloName, strChange))
+                print("E%s not %s df (calib. function not defined for this run)" % (caloName, strChange))
                 if bE0:
                     print("(despite raw E%s not being removed from df)" % caloName)
         else:
