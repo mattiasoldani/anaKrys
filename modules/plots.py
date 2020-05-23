@@ -520,7 +520,7 @@ def plot_energySingle(
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
     bLog = False,  # if True (False), log (lin) scale on y
     label = None,  # plot label in the final legend -- if None, plot is not added to legend or, if no legend already existing, legend is not created
-    title0 = None,  # figure title -- if None, title is created automatically according to lsBool
+    title0 = None,  # figure title -- if None, title is created automatically according to lsBool (i.e. listing all the applied booleans)
     outPar = {},  # dictionary that will be updated with the spectrum values -- details below...
     units={},
     histC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
@@ -556,7 +556,6 @@ def plot_energySingle(
         xRange = [x.min(), x.max()]
         bins = int(abs(xRange[1] - xRange[0]) / binSize)
 
-        ax.set_title(title, fontsize="small")
         ax.set_xlabel(xFullName, fontsize="small")
 
         # histogram
@@ -579,6 +578,7 @@ def plot_energySingle(
 
         if label != None:  # legend is updated (or created, if not already existing) only if label isn't None
             ax.legend(fontsize="small")
+        fig.suptitle(title, y=1, va="top", fontsize="small")
         fig.tight_layout()
             
     else:
@@ -646,7 +646,7 @@ def plot_energyRuns(
     for i, iTypeRun in enumerate(np.unique([df[dfBool & (df["iRun"]==s)]["typeRun"].unique()[0] for s in bE if bE[s]])):
         print("studying E%s when typeRun = %s" % (var, iTypeRun))
         histC = plt.rcParams['axes.prop_cycle'].by_key()['color'][i]
-        outPar = plot_energySingle(df[dfBool & (df["typeRun"] == iTypeRun)], var, binSize, fig, ax[0], lsBool, bLog, iTypeRun, title, outPar, units, histC)
+        outPar = plot_energySingle(df[dfBool & (df["typeRun"] == iTypeRun)], var, binSize, fig, ax[0], lsBool, bLog, iTypeRun, "", outPar, units, histC)
         print("--")
         
     # 2d -- value over time
@@ -654,6 +654,9 @@ def plot_energyRuns(
     ax[1].hist2d(x2d, y2d, bins, norm=LogNorm() if bLog else Normalize(), cmap=pal2d)
     ax[1].set_xlabel(x2dFullName, fontsize="small")
     ax[1].set_ylabel(y2dFullName, fontsize="small")
+    
+    fig.suptitle(title, y=1, va="top", fontsize="small")
+    fig.tight_layout()
         
     # careful with outPar: see details in plot_energySingle()
     return outPar
