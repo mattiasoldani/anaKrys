@@ -1,4 +1,9 @@
-from .y20Test_runList import nRun0  # replacement for "from settings import nRun0" just for the test mode
+import os
+import importlib
+
+# importing run list from the corresponding settings file (in the same directory as this)
+#     --> argument 2 in import_module() (package) must be "settings" ("settings.test") when working with custom (test) data
+nRun0 = (importlib.import_module("."+os.path.basename(__file__).replace("settings", "runList").replace(".py", ""), package="settings.test")).nRun0
 
 ########################################################################################################################
 # INPUT RUN LIST
@@ -103,8 +108,8 @@ for iVar in ["xRaw"+s for s in ["0", "1", "2", "3", "4", "5"]]:
 # dictionary -- shape: {run (string): {element (string): z (float)}}
 # mandatory, but can be skipped/filled partially for some/all runs --> all missing base positions set to 0
 z = {}
-for iKey in nRun0:
-    z.update({iKey: {
+for iVar in nRun0:
+    z.update({iVar: {
         "0": 0,
         "1": 0,
         "2": 1190,
@@ -223,8 +228,8 @@ for iRun in nRun0:
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-for iKey in nRun0:
-    lsDigiChCaloFwd.update({iKey: ["3"]})
+for iVar in nRun0:
+    lsDigiChCaloFwd.update({iVar: ["3"]})
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run

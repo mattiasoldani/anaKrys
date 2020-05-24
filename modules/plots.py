@@ -59,7 +59,8 @@ def plot_runInfo(
         title += lsBool[len(lsBool)-1]
     else:
         x = df["epoch"] if (bEpoch & bUseEpoch) else df.index
-    xFullName = x.name+units[x.name] if (bEpoch & bUseEpoch) else "index"
+    xUnit = units[x.name] if x.name in units else ""
+    xFullName = x.name+xUnit if (bEpoch & bUseEpoch) else "index"
 
     ######
     # iRun
@@ -79,7 +80,7 @@ def plot_runInfo(
     if bXGonio:  # only done if any xGonioRaw (and hence xGonio) variable available
         for i, iDof in enumerate([s.replace("Raw", "") for s in df.columns if "xGonioRaw" in s]):
             y = df[iDof] if len(lsBool)==0 else df[dfBool][iDof]
-            yFullName = y.name + units[y.name]
+            yFullName = y.name + (units[y.name] if y.name in units else "")
             bins = [min(1000, x.max() - x.min()), 100]
             ax[i+1, 0] = plt.subplot(nRows, 1, i+2)
             ax[i+1, 0].hist2d(x, y, bins, cmap=pal2d)
@@ -146,7 +147,7 @@ def plot_th(
         bins = int((xRange[1] - xRange[0]) / binSize) if binSize!=None else 100
         
         histo = ax[i].hist(x, bins, range=xRange, histtype="step")
-        xFullName = x.name+units[x.name]
+        xFullName = x.name + (units[x.name] if x.name in units else "")
         ax[i].set_xlabel(xFullName, fontsize="small")
         if min(histo[1]) < 0 < max(histo[1]):
             ax[i].axvline(x=0, color="k")
@@ -243,7 +244,8 @@ def plot_nHit(
     else:
         x = df["epoch"] if (bEpoch & bUseEpoch) else df.index
     xName = x.name if (bEpoch & bUseEpoch) else "index"
-    xFullName = xName+units[x.name] if (bEpoch & bUseEpoch) else xName
+    xUnit = units[x.name] if x.name in units else ""
+    xFullName = xName+xUnit if (bEpoch & bUseEpoch) else xName
     
     if tRange is None:
         tRange = [df["epoch"].min(), df["epoch"].max()] if (bEpoch & bUseEpoch) else [df.index.min(), df.index.max()]
@@ -279,7 +281,7 @@ def plot_nHit(
     ######
     # multiplicity
     y = df[var] if len(lsBool)==0 else df[dfBool][var]
-    yFullName = y.name+units[y.name]
+    yFullName = y.name + (units[y.name] if y.name in units else "")
     bins = [min(1000, x.max() - x.min()), min(100, max(3, 2*int(y.max() - y.min()))) if maxNHit==None else maxNHit]
     hRange = [None, [-0.5, bins[1]-0.5]]
         
@@ -349,8 +351,8 @@ def plot_proj(
     else:
         x = df[var+"0"]
         y = df[var+"1"]
-    xFullName = x.name+units[x.name]
-    yFullName = y.name+units[y.name]
+    xFullName = x.name + (units[x.name] if x.name in units else "")
+    yFullName = y.name + (units[y.name] if y.name in units else "")
     
     if hRange[0] is None:
         hRange[0] = [x.min(), x.max()]
@@ -407,8 +409,8 @@ def plot_gonioCorr(
     else:
         x = df["xGonio"+lsVar[0]]
         y = df["xGonio"+lsVar[1]]
-    xFullName = x.name+units[x.name]
-    yFullName = y.name+units[y.name]
+    xFullName = x.name + (units[x.name] if x.name in units else "")
+    yFullName = y.name + (units[y.name] if y.name in units else "")
 
     ax.hist2d(x, y, bins=bins, cmap=pal2d, norm=LogNorm())
     ax.set_xlabel(xFullName, fontsize="small")
@@ -475,8 +477,8 @@ def plot_digi(
 
     for i, iVar in enumerate(lsVar):
         xAx, yAx = int(np.floor(0.5*i)), i%2
-        xFullName = x[iVar].name+units[x[iVar].name]
-        yFullName = y[iVar].name+units[y[iVar].name]
+        xFullName = x[iVar].name + (units[x[iVar].name] if x[iVar].name in units else "")
+        yFullName = y[iVar].name + (units[y[iVar].name] if x[iVar].name in units else "")
         
         # histogram
         if bDigiTime[iVar]:  # time data available --> 2d histogram (PH vs time)
@@ -551,7 +553,7 @@ def plot_energySingle(
         else:
             x = df["E"+var]
         xName = x.name
-        xFullName = x.name+units[xName]
+        xFullName = xName + (units[xName] if xName in units else "")
 
         xRange = [x.min(), x.max()]
         bins = int(abs(xRange[1] - xRange[0]) / binSize)
@@ -639,8 +641,10 @@ def plot_energyRuns(
     else:
         x2d = df["epoch"] if (bEpoch & bUseEpoch) else df.index
         y2d = df["E"+var]
-    x2dFullName = x2d.name+units[x2d.name] if (bEpoch & bUseEpoch) else "index"
-    y2dFullName = y2d.name+units[y2d.name]
+    xUnit = units[x2d.name] if x2d.name in units else ""
+    yUnit = units[y2d.name] if y2d.name in units else ""
+    x2dFullName = x2d.name+xUnit if (bEpoch & bUseEpoch) else "index"
+    y2dFullName = y2d.name+yUnit
 
     # 1d spectra (run-by-run)
     for i, iTypeRun in enumerate(np.unique([df[dfBool & (df["iRun"]==s)]["typeRun"].unique()[0] for s in bE if bE[s]])):
@@ -737,8 +741,8 @@ def plot_gonioTrends(
         x = df[dfBoolGlob & dfBoolLoc][xName] if len(lsBool)>0 else df[dfBoolLoc][xName]
         y = df[dfBoolGlob & dfBoolLoc][varY] if len(lsBool)>0 else df[dfBoolLoc][varY]
         
-        xFullName = xName+units[xName]
-        yFullName = y.name+units[y.name]
+        xFullName = xName + (units[xName] if xName in units else "")
+        yFullName = y.name + (units[y.name] if y.name in units else "")
         subtitle = "(%f <= %s <= %f) & (%f <= %s <= %f)" % (xL, xName, xR, yL, y.name, yR)
         
         # histogram
@@ -822,9 +826,9 @@ def plot_gonioTrends(
                 outPar["%s_%s_fit" % (varY, xName)] = [polyDeg, p, cov]
                 if polyDeg==2:
                     outPar["%s_%s_fit" % (varY, xName)] += [(xVertex, yVertex)]
-                    print("fit info are returned in a dictionary with key %s -- deg., param., cov. matrix, vertex" % ("%s_%s_fit" % (varY, xName)))
+                    print("fit info are returned in a dictionary with key %s -- deg., par., cov. matr., vertex" % ("%s_%s_fit" % (varY, xName)))
                 else:
-                    print("fit info are returned in a dictionary with key %s -- deg., param., cov. matrix" % ("%s_%s_fit" % (varY, xName)))
+                    print("fit info are returned in a dictionary with key %s -- deg., par., cov. matr." % ("%s_%s_fit" % (varY, xName)))
                 
             else:
                 print("polynomial fit not performed (not requested)")

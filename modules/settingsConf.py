@@ -1,44 +1,24 @@
-import time
 from settings import *
 
 ###############################################################################
 ###############################################################################
 
 def settingsSelect(boolTest, whichInput):
-    t = time.strftime("%Y-%m-%d %H:%M:%S GMT", time.gmtime(time.time()))
-    if not boolTest:
+    
+    if not boolTest:  # physics files -- either ROOT or ASCII
         print("looking for files with label %s in ./settings/" % whichInput)
-        settingsFile = open("./settings/__init__.py", "w")
-        print("# rewritten automatically by anaKrys.ipynb", file=settingsFile)
-        print("# last recreation: %s" % t, file=settingsFile)
-        print("from .%s_runList import *" % whichInput, file=settingsFile)
-        print("from .%s_inputFileFormat import *" % whichInput, file=settingsFile)
-        print("from .%s_settings import *" % whichInput, file=settingsFile)
-        settingsFile.close()
+        return "settings.%s_inputFileFormat" % whichInput, "settings.%s_runList" % whichInput, "settings.%s_settings" % whichInput
+
     else:
-        if whichInput:
+        
+        if whichInput:  # ROOT test files
             print("test mode: will operate with test settings & ROOT files")
-            settingsFileInner = open("./settings/test/__init__.py", "w")
-            print("# rewritten automatically by anaKrys.ipynb -- test mode with ROOT files", file=settingsFileInner)
-            print("# last recreation: %s" % t, file=settingsFileInner)
-            print("from .y20Test_runList import *", file=settingsFileInner)
-            print("from .y20TestRoot_inputFileFormat import *", file=settingsFileInner)
-            print("from .y20Test_settings import *", file=settingsFileInner)
-            settingsFileInner.close()
-        else:
+            return "settings.test.testRoot.y20Test_inputFileFormat", "settings.test.y20Test_runList", "settings.test.y20Test_settings"
+
+        else:  # ASCII test files
             print("test mode: will operate with test settings & ASCII files")
-            settingsFileInner = open("./settings/test/__init__.py", "w")
-            print("# rewritten automatically by anaKrys.ipynb -- test mode with ASCII files", file=settingsFileInner)
-            print("# last recreation: %s" % t, file=settingsFileInner)
-            print("from .y20Test_runList import *", file=settingsFileInner)
-            print("from .y20TestAscii_inputFileFormat import *", file=settingsFileInner)
-            print("from .y20Test_settings import *", file=settingsFileInner)
-            settingsFileInner.close()
-        settingsFileOuter = open("./settings/__init__.py", "w")
-        print("# rewritten automatically by anaKrys.ipynb -- test mode", file=settingsFileOuter)
-        print("# last recreation: %s" % t, file=settingsFileOuter)
-        print("from .test import *", file=settingsFileOuter)
-        settingsFileOuter.close()
+            return "settings.test.testAscii.y20Test_inputFileFormat", "settings.test.y20Test_runList", "settings.test.y20Test_settings"
+
 
 ###############################################################################
 ###############################################################################
@@ -53,7 +33,7 @@ def boolControlPrint(boolLoad, boolPlot, boolTest):
 ###############################################################################
 ###############################################################################
 
-def settingsPrint():
+def settingsPrint(filePath, fileNameFormat, nRunToOpen, nRun0):
     
     #####
     # I/O-related
