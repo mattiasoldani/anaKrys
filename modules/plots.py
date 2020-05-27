@@ -135,18 +135,19 @@ def plot_th(
     for i, x in enumerate(xLs):  # loop on vistas
         
         # histogram
+        xRangeTot = []
         cat = pd.cut(x, bins=np.arange(x.min(), x.max(), 0.0001), labels=np.arange(x.min(), x.max()-0.0001, 0.0001))
         centre = cat.describe()[2]
         for j in range(2):
             # lower, then upper histogram range, always defined wrt. the distribution centre
             # xRange always overwritten with the values shifted wrt. the centre
             if xRange[j] is None:
-                xRange[j] = centre + max([10*x0.std() for x0 in xLs])*(-1)**(j+1)
+                xRangeTot.append(centre + max([10*x0.std() for x0 in xLs])*(-1)**(j+1))
             else:
-                xRange[j] += centre
-        bins = int((xRange[1] - xRange[0]) / binSize) if binSize!=None else 100
+                xRangeTot.append(xRange[j] + centre)
+        bins = int((xRangeTot[1] - xRangeTot[0]) / binSize) if binSize!=None else 100
         
-        histo = ax[i].hist(x, bins, range=xRange, histtype="step")
+        histo = ax[i].hist(x, bins, range=xRangeTot, histtype="step")
         xFullName = x.name + (units[x.name] if x.name in units else "")
         ax[i].set_xlabel(xFullName, fontsize="small")
         if min(histo[1]) < 0 < max(histo[1]):
@@ -187,11 +188,11 @@ def plot_th(
         if bSel:
             for iRun in thSel:
                 if len(thSel[iRun]) == 1:  # cicrular cut
-                    plot_selectionX(ax[i], xRange, [-thSel[iRun], thSel[iRun]], lineC, lineW)
+                    plot_selectionX(ax[i], xRangeTot, [-thSel[iRun], thSel[iRun]], lineC, lineW)
                 elif len(thSel[iRun]) == 2:  # elliptical cut
-                    plot_selectionX(ax[i], xRange, [-thSel[iRun][i], thSel[iRun][i]], lineC, lineW)
+                    plot_selectionX(ax[i], xRangeTot, [-thSel[iRun][i], thSel[iRun][i]], lineC, lineW)
                 elif len(thSel[iRun]) == 4:  # rectangular cut
-                    plot_selectionX(ax[i], xRange, [thSel[iRun][2*i], thSel[iRun][2*i+1]], lineC, lineW)
+                    plot_selectionX(ax[i], xRangeTot, [thSel[iRun][2*i], thSel[iRun][2*i+1]], lineC, lineW)
                                                     
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
