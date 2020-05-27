@@ -194,10 +194,10 @@ def gonioPair(df, gonioMap):
             # recall: a xGonio variable is always created for each xGonioRaw variable -- if no shifting can be performed, simply xGonioX=xGonioRawX
             else:
                 df["xGonio%s" % iDof] = df["xGonioRaw%s" % iDof]
-                print("xGonioRaw%s copied into xGonioRaw with no modifications (%s not in df)" % (iDof, gonioMap[iDof][0]))
+                print("xGonioRaw%s copied into xGonio%s with no modifications (%s not in df)" % (iDof, iDof, gonioMap[iDof][0]))
         else:
             df["xGonio%s" % iDof] = df["xGonioRaw%s" % iDof]
-            print("xGonioRaw%s copied into xGonioRaw with no modifications (not in gonioMap)" % iDof)
+            print("xGonioRaw%s copied into xGonio%s with no modifications (not in gonioMap)" % (iDof, iDof))
             
     return df
 
