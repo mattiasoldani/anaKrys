@@ -14,7 +14,7 @@ def peakedDistMode(series):
         centre0 = cat0.index[0].mid
         range0 = 5*series.std()
         binning0 = 0.00005*series.std()
-        cat = pd.cut(series, bins=np.arange(centre0-range0, centre0+centre0, binning0)).value_counts()
+        cat = pd.cut(series, bins=np.arange(centre0-range0, centre0+range0, binning0)).value_counts()
         centre = cat.index[0].mid
     return centre
 
