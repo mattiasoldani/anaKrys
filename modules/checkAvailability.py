@@ -56,9 +56,9 @@ def dfCheckAvailability(df, baseTrackingMap):
 
     bDigiPHAny = False if len(lsDigiCh) == 0 else True  # global PH availability -- single channels listed in lsDigiRawCh
     print("digitizer channel availability: %s" % str(bDigiPHAny))
+    bDigiTime = {}
     if bDigiPHAny:
         print("%d channels: digiPHRaw + %s" % (len(lsDigiCh), str(lsDigiCh)))
-        bDigiTime = {}
         for i, iCh in enumerate(lsDigiRawCh):
             # digitizer time availability for each of the available PH (listed in lsDigiRawCh)
             bDigiTime.update({iCh.replace("digiPHRaw", ""): True if iCh.replace("PHRaw", "Time") in df.columns else False})
