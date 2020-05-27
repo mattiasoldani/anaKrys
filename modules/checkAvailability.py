@@ -45,8 +45,8 @@ def dfCheckAvailability(df, baseTrackingMap):
     for iLayer in baseTrackingMap[1]:
         if not ("nHit"+iLayer in df.columns):
             bNHit["out"] = False  # output
-    print("input multiplicity availability (nHit...): %s" % str(bXRaw["in"]))
-    print("output multiplicity availability (nHit...): %s" % str(bXRaw["out"]))
+    print("input multiplicity availability (nHit...): %s" % str(bNHit["in"]))
+    print("output multiplicity availability (nHit...): %s" % str(bNHit["out"]))
     print("--")
 
     #####
