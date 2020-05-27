@@ -136,6 +136,12 @@ dmypy.json
 ########################################
 # CUSTOM
 
+# custom data
+ascii_local/*
+ascii_sshfs/*
+tree_local/*
+tree_sshfs/*
+
 # my files
 succolib
 succolib.py
