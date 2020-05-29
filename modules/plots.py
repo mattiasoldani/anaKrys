@@ -100,6 +100,7 @@ def plot_th(
     
     binSize = None,  # if None, 100 bins
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
+    bLog = False,  # if True (False), log (lin) scale on y
     xRange = [None, None],  # length 2 -- left-then-right, same for both x & y -- if value is None, corresponding boundary position is defined automatically
     bFit = False,  # fit & corresponding parameter output (on both vistas) is performed only if True
     fitSigma = None,  # starting point for gaussian sigma fit (set to ~ half the distribution FWHM) -- if None, automatically computed
@@ -147,7 +148,7 @@ def plot_th(
                 xRangeTot.append(xRange[j] + centre)
         bins = int((xRangeTot[1] - xRangeTot[0]) / binSize) if binSize!=None else 100
         
-        histo = ax[i].hist(x, bins, range=xRangeTot, histtype="step")
+        histo = ax[i].hist(x, bins, range=xRangeTot, histtype="step", log=bLog)
         xFullName = x.name + (units[x.name] if x.name in units else "")
         ax[i].set_xlabel(xFullName, fontsize="small")
         if min(histo[1]) < 0 < max(histo[1]):
@@ -158,7 +159,7 @@ def plot_th(
             if (len(x.unique()) > 1):
                 print("performing gaussian fit on %s..." % x.name)
                 xFit = [x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]]
-                yFit = histo[0]
+                yFit = histo[0]                
                 eFit = [max(1, np.sqrt(y0)) for y0 in yFit]
                 p0 = [float(yFit.max()), xFit[list(yFit).index(yFit.max())], min(x.std(), fitSigma) if fitSigma!=None else x.std()]
                 try:  # gaussian fits occasionally fail for some reason...
@@ -176,7 +177,6 @@ def plot_th(
                 except:
                     print("fit failed\n--")
                     pass
-                
 
             else:
                 print("%s gaussian fit not performed (distribution has %d value(s))\n--" % (x.name, len(x.unique())))
