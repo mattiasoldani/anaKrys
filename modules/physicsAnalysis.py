@@ -216,7 +216,7 @@ def equalise(df, lsDigiCh, equalMap):
                     funcSrc = inspect.getsource(func)
                     funcStr = (funcSrc.partition("lambda ")[1]+funcSrc.partition("lambda ")[2]).partition(", 'end'")[0]
                     print("digiPHRaw%s --> digiPH%s via %s" % (iCh, iCh, funcStr))
-                    df.loc[dfBool + iCh] = func(*args)
+                    df.loc[dfBool, "digiPH" + iCh] = func(*args)
 
                 else:
                     print("digiPH%s = digiPHRaw%s, i.e. not equalised (not in equalMap)" % (iCh, iCh))
