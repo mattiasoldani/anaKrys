@@ -6,16 +6,6 @@ import importlib
 nRun0 = (importlib.import_module("."+os.path.basename(__file__).replace("settings", "runList").replace(".py", ""), package="settings.test")).nRun0
 
 ########################################################################################################################
-# INPUT RUN LIST
-
-# run numbers or types to be opened
-# format: list of strings -- insert run numbers or types as they appear in nRun0
-# mandatory, otherwise no proper working
-nRunToOpen = [
-    "000000", "000001"
-]
-
-########################################################################################################################
 # DATA STRUCTURE
 
 # ROOT tree name, string
