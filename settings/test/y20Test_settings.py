@@ -108,8 +108,8 @@ for iVar in ["xRaw"+s for s in ["0", "1", "2", "3", "4", "5"]]:
 # dictionary -- shape: {run (string): {element (string): z (float)}}
 # mandatory, but can be skipped/filled partially for some/all runs --> all missing base positions set to 0
 z = {}
-for iVar in nRun0:
-    z.update({iVar: {
+for iRun in nRun0:
+    z.update({iRun: {
         "0": 0,
         "1": 0,
         "2": 1190,
@@ -228,8 +228,8 @@ for iRun in nRun0:
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-for iVar in nRun0:
-    lsDigiChCaloFwd.update({iVar: ["3"]})
+for iRun in nRun0:
+    lsDigiChCaloFwd.update({iRun: ["3"]})
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
