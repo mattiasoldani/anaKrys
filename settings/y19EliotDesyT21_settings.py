@@ -114,7 +114,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [-5.72762936e-03, -4.61562019e-03]})
+    thInCentres.update({iRun: [-5.490719e-03, -4.515025e-03]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -155,9 +155,9 @@ for iRun in nRun0:
         if "Axial" in nRun0[iRun]:
             xCryCut.update({iRun: [0.5, 1.1, 1.1, 1.7]})  # axial runs
         elif "Random0" in nRun0[iRun]:
-            xCryCut.update({iRun: [0.45, 1.05, 1.11, 1.71]})  # random (1st set) runs
+            xCryCut.update({iRun: [0.55, 0.95, 1.21, 1.61]})  # random (1st set) runs
         elif "Random1" in nRun0[iRun]:
-            xCryCut.update({iRun: [0.42, 1.02, 1.15, 1.75]})  # random (2nd set) runs
+            xCryCut.update({iRun: [0.52, 0.92, 1.25, 1.65]})  # random (2nd set) runs
         else:
             xCryCut.update({iRun: [0.6, 1.0, 1.2, 1.6]})  # all other runs runs (i.e. scans)
         if "Old" in nRun0[iRun]:

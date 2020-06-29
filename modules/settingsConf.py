@@ -49,5 +49,8 @@ def settingsPrint(filePath, fileNameFormat, nRunToOpen, nRun0):
             for j in range(len(lsRuns)):
                 iRun.append(lsRuns[j])
                 iType.append(iKey)
-    for i in range(len(iRun)):
-        print("(%d/%d) %s %s" % (i+1, len(iRun), iRun[i], iType[i]))
+    if len(iRun)>0:
+        for i in range(len(iRun)):
+            print("(%d/%d) %s %s" % (i+1, len(iRun), iRun[i], iType[i]))
+    else:
+        print("no runs selected for opening -- execution will only work if test mode is selected")
