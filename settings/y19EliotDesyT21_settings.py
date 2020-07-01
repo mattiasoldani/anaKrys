@@ -140,7 +140,7 @@ for iRun in nRun0:
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisToRandom" in s]:  # intermediate cut for axis-to-random runs (any crystal)
         thInCut.update({iRun: [0.0015, 0.0015]})
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
-        thInCut.update({iRun: [0.0005, 0.0005]})
+        thInCut.update({iRun: [0.0009, 0.0009]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run

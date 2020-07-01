@@ -93,5 +93,6 @@ nRun0 = {
     # other runs
     "405296": "Plastic_MagnetOn",
     "405297": "Direct_MagnetOn",
+    "405385": "Direct_MagnetOff"
     
 }
