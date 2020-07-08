@@ -42,9 +42,27 @@ asciiMap.append("xGonioRawHorsaBig")
 asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
-for i in range(16): asciiMap.append("digiBase%d" % i)
-for i in range(16): asciiMap.append("digiPHRaw%d" % i)
-for i in range(16): asciiMap.append("digiTime%d" % i)
+for s in ["CaloFwd"+str(i) for i in range(9)]: asciiMap.append("digiBase%s" % s)  # GENNI ECal -- digi. channels 0-8
+asciiMap.append("digiBaseTrig")  # trigger scinti (between crystal & output tracking module) -- digi. channel 9
+asciiMap.append("digiBaseVeto")  # veto scinti -- digi. channel 10
+asciiMap.append("digiBasePresh0")  # preshower output scinti -- digi. channel 11
+asciiMap.append("digiBasePresh1")  # preshower output scinti -- digi. channel 12
+for i in [13, 14, 15]:
+    asciiMap.append("digiBaseNone"+str(i))
+for s in ["CaloFwd"+str(i) for i in range(9)]: asciiMap.append("digiPHRaw%s" % s)
+asciiMap.append("digiPHRawTrig")
+asciiMap.append("digiPHRawVeto")
+asciiMap.append("digiPHRawPresh0")
+asciiMap.append("digiPHRawPresh1")
+for i in [13, 14, 15]:
+    asciiMap.append("digiPHRawNone"+str(i))
+for s in ["CaloFwd"+str(i) for i in range(9)]: asciiMap.append("digiTime%s" % s)
+asciiMap.append("digiTimeTrig")
+asciiMap.append("digiTimeVeto")
+asciiMap.append("digiTimePresh0")
+asciiMap.append("digiTimePresh1")
+for i in [13, 14, 15]:
+    asciiMap.append("digiTimeNone"+str(i))
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -148,18 +166,17 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
 for iRun in nRun0:
-    xCryCut.update({iRun: [-10, 10, -10, 10]})  # no cut in general
     
     # W [100] "square"
     if "WSquare" in nRun0[iRun]:
-        if "Axial" in nRun0[iRun]:
-            xCryCut.update({iRun: [0.5, 1.1, 1.1, 1.7]})  # axial runs
-        elif "Random0" in nRun0[iRun]:
-            xCryCut.update({iRun: [0.55, 0.95, 1.21, 1.61]})  # random (1st set) runs
-        elif "Random1" in nRun0[iRun]:
-            xCryCut.update({iRun: [0.52, 0.92, 1.25, 1.65]})  # random (2nd set) runs
+        if (("Axial" in nRun0[iRun]) | ("AxisToRandom_D1" in nRun0[iRun]) | ("AxisToRandom_D2" in nRun0[iRun]) | ("AxisToRandom_D3" in nRun0[iRun])):
+            xCryCut.update({iRun: [0.5, 0.9, 1.1, 1.7]})  # axial & transition, close-to-axis runs
+        elif (("AxisToRandom_D4" in nRun0[iRun]) | ("AxisToRandom_D5" in nRun0[iRun]) | ("AxisToRandom_D6" in nRun0[iRun])):
+            xCryCut.update({iRun: [0.47, 0.87, 1.12, 1.72]})  # transition, far-from-axis runs
+        elif ("Random" in nRun0[iRun]):
+            xCryCut.update({iRun: [0.47, 0.87, 1.13, 1.73]})  # random (1st set) runs
         else:
-            xCryCut.update({iRun: [0.6, 1.0, 1.2, 1.6]})  # all other runs runs (i.e. scans)
+            xCryCut.update({iRun: [0.65, 0.95, 1.25, 1.55]})  # all other runs runs (i.e. scans)
         if "Old" in nRun0[iRun]:
             xCryCut.update({iRun: [1.1, 1.5, 1.0, 1.4]})  # any run type with old tracking system positioning (before magnet accident)
             
@@ -209,8 +226,8 @@ gonioMap = {
 digiPHCut = {}
 for iRun in nRun0:
     digiPHCut.update({iRun: {}})
-    digiPHCut[iRun].update({"10": [-999999, 150]})  # veto scinti -- channel 10
-    for s in [str(i) for i in range(9)]:  # GENNI ECal -- channels 0-8
+    digiPHCut[iRun].update({"Veto": [-999999, 150]})
+    for s in ["CaloFwd"+str(i) for i in range(9)]:
         digiPHCut[iRun].update({s: [20, 999999]})
 
 # time cut interval -- inner events kept, boundaries excluded
@@ -222,13 +239,13 @@ for iRun in nRun0:
 digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
-    digiTimeCut[iRun].update({"9": [215, 227]})  # trigger scinti (between crystal & output tracking module) -- channel 9
-    digiTimeCut[iRun].update({"10": [163, 178]})  # veto scinti -- channel 10
-    digiTimeCut[iRun].update({"11": [160, 175]})  # preshower output scinti -- channel 11
-    digiTimeCut[iRun].update({"12": [165, 180]})  # preshower output scinti -- channel 12
-    for s in [str(i) for i in range(9)]:  # GENNI ECal -- channels 0-8
+    digiTimeCut[iRun].update({"Trig": [215, 227]})
+    digiTimeCut[iRun].update({"Veto": [163, 178]})
+    digiTimeCut[iRun].update({"Presh0": [160, 175]})
+    digiTimeCut[iRun].update({"Presh1": [165, 180]})
+    for s in ["CaloFwd"+str(i) for i in range(9)]:
         digiTimeCut[iRun].update({s: [230, 260]})
-        if s == "8": digiTimeCut[iRun].update({s: [165, 195]})  # channel 8 in 2nd digitizer
+        if s == "CaloFwd8": digiTimeCut[iRun].update({s: [165, 195]})  # ECal channel 8 in 2nd digitizer
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -236,7 +253,7 @@ for iRun in nRun0:
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-for iRun in nRun0: lsDigiChCaloFwd.update({iRun: [str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
+for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
@@ -251,15 +268,15 @@ for iRun in nRun0: lsDigiChCaloFwd.update({iRun: [str(i) for i in range(9)]})  #
 equalMap = {}
 for iRun in nRun0:
     equalMap.update({iRun: {}})  # nonlinear equalisation -- reference channel is 4
-    equalMap[iRun].update({"0": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [3625.58, 0.10505, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"1": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2039.81, 0.06787, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"2": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2338.31, 0.04680, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"3": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [3129.84, 0.08349, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"4": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1818.46, 0.07281, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"5": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1528.03, 0.04487, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"6": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2676.66, 0.05874, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"7": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2098.63, 0.37278, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"8": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1532.67, 0.04095, 1818.46, 0.07281], 'end']})
+    equalMap[iRun].update({"CaloFwd0": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [3625.58, 0.10505, 1818.46, 0.07281], 'end']})
+    equalMap[iRun].update({"CaloFwd1": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2039.81, 0.06787, 1818.46, 0.07281], 'end']})
+    equalMap[iRun].update({"CaloFwd2": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2338.31, 0.04680, 1818.46, 0.07281], 'end']})
+    equalMap[iRun].update({"CaloFwd3": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [3129.84, 0.08349, 1818.46, 0.07281], 'end']})
+    equalMap[iRun].update({"CaloFwd4": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1818.46, 0.07281, 1818.46, 0.07281], 'end']})
+    equalMap[iRun].update({"CaloFwd5": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1528.03, 0.04487, 1818.46, 0.07281], 'end']})
+    equalMap[iRun].update({"CaloFwd6": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2676.66, 0.05874, 1818.46, 0.07281], 'end']})
+    equalMap[iRun].update({"CaloFwd7": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2098.63, 0.37278, 1818.46, 0.07281], 'end']})
+    equalMap[iRun].update({"CaloFwd8": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1532.67, 0.04095, 1818.46, 0.07281], 'end']})
             
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run

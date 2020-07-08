@@ -4,8 +4,8 @@
 nRun0 = {
     
     # W [100] "square"
-    "405286": "WSquare_Random0",  # used for divergence characterisation before collimator tweaking
-    "405365": "WSquare_Random1",  # used for WSquare shape identification
+    "405286": "WSquare_Random",  # used for divergence characterisation before collimator tweaking -- the 2 WSquare_Random runs might differ
+    "405365": "WSquare_Random",  # used for WSquare shape identification -- after collimator tweaking -- the 2 WSquare_Random runs might differ
     "405287": "WSquare_Axial",
     "405363": "WSquare_Axial",
     "405368": "WSquare_Axial",
@@ -37,11 +37,11 @@ nRun0 = {
     "405281": "WSquare_Random_Old",
 
     # PWO [100] "thick"
-    "405323": "PWOThick_Random0",
-    "405327": "PWOThick_Random0",
-    "405335": "PWOThick_Random0",
-    "405336": "PWOThick_Random1",
-    "405338": "PWOThick_Random1",
+    "405336": "PWOThick_Random0",
+    "405338": "PWOThick_Random0",
+    "405323": "PWOThick_Random",
+    "405327": "PWOThick_Random",
+    "405335": "PWOThick_Random",
     "405326": "PWOThick_Axial",
     
     "405379": "PWOThick_Random_Presh0.20X0",
