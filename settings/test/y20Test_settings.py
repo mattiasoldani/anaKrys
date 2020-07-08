@@ -96,6 +96,10 @@ for iVar in ["xRaw"+s for s in ["0", "1", "2", "3", "4", "5"]]:
 # positions of the setup elements along the beam axis z
 # has to be set run by run
 # dictionary -- shape: {run (string): {element (string): z (float)}}
+# element format:
+#     "gonio" for the crystal (base)
+#     "caloFwd" for the forward calorimeter (either front or centre) (base)
+#     for tracking modules, use the part of the variable name following "xRaw" (base: 4/2 input/output layers)
 # mandatory, but can be skipped/filled partially for some/all runs --> all missing base positions set to 0
 z = {}
 for iRun in nRun0:

@@ -31,38 +31,17 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII, useless with ROOT files
 asciiMap = list()
-asciiMap.append("epoch")
-asciiMap.append("iEvent")
-for i in range(8): asciiMap.append("xRaw%d" % i)
-for i in range(8): asciiMap.append("nHit%d" % i)
+for i in range(8): asciiMap.append("nHit"+str(i))
+for i in range(8): asciiMap.append("xRaw"+str(i))
+for i in range(4): asciiMap.append("xRaw"+str(4+i)+"_1")  # downstream modules can have double-hit events -- 2nd is "_1"
+for i in range(8): asciiMap.append("nStripHit"+str(i))
+for i in range(4): asciiMap.append("nStripHit"+str(4+i)+"_1")  # downstream modules can have double-hit events -- 2nd is "_1"
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
-asciiMap.append("xGonioRawHorsa")
 asciiMap.append("xGonioRawHorsaBig")
-asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
-for s in ["CaloFwd"+str(i) for i in range(9)]: asciiMap.append("digiBase%s" % s)  # GENNI ECal -- digi. channels 0-8
-asciiMap.append("digiBaseTrig")  # trigger scinti (between crystal & output tracking module) -- digi. channel 9
-asciiMap.append("digiBaseVeto")  # veto scinti -- digi. channel 10
-asciiMap.append("digiBasePresh0")  # preshower output scinti -- digi. channel 11
-asciiMap.append("digiBasePresh1")  # preshower output scinti -- digi. channel 12
-for i in [13, 14, 15]:
-    asciiMap.append("digiBaseNone"+str(i))
-for s in ["CaloFwd"+str(i) for i in range(9)]: asciiMap.append("digiPHRaw%s" % s)
-asciiMap.append("digiPHRawTrig")
-asciiMap.append("digiPHRawVeto")
-asciiMap.append("digiPHRawPresh0")
-asciiMap.append("digiPHRawPresh1")
-for i in [13, 14, 15]:
-    asciiMap.append("digiPHRawNone"+str(i))
-for s in ["CaloFwd"+str(i) for i in range(9)]: asciiMap.append("digiTime%s" % s)
-asciiMap.append("digiTimeTrig")
-asciiMap.append("digiTimeVeto")
-asciiMap.append("digiTimePresh0")
-asciiMap.append("digiTimePresh1")
-for i in [13, 14, 15]:
-    asciiMap.append("digiTimeNone"+str(i))
+asciiMap.append("iAEv")
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -77,7 +56,6 @@ treeMap = {}
 # var format: the full dataframe variable name
 # mandatory, but can be skipped/filled with [] for some/all runs --> no variable mirroring for missing runs
 mirrorMap = {}
-for iRun in nRun0: mirrorMap.update({iRun: ["xRaw4", "xRaw7"]})  # planes 4 & 7 swapped
     
 # 1st level data filters
 # dictionary -- shape: 
@@ -93,7 +71,10 @@ for iRun in nRun0: mirrorMap.update({iRun: ["xRaw4", "xRaw7"]})  # planes 4 & 7 
 #     and/or of all the out-of-range/in-range values for all the (lowX, upX) ranges for which bInclX=False/True
 # mandatory, but can be left empty --> no filtering
 filterMap = {}
-for i in range(4): filterMap.update({"xRaw"+str(i): [[True, [-20, 20]]]})  # senseful data from input tracking layers
+for iVar in ["nHit"+s for s in ["0", "1", "2", "3", "4", "5", "6", "7"]]:  # global single-hit condition
+    filterMap.update({iVar: [[True, [1, 1]]]})
+for iVar in ["xRaw"+s for s in ["0", "1", "2", "3", "4", "5", "6", "7"]]:  # senseful positions in all the layers
+    filterMap.update({iVar: [[True, [-20, 20]]]})
 
 ########################################################################################################################
 # SETUP GEOMETRY & TRACKING
@@ -107,19 +88,19 @@ for i in range(4): filterMap.update({"xRaw"+str(i): [[True, [-20, 20]]]})  # sen
 #     for tracking modules, use the part of the variable name following "xRaw" (base: 4/2 input/output layers)
 # mandatory, but can be skipped/filled partially for some/all runs --> all missing base positions set to 0
 z = {}
-for iRun in nRun0:
-    z.update({iRun: {
+for iVar in nRun0:
+    z.update({iVar: {
         "0": 0,
         "1": 0,
-        "2": 41.0,
-        "3": 41.0,
-        "4": 41.0 + 22.75 + 45.3 - 2.4,
-        "5": 41.0 + 22.75 + 45.3 - 2.4,
-        "gonio": 41.0 + 22.75,
-        "caloFwd": 41.0 + 22.75 + 64.4 + 8 + 685.0 + 8.0 + 2.4 + 22.4 + 8.0,
+        "2": 565.5,
+        "3": 565.5,
+        "4": 565.5+149.1,
+        "5": 565.5+149.1,
+        "gonio": 565.5+31.2,
+        "caloFwd": 0,  # no calorimeter here
         
-        "6": 41.0 + 22.75 + 45.3 - 2.4 + 690.6 + 29.5 + 4.8,
-        "7": 41.0 + 22.75 + 45.3 - 2.4 + 690.6 + 29.5 + 4.8,
+        "6": 565.5+149.1+86.4,
+        "7": 565.5+149.1+86.4,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -136,8 +117,9 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [-5.490719e-03, -4.515025e-03]})
-    
+    # thInCentres.update({iRun: [-7.640931e-04, -2.425900e-04]})  # alignment w/ alignment run not perfect
+    thInCentres.update({iRun: [None, None]})
+
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
 # dictionary -- shape: {run (string): [thX, thY] (2 float or None)}
@@ -146,7 +128,8 @@ for iRun in nRun0:
 # mandatory for all the runs
 thOutCentres = {}
 for iRun in nRun0:
-    thOutCentres.update({iRun: [0, 0]})
+    # thOutCentres.update({iRun: [4.535002e-02-3.861804e-03-1.754184e-05, 3.690271e-02-1.226760e-03-1.508983e-05]})  # alignment w/ alignment run not perfect
+    thOutCentres.update({iRun: [None, None]})
 
 # aligned input angle range cut, centered around 0, boundaries excluded
 # has to be set run by run
@@ -159,10 +142,8 @@ for iRun in nRun0:
 thInCut = {}
 for iRun in nRun0:
     thInCut.update({iRun: [0.05, 0.05]})  # large cut for random (any crystal) and no-crystal runs
-    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisToRandom" in s]:  # intermediate cut for axis-to-random runs (any crystal)
-        thInCut.update({iRun: [0.0015, 0.0015]})
-    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
-        thInCut.update({iRun: [0.0009, 0.0009]})
+    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Channeling" in s]:  # strict cut in x for channeling runs (any crystal)
+        thInCut.update({iRun: [-0.00005, 0.00005, -0.05, 0.05]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
@@ -170,27 +151,8 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
 for iRun in nRun0:
-    
-    # W [100] "square"
-    if "WSquare" in nRun0[iRun]:
-        if (("Axial" in nRun0[iRun]) | ("AxisToRandom_D1" in nRun0[iRun]) | ("AxisToRandom_D2" in nRun0[iRun]) | ("AxisToRandom_D3" in nRun0[iRun])):
-            xCryCut.update({iRun: [0.5, 0.9, 1.1, 1.7]})  # axial & transition, close-to-axis runs
-        elif (("AxisToRandom_D4" in nRun0[iRun]) | ("AxisToRandom_D5" in nRun0[iRun]) | ("AxisToRandom_D6" in nRun0[iRun])):
-            xCryCut.update({iRun: [0.47, 0.87, 1.12, 1.72]})  # transition, far-from-axis runs
-        elif ("Random" in nRun0[iRun]):
-            xCryCut.update({iRun: [0.47, 0.87, 1.13, 1.73]})  # random (1st set) runs
-        else:
-            xCryCut.update({iRun: [0.65, 0.95, 1.25, 1.55]})  # all other runs runs (i.e. scans)
-        if "Old" in nRun0[iRun]:
-            xCryCut.update({iRun: [1.1, 1.5, 1.0, 1.4]})  # any run type with old tracking system positioning (before magnet accident)
-            
-    # PWO [100] "thick"
-    elif "PWOThick" in nRun0[iRun]:
-        xCryCut.update({iRun: [0.3, 1.95, 0.25, 1.9]})
-        
-    # PWO [100] "strip"
-    elif "PWOStrip" in nRun0[iRun]:
-        xCryCut.update({iRun: [0.95, 1.25, 0.45, 1.85]})
+    if "SiBent16mrad" in nRun0[iRun]:
+        xCryCut.update({iRun: [0.97, 1.44, 0.39, 1.90]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -198,7 +160,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cuts defined, i.e. booleans always True, in missing runs
 outMultCut = {}
 for iRun in nRun0:
-    outMultCut.update({iRun: [1, 2.5]})
+    outMultCut.update({iRun: [0, 2]})
     
 ########################################################################################################################
 # GONIOMETER
@@ -211,11 +173,9 @@ for iRun in nRun0:
 # scale can be negative to adjust relative verso
 # mandatory, but can be left empty --> no goniometer DOF pairing
 gonioMap = { 
-    "Rot": ["thIn0", False, -10**6],
-    "Crad": ["thIn1", False, 10**6],
-    "Horsa": ["xCry0", True, 10],
-    "HorsaBig": ["xCry0", True, 20],
-    "Versa": ["xCry1", True, -10],
+    "Rot": ["thIn0", False, -10**6],  # magnitude & sign TBC
+    "Crad": ["thIn1", False, 10**6],  # magnitude & sign TBC
+    "HorsaBig": ["xCry0", True, 20],  # magnitude & sign TBC
 }
 
 ########################################################################################################################
@@ -228,11 +188,6 @@ gonioMap = {
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiPHCut = {}
-for iRun in nRun0:
-    digiPHCut.update({iRun: {}})
-    digiPHCut[iRun].update({"Veto": [-999999, 150]})
-    for s in ["CaloFwd"+str(i) for i in range(9)]:
-        digiPHCut[iRun].update({s: [20, 999999]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -241,15 +196,6 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
-for iRun in nRun0:
-    digiTimeCut.update({iRun: {}})
-    digiTimeCut[iRun].update({"Trig": [215, 227]})
-    digiTimeCut[iRun].update({"Veto": [163, 178]})
-    digiTimeCut[iRun].update({"Presh0": [160, 175]})
-    digiTimeCut[iRun].update({"Presh1": [165, 180]})
-    for s in ["CaloFwd"+str(i) for i in range(9)]:
-        digiTimeCut[iRun].update({s: [230, 260]})
-        if s == "CaloFwd8": digiTimeCut[iRun].update({s: [165, 195]})  # ECal channel 8 in 2nd digitizer
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -257,7 +203,6 @@ for iRun in nRun0:
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
@@ -270,18 +215,7 @@ for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in rang
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
 equalMap = {}
-for iRun in nRun0:
-    equalMap.update({iRun: {}})  # nonlinear equalisation -- reference channel is 4
-    equalMap[iRun].update({"CaloFwd0": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [3625.58, 0.10505, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"CaloFwd1": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2039.81, 0.06787, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"CaloFwd2": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2338.31, 0.04680, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"CaloFwd3": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [3129.84, 0.08349, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"CaloFwd4": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1818.46, 0.07281, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"CaloFwd5": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1528.03, 0.04487, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"CaloFwd6": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2676.66, 0.05874, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"CaloFwd7": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2098.63, 0.37278, 1818.46, 0.07281], 'end']})
-    equalMap[iRun].update({"CaloFwd8": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1532.67, 0.04095, 1818.46, 0.07281], 'end']})
-            
+
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
 # dictionary -- shape: {run (string): [func, param, 'end']}
@@ -292,5 +226,3 @@ for iRun in nRun0:
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
-for iRun in nRun0:
-    calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [1/1892.03, -527.21/1892.03], 'end']})  # linear calibration
