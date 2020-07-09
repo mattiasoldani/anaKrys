@@ -149,7 +149,7 @@ def inputTrackingProj(df, inTrackingMap, z, xCryCut):
             df.loc[dfBool, "boolInCry0"] = (df["xCry0"]>xCut[0]) & (df["xCry0"]<xCut[1])
             df.loc[dfBool, "boolInCry1"] = (df["xCry1"]>yCut[0]) & (df["xCry1"]<yCut[1])
             df.loc[dfBool, "boolInCry"] = df["boolInCry0"] & df["boolInCry1"]
-            print("run %s: boolInCry(0/1): (%f < x < %f) &  (%f < y < %f)" % (iRun, xCut[0], xCut[1], yCut[0], yCut[1]))
+            print("run %s: boolInCry(0/1): (%f < x < %f) & (%f < y < %f)" % (iRun, xCut[0], xCut[1], yCut[0], yCut[1]))
         else:
             df.loc[dfBool, "boolInCry0"] = True
             df.loc[dfBool, "boolInCry1"] = True
