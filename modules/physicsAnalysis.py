@@ -55,8 +55,8 @@ def outHitCuts(df, layerMap, outMultCut):
             print("boolLowHitOut: output multiplicity lower window @ <= %f" % (outMultCut[iRun][0]))
             print("boolHighHitOut: output multiplicity upper window @ >= %f" % (outMultCut[iRun][1]))
         else:
-            df.loc[df["iRun"]==iRun, "boolLowHitOut"] = df["nHitOut"] = True
-            df.loc[df["iRun"]==iRun, "boolHighHitOut"] = df["nHitOut"] = True
+            df.loc[df["iRun"]==iRun, "boolLowHitOut"] = True
+            df.loc[df["iRun"]==iRun, "boolHighHitOut"] = True
             print("no cuts defined on output multiplicity --> booleans always True")
 
     return df
@@ -216,7 +216,7 @@ def equalise(df, lsDigiCh, equalMap):
                     funcSrc = inspect.getsource(func)
                     funcStr = (funcSrc.partition("lambda ")[1]+funcSrc.partition("lambda ")[2]).partition(", 'end'")[0]
                     print("digiPHRaw%s --> digiPH%s via %s" % (iCh, iCh, funcStr))
-                    df.loc[dfBool, "digiPH" + iCh] = func(*args)
+                    df.loc[dfBool + iCh] = func(*args)
 
                 else:
                     print("digiPH%s = digiPHRaw%s, i.e. not equalised (not in equalMap)" % (iCh, iCh))
