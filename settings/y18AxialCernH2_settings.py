@@ -43,12 +43,12 @@ treeMap.update({"iRun0": "nrun"})  # this is to avoid mixing the original run nr
 for i in range(6): treeMap.update({"xRaw%d" % i: "x%d" % i})
 for i in range(6): treeMap.update({"nHit%d" % i: "nclu%d" % i})
 for i in range(5): treeMap.update({"xGonioRaw%d" % i: "xgonio%d" % i})
-treeMap.update({"digiPHRawTrig": "ph0"})  # trigger scinti (between crystal & output tracking module) -- digi. channel 0
-treeMap.update({"digiPHRawCrys": "ph1"})  # SiPM coupled to crystal -- digi. channel 2
-treeMap.update({"digiPHRawCaloFwdBad": "ph2"})  # Pb glass blocks in the photon branch - digi. channels 2(bad)-3
-treeMap.update({"digiPHRawCaloFwd": "ph3"})  # Pb glass blocks in the photon branch - digi. channels 2(bad)-3
-treeMap.update({"digiPHRawCaloLatBad": "ph4"})  # Pb glass blocks in the charged branch - digi. channels 4(bad)-5-6-7
-for i in range(3): treeMap.update({"digiPHRawCaloLat%d" % i: "ph%d" % (i+5)})  # Pb glass blocks in the charged branch - digi. channels 4(bad)-5-6-7
+treeMap.update({"digiPHRawTrig": "ph0"})  # trigger scinti (between crystal & output tracking module) -- digi. channel 0 (might have changed along the bt)
+treeMap.update({"digiPHRawCrys": "ph1"})  # SiPM coupled to crystal -- digi. channel 2 (might have changed along the bt)
+treeMap.update({"digiPHRawCaloFwdBad": "ph2"})  # Pb glass blocks in the photon branch - digi. channels 2(bad)-3 (might have changed along the bt)
+treeMap.update({"digiPHRawCaloFwd": "ph3"})  # Pb glass blocks in the photon branch - digi. channels 2(bad)-3 (might have changed along the bt)
+treeMap.update({"digiPHRawCaloLatBad": "ph4"})  # Pb glass blocks in the charged branch - digi. channels 4(bad)-5-6-7 (might have changed along the bt)
+for i in range(3): treeMap.update({"digiPHRawCaloLat%d" % i: "ph%d" % (i+5)})  # Pb glass blocks in the charged branch - digi. channels 4(bad)-5-6-7 (might have changed along the bt)
 treeMap.update({"digiTimeTrig": "time0"})
 treeMap.update({"digiTimeCrys": "time1"})
 treeMap.update({"digiTimeCaloFwdBad": "time2"})
