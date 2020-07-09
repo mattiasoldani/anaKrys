@@ -37,12 +37,12 @@ nRun0 = {
     "405281": "WSquare_Random_Old",
 
     # PWO [100] "thick"
-    "405336": "PWOThick_Random0",
-    "405338": "PWOThick_Random0",
     "405323": "PWOThick_Random",
     "405327": "PWOThick_Random",
     "405335": "PWOThick_Random",
     "405326": "PWOThick_Axial",
+    "405336": "PWOThick_Random0",
+    "405338": "PWOThick_Random0",
     
     "405379": "PWOThick_Random_Presh0.20X0",
     "405376": "PWOThick_Random_Presh0.20X0",

@@ -38,7 +38,7 @@ for i in range(8): asciiMap.append("nStripHit"+str(i))
 for i in range(4): asciiMap.append("nStripHit"+str(4+i)+"_1")  # downstream modules can have double-hit events -- 2nd is "_1"
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
-asciiMap.append("xGonioRawHorsaBig")
+asciiMap.append("xGonioRawHorsa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iAEv")
@@ -175,7 +175,7 @@ for iRun in nRun0:
 gonioMap = { 
     "Rot": ["thIn0", False, -10**6],  # magnitude & sign TBC
     "Crad": ["thIn1", False, 10**6],  # magnitude & sign TBC
-    "HorsaBig": ["xCry0", True, 20],  # magnitude & sign TBC
+    "Horsa": ["xCry0", True, 20],  # magnitude & sign TBC
 }
 
 ########################################################################################################################
