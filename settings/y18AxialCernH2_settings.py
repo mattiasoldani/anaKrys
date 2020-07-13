@@ -42,7 +42,11 @@ treeMap.update({"iStep": "istep"})
 treeMap.update({"iRun0": "nrun"})  # this is to avoid mixing the original run nr. with the one defined ad hoc for the software test
 for i in range(6): treeMap.update({"xRaw%d" % i: "x%d" % i})
 for i in range(6): treeMap.update({"nHit%d" % i: "nclu%d" % i})
-for i in range(5): treeMap.update({"xGonioRaw%d" % i: "xgonio%d" % i})
+treeMap.update({"xGonioRawRot": "xgonio0"})
+treeMap.update({"xGonioRawCrad": "xgonio1"})
+treeMap.update({"xGonioRawHorsa": "xgonio2"})
+treeMap.update({"xGonioRawHorsaBig": "xgonio3"})
+treeMap.update({"xGonioRawVersa": "xgonio4"})
 treeMap.update({"digiPHRawTrig": "ph0"})  # trigger scinti (between crystal & output tracking module) -- digi. channel 0 (might have changed along the bt)
 treeMap.update({"digiPHRawCrys": "ph1"})  # SiPM coupled to crystal -- digi. channel 2 (might have changed along the bt)
 treeMap.update({"digiPHRawCaloFwdBad": "ph2"})  # Pb glass blocks in the photon branch - digi. channels 2(bad)-3 (might have changed along the bt)
@@ -174,13 +178,12 @@ for iRun in nRun0:
 # pairedVar (shifted via its mean if bShift=True) is multiplied to scale and added to gonioVar
 # scale can be negative to adjust relative verso
 # mandatory, but can be left empty --> no goniometer DOF pairing
-gonioMap = {}
 gonioMap = { 
-    "Rot": ["thIn0", False, -10**6],  # magnitude & sign TBC
-    "Crad": ["thIn1", False, 10**6],  # magnitude & sign TBC
-    "Horsa": ["xCry0", True, 10],  # magnitude & sign TBC
-    "HorsaBig": ["xCry0", True, 20],  # magnitude & sign TBC
-    "Versa": ["xCry1", True, -10],  # magnitude & sign TBC
+    "Rot": ["thIn0", False, 10**6],
+    "Crad": ["thIn1", False, 10**6],
+    "Horsa": ["xCry0", True, 10],
+    "HorsaBig": ["xCry0", True, 10],
+    "Versa": ["xCry1", True, -10],
 }
 
 ########################################################################################################################
