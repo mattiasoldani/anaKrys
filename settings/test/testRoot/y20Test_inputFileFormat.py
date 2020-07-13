@@ -4,7 +4,7 @@ fileType = "ROOT"
 
 # file path, string
 # mandatory, otherwise no proper working
-filePath = "./tree_test/"
+filePath = "./data_test/tree_test/"
 
 # file name format (with no path), string
 # shape: replace the run number with XXXXXX and (for multiple files per run) the file number with YYYYYY
