@@ -40,6 +40,7 @@ def plot_runInfo(
     xSize=plt.rcParams["figure.figsize"][0],
     ySize=plt.rcParams["figure.figsize"][1],
     figName="temp",
+    bSave=False,
 ):
     
     plt.close(figName)
@@ -88,6 +89,10 @@ def plot_runInfo(
         
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
+    
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
             
 ###############################################################################
 ###############################################################################
@@ -104,7 +109,7 @@ def plot_th(
     xRange = [None, None],  # length 2 -- left-then-right, same for both x & y -- if value is None, corresponding boundary position is defined automatically
     bFit = False,  # fit & corresponding parameter output (on both vistas) is performed only if True
     fitSigma = None,  # starting point for gaussian sigma fit (set to ~ half the distribution FWHM) -- if None, automatically computed
-    outPar = {},  # dictionary that will be updated with the fit parameters -- details below...
+    outData = {},  # dictionary that will be updated with the spectrum & fit parameters -- details below...
     bSel = False,  # cut edges are drawn only if True
     thSel = {},  # cut shape -- details below...
     fitC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
@@ -115,6 +120,7 @@ def plot_th(
     xSize=plt.rcParams["figure.figsize"][0],
     ySize=plt.rcParams["figure.figsize"][1],
     figName="temp",
+    bSave=False,
 ):
     
     plt.close(figName)
@@ -153,14 +159,19 @@ def plot_th(
         ax[i].set_xlabel(xFullName, fontsize="small")
         if min(histo[1]) < 0 < max(histo[1]):
             ax[i].axvline(x=0, color="k")
-
+            
+        xBars = np.array([x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]])
+        yBars = histo[0]
+        yErrs = np.array([max(1, np.sqrt(y0)) for y0 in yBars])
+        outName = x.name + "_histo"
+        outData[outName] = [xBars, yBars, yErrs]
+        print("spectrum returned in a dictionary with key %s -- x, y, ey" % outName)
+            
         # fit (only if requested)
         if bFit:
             if (len(x.unique()) > 1):
                 print("performing gaussian fit on %s..." % x.name)
-                xFit = [x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]]
-                yFit = histo[0]                
-                eFit = [max(1, np.sqrt(y0)) for y0 in yFit]
+                xFit, yFit, eFit = xBars, yBars, yErrs
                 p0 = [float(yFit.max()), xFit[list(yFit).index(yFit.max())], min(x.std(), fitSigma) if fitSigma!=None else x.std()]
                 try:  # gaussian fits occasionally fail for some reason...
                     p, cov = curve_fit(sl.fGaus, xFit, yFit, p0=p0, sigma=eFit)  # fit here
@@ -171,7 +182,7 @@ def plot_th(
                     print("\tampl.\t%e +- %e" % (p[0], [cov[i][i] for i in range(len(p))][0]))
                     print("\tmean\t%e +- %e" % (p[1], [cov[i][i] for i in range(len(p))][1]))
                     print("\tsigma\t%e +- %e" % (p[2], [cov[i][i] for i in range(len(p))][2]))
-                    outPar[x.name] = [p, cov]  # filling output dictionary
+                    outData[x.name + "_fit"] = [p, cov]  # filling output dictionary
                     print("fit parameters are returned in a dictionary with key %s -- parameters, cov. matrix" % x.name)
                     print("--")
                 except:
@@ -197,12 +208,16 @@ def plot_th(
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
     
-    # careful with outPar:
-    #     if a dictionary is given as argument and bFit=True, fit parameters (& cov. matrix) are added to the dictionary with the variable names as keys & the updated dictionary is returned
-    #     if a dictionary is given as argument and bFit=False, the input dictionary is returned unchanged
-    #     if no dictionary is given as argument and bFit=True, a new dictionary with the fit parameters (& cov. matrix) under the variable names as keys is returned
-    #     if no dictionary is given as argument and bFit=False, an empty dictionary is returned
-    return outPar
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
+    
+    # careful with outData:
+    #     if a dictionary is given as argument and bFit=True, both the spectra info lists with x, y & ey and the fit parameters (& cov. matrix) are added to the dictionary with the variable names as keys (plus "_histo" and "_fit" respectively) & the updated dictionary is returned
+    #     if a dictionary is given as argument and bFit=False, only the spectra info lists are added to the dictionary with the keys described above & the updated dictionary is returned
+    #     if no dictionary is given as argument and bFit=True, a new dictionary with both the spectra info list and the fit parameters (& cov. matrix) with the keys described above is returned
+    #     if no dictionary is given as argument and bFit=False, a new dictionary with only the spectra info lists with the keys described above is returned
+    return outData
     
 ###############################################################################
 ###############################################################################
@@ -219,6 +234,7 @@ def plot_nHit(
     tRange=None,  # range on the 2d plots x to be used to costrain the data included in the 1d plots -- length-2 array or None (in this case no costraint is applied)
     bSel=False,  # cut edges are drawn only if True
     hitSel={},  # cut shape -- details below...
+    outData={},  # dictionary that will be updated with the spectrum (1d & 2d) parameters -- details below...
     lineC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
     lineW = plt.rcParams['lines.linewidth'],
     pal2d = plt.rcParams["image.cmap"],
@@ -226,6 +242,7 @@ def plot_nHit(
     xSize=plt.rcParams["figure.figsize"][0],
     ySize=plt.rcParams["figure.figsize"][1],
     figName="temp",
+    bSave=False,
 ):
     
     plt.close(figName)
@@ -287,9 +304,18 @@ def plot_nHit(
     hRange = [None, [-0.5, bins[1]-0.5]]
         
     # 2d
-    ax[1, 0].hist2d(x, y, bins, range=hRange, cmap=pal2d)
+    histo2d = ax[1, 0].hist2d(x, y, bins, range=hRange, cmap=pal2d)
     ax[1, 0].set_xlabel(xFullName, fontsize="small")
     ax[1, 0].set_ylabel(yFullName, fontsize="small")
+    
+    # 2d extracting values and filling output dictionary
+    xBars = np.array([x0 + (histo2d[1][1] - histo2d[1][0])/2 for x0 in histo2d[1][:-1]])
+    yBars = np.array([y0 + (histo2d[1][1] - histo2d[1][0])/2 for y0 in histo2d[1][:-1]])
+    zBars = histo2d[0]
+    outName = y.name + "_" + xName + "_histo"
+    outData[outName] = [xBars, yBars, zBars]
+    print("2d spectrum returned in a dictionary with key %s -- x, y, z" % outName)
+    print("--")
     
     # 2d selection (only if requested -- run by run)
     # recall that hitSel must be a dictionary with run names (range limits) as keys (values) --> if no runs are concerned, just use a single placeholder key (no need for a true run nr.)
@@ -300,7 +326,18 @@ def plot_nHit(
     # 1d, run by run
     for iRun in (df[tRangeBool]["iRun"].unique() if len(lsBool)==0 else df[dfBool & tRangeBool]["iRun"].unique()):
         yTemp = y[(df["iRun"] == iRun) & tRangeBool] if len(lsBool)==0 else y[(df["iRun"] == iRun) & dfBool & tRangeBool]
-        ax[1, 1].hist(yTemp, bins[1], range=hRange[1], density=True, histtype="step")
+        histo = ax[1, 1].hist(yTemp, bins[1], range=hRange[1], density=True, histtype="step")
+        
+        # extracting values and filling output dictionary
+        print("studying %s when iRun = %s" % (var, iRun))
+        xBars = np.array([x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]])
+        yBars = histo[0]
+        yErrs = np.sqrt(yBars / (bins[1] * yTemp.shape[0]))
+        outName = y.name+"_"+iRun+"_histo"
+        outData[outName] = [xBars, yBars, yErrs]
+        print("1d spectrum returned in a dictionary with key %s -- x, y, ey" % outName)
+        print("--")
+        
     ax[1, 1].set_xlabel(yFullName, fontsize="small")
     ax[1, 1].set_title("%s in (%d, %d)" % (xName, tRange[0], tRange[1]), fontsize="small")
     
@@ -312,6 +349,20 @@ def plot_nHit(
 
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
+    
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
+    
+    # careful with outData:
+    #     if a dictionary is given as argument:
+    #         (0) 2d multiplicity-vs-time spectrum is added to the dictionary with key varY_xName_histo -- format: [x, y, z]
+    #         (1) 1d multiplicity spectra are added to the dictionary with key varY_iRun_histo for each iRun involved -- format: [x, y, ey]
+    #         (2) updated dictionary is returned
+    #     if no dictionary is given as argument:
+    #         (0) & (1) like the case above, but starting from an empty dictionary
+    #         (2) the newly created dictionary is returned
+    return outData
 
 ###############################################################################
 ###############################################################################
@@ -333,6 +384,7 @@ def plot_proj(
     xSize=plt.rcParams["figure.figsize"][0],
     ySize=plt.rcParams["figure.figsize"][1],
     figName="temp",
+    bSave=False,
 ):
 
     plt.close(figName)
@@ -375,6 +427,10 @@ def plot_proj(
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
     
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
+    
 ###############################################################################
 ###############################################################################
 
@@ -389,6 +445,7 @@ def plot_gonioCorr(
     xSize=plt.rcParams["figure.figsize"][0],
     ySize=plt.rcParams["figure.figsize"][1],
     figName="temp",
+    bSave=False,
 ):
     
     plt.close(figName)
@@ -420,6 +477,10 @@ def plot_gonioCorr(
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
     
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
+    
 ###############################################################################
 ############################################################################### 
     
@@ -440,7 +501,8 @@ def plot_digi(
     units={},
     xSize=plt.rcParams["figure.figsize"][0],
     ySize=plt.rcParams["figure.figsize"][1],
-    figName="temp"
+    figName="temp",
+    bSave=False,
 ):
 
     plt.close(figName)
@@ -508,6 +570,10 @@ def plot_digi(
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
     
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
+    
 ###############################################################################
 ############################################################################### 
 
@@ -524,12 +590,13 @@ def plot_energySingle(
     bLog = False,  # if True (False), log (lin) scale on y
     label = None,  # plot label in the final legend -- if None, plot is not added to legend or, if no legend already existing, legend is not created
     title0 = None,  # figure title -- if None, title is created automatically according to lsBool (i.e. listing all the applied booleans)
-    outPar = {},  # dictionary that will be updated with the spectrum values -- details below...
+    outData = {},  # dictionary that will be updated with the spectrum values -- details below...
     units={},
     histC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
     newXSize=plt.rcParams["figure.figsize"][0],
     newYSize=plt.rcParams["figure.figsize"][1],
-    newFigName="temp"
+    newFigName="temp",
+    bSave=False,
 ):
     
     # new figure is created only if fig or ax argument is not passed or is None, i.e. if figure isn't already existing
@@ -565,7 +632,7 @@ def plot_energySingle(
         histo = ax.hist(x, bins, range=xRange, density=True, log=bLog, histtype="step", label=label, color=histC)
 
         # errorbars
-        xBars = [x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]]
+        xBars = np.array([x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]])
         yBars = histo[0]
         yErrs = np.sqrt(yBars / (binSize * x.shape[0]))
         ax.errorbar(xBars, yBars, yerr=yErrs, fmt="none", c=histC)
@@ -575,8 +642,8 @@ def plot_energySingle(
         print("spectrum created, with (leftmost) maximum @ E%s = %.3f" % (var, xMax))
 
         # filling output dictionary with the spectrum
-        outName = (xName+"_"+label) if label!=None else xName
-        outPar[outName] = [xBars, yBars, yErrs]
+        outName = (xName+"_"+label+"_histo") if label!=None else xName+"_histo"
+        outData[outName] = [xBars, yBars, yErrs]
         print("spectrum returned in a dictionary with key %s -- x, y, ey" % outName)
 
         if label != None:  # legend is updated (or created, if not already existing) only if label isn't None
@@ -586,13 +653,17 @@ def plot_energySingle(
             
     else:
         print("subplot typing mismatch --> no E%s plot performed\n--" % var)
+        
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
 
-    # careful with outPar:
+    # careful with outData:
     #     if a dictionary is given as argument and the spectrum is created, a list with x, y & ey is added to the dictionary with key xName_label (or xName if label=None) & the updated dictionary is returned
     #     if no dictionary is given as argument and the spectrum is created, a new dictionary with the same elements of the case above is returned
     #     if a dictionary is given as argument and the spectrum is not created, the input dictionary is returned unchanged
     #     if no dictionary is given as argument and the spectrum is not created, an empty dictionary is returned
-    return outPar
+    return outData
 
 ###############################################################################
 ###############################################################################
@@ -609,12 +680,13 @@ def plot_energyRuns(
     bUseEpoch=False,  # if False, event index in the current execution (always available) is used -- only if epoch in df, otherwise index anyway
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
     bLog = False,  # if True (False), log (lin) scale on y
-    outPar = {},  # dictionary that will be updated with all the spectra values bin by bin -- details in plot_energySingle()
+    outData = {},  # dictionary that will be updated with all the spectra values bin by bin -- details in plot_energySingle()
     pal2d = plt.rcParams["image.cmap"],
     units={}, 
     xSize=plt.rcParams["figure.figsize"][0],
     ySize=plt.rcParams["figure.figsize"][1],
-    figName="temp"
+    figName="temp",
+    bSave=False,
 ):
 
     plt.close(figName)
@@ -651,7 +723,7 @@ def plot_energyRuns(
     for i, iTypeRun in enumerate(np.unique([df[dfBool & (df["iRun"]==s)]["typeRun"].unique()[0] for s in bE if bE[s]])):
         print("studying E%s when typeRun = %s" % (var, iTypeRun))
         histC = plt.rcParams['axes.prop_cycle'].by_key()['color'][i]
-        outPar = plot_energySingle(df[dfBool & (df["typeRun"] == iTypeRun)], var, binSize, fig, ax[0], lsBool, bLog, iTypeRun, "", outPar, units, histC)
+        outData = plot_energySingle(df[dfBool & (df["typeRun"] == iTypeRun)], var, binSize, fig, ax[0], lsBool, bLog, iTypeRun, "", outData, units, histC, bSave=False)
         print("--")
         
     # 2d -- value over time
@@ -662,9 +734,13 @@ def plot_energyRuns(
     
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
+    
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
         
-    # careful with outPar: see details in plot_energySingle()
-    return outPar
+    # careful with outData: see details in plot_energySingle()
+    return outData
             
 ###############################################################################
 ###############################################################################
@@ -677,7 +753,7 @@ def plot_gonioTrends(
     dictGonioX,  # MANDATORY -- list of goniometer DOF to be studied with varY & of analysis parameter -- check below... 
     
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
-    outPar = {},  # dictionary that will be updated with the profile plots & fit parameters -- details below...
+    outData = {},  # dictionary that will be updated with the profile plots & fit parameters -- details below...
     fitC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
     fitW = plt.rcParams['lines.linewidth'],
     lineC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
@@ -686,7 +762,8 @@ def plot_gonioTrends(
     units={},
     xSize=plt.rcParams["figure.figsize"][0],
     ySize=plt.rcParams["figure.figsize"][1],
-    figName="temp"
+    figName="temp",
+    bSave=False,
 ):
     
     # # # # # # # # # # # # # # # # # # # # 
@@ -755,13 +832,13 @@ def plot_gonioTrends(
         # profile plot
         profile = sl.hist2dToProfile(histo, "mean")
         # keeping only points with nonzero error (i.e. x slices with at least 2 nonempty y bins)
-        xProf = [k for j, k in enumerate(profile[0]) if profile[2][j] != 0]
-        yProf = [k for j, k in enumerate(profile[1]) if profile[2][j] != 0]
-        eyProf = [j for j in profile[2] if j != 0]
+        xProf = np.array([k for j, k in enumerate(profile[0]) if profile[2][j] != 0])
+        yProf = np.array([k for j, k in enumerate(profile[1]) if profile[2][j] != 0])
+        eyProf = np.array([j for j in profile[2] if j != 0])
         if len(xProf) > 1:  # using only profile plots with at least 2 points (with nonzero error)
-            outPar["%s_%s_prof" % (varY, xName)] = [xProf, yProf, eyProf]
+            outData["%s_%s_prof" % (varY, xName)] = [xProf, yProf, eyProf]
             print("profile plot returned in a dictionary with key %s -- x, y, ey" % ("%s_%s_prof" % (varY, xName)))
-            if dictGonioX[iX][2][0]:  # profile plot drawn only if requested (while outPar is filled anyway with "..._prof" entry)
+            if dictGonioX[iX][2][0]:  # profile plot drawn only if requested (while outData is filled anyway with "..._prof" entry)
                 ax[i, 0].plot(xProf, yProf, color=lineC, linewidth=lineW)
                 ax[i, 0].plot(xProf, [yProf[j] - eyProf[j] for j in range(len(xProf))], color=lineC, linestyle=":", linewidth=lineW)
                 ax[i, 0].plot(xProf, [yProf[j] + eyProf[j] for j in range(len(xProf))], color=lineC, linestyle=":", linewidth=lineW)
@@ -773,7 +850,7 @@ def plot_gonioTrends(
             
         # polynomial fit
         if len(xProf) > 1:  # also fit only profile plots with at least 2 points (with nonzero error)
-            if dictGonioX[iX][2][1]:  # fit only if requested (also applied to outPar "..._fit" entry)
+            if dictGonioX[iX][2][1]:  # fit only if requested (also applied to outData "..._fit" entry)
                 xFitL = dictGonioX[iX][2][3] if dictGonioX[iX][2][3] != None else min(xProf)
                 xFitR = dictGonioX[iX][2][4] if dictGonioX[iX][2][4] != None else max(xProf)
                 xFit = [k for k in xProf if ((k>=xFitL) & (k<=xFitR))]
@@ -824,9 +901,9 @@ def plot_gonioTrends(
                 ax[i, 0].legend(fontsize="small")
 
                 # filling output dictionary (shape differs depending on the polynomial degree)
-                outPar["%s_%s_fit" % (varY, xName)] = [polyDeg, p, cov]
+                outData["%s_%s_fit" % (varY, xName)] = [polyDeg, p, cov]
                 if polyDeg==2:
-                    outPar["%s_%s_fit" % (varY, xName)] += [(xVertex, yVertex)]
+                    outData["%s_%s_fit" % (varY, xName)] += [(xVertex, yVertex)]
                     print("fit info are returned in a dictionary with key %s -- deg., par., cov. matr., vertex" % ("%s_%s_fit" % (varY, xName)))
                 else:
                     print("fit info are returned in a dictionary with key %s -- deg., par., cov. matr." % ("%s_%s_fit" % (varY, xName)))
@@ -839,7 +916,11 @@ def plot_gonioTrends(
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
     
-    # careful with outPar:
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
+    
+    # careful with outData:
     #     if a dictionary is given as argument:
     #         (0) profile plots (only those with more than 1 point) are added to the dictionary with key varY_xName_prof for each xName -- format: [x, y, ey]
     #         (1) fit parameters are added to the dictionary with key varY_xName_fit for each xName whose fit is performed -- format: [parameters, cov. matrix]
@@ -847,4 +928,4 @@ def plot_gonioTrends(
     #     if no dictionary is given as argument:
     #         (0) & (1) like the case above, but starting from an empty dictionary
     #         (2) the newly created dictionary is returned
-    return outPar
+    return outData
