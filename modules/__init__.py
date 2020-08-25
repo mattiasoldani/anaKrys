@@ -1,6 +1,6 @@
 from .checkAvailability import dfCheckAvailability, zBaseCheckAvailability
 from .dfFilter import dfFiltering
-from .dataLoad import loadSkipPrint, loadDonePrint, loadGeneral
+from .dataLoad import loadSkipPrint, loadDonePrint, loadGeneral, readOutData
 from .dataSave import saveOutData
 from .settingsConf import settingsSelect, boolControlPrint, settingsPrint
 from .physicsAnalysis import peakedDistMode, aveVar, trackingAngleAlign, inputTrackingProj, inHitCuts, outHitCuts, outputTrackingPrint, gonioPair, equalise, defineDigiBooleans, caloSum, calibrate

@@ -52,4 +52,14 @@ def loadDonePrint(df, dt):
         print("no events found --> execution won't work...")
     else:
         print("done (in %.2f s) --> raw data have (events, variables) = %s" % (dt, str(df.shape)))
+        
+###############################################################################
+###############################################################################
+
+def readOutData(pathToMain=""):
+    inFile = open("./" + pathToMain + "/out_data/outData.pickle",'rb')
+    outData = pickle.load(inFile)
+    inFile.close()
+    return outData
+    
     
