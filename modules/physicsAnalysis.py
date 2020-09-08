@@ -170,12 +170,21 @@ def inputTrackingProj(df, inTrackingMap, z, xCryCut):
 ###############################################################################
 ###############################################################################
 
+def trackingAngleDelta(df):
+    for i in range(2):
+        df["thDelta%d" % i] = df["thOut%d" % i] - df["thIn%d" % i]
+    return df
+
+###############################################################################
+###############################################################################
+
 def outputTrackingPrint(df, outTrackingMap):
     for i in range(2):
         axis = ["x", "y"]
         print("%s axis" % axis[i])
         print("final output angle %s: (mean, std) = (%f, %f)" % (df["thOut%d"%i].name, df["thOut%d"%i].mean(), df["thOut%d"%i].std()))
         print("final beam projections: xCry%d, x%s" % (i, outTrackingMap[i]))
+        print("output-input angle delta %s: (mean, std) = (%f, %f)" % (df["thDelta%d"%i].name, df["thDelta%d"%i].mean(), df["thDelta%d"%i].std()))
 
 ###############################################################################
 ###############################################################################
@@ -339,15 +348,15 @@ def caloTimeBool(df, bPHCalo, lsDigiChCalo, bDigiTime, caloName):
                         df.loc[dfBool, "boolTimeCalo"+caloName] = df["boolTimeCalo"+caloName] | df["boolDigiTime"+iCh]
                     
                 else:
-                    print("requested PHCalo%s not calculated from single channels --> boolTimeCalo%s always True" (caloName, caloName))
+                    print("requested PHCalo%s not calculated from single channels --> boolTimeCalo%s always True" % (caloName, caloName))
                     df.loc[dfBool, "boolTimeCalo"+caloName] = True
                     
             else:
-                print("requested PHCalo%s not calculated from single channels --> boolTimeCalo%s always True" (caloName, caloName))
+                print("requested PHCalo%s not calculated from single channels --> boolTimeCalo%s always True" % (caloName, caloName))
                 df.loc[dfBool, "boolTimeCalo"+caloName] = True
 
         else:
-            print("requested PHCalo%s not available --> boolTimeCalo%s always True" (caloName, caloName))
+            print("requested PHCalo%s not available --> boolTimeCalo%s always True" % (caloName, caloName))
             df.loc[dfBool, "boolTimeCalo"+caloName] = True
             
     return df
