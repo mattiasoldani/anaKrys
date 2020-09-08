@@ -216,7 +216,7 @@ def equalise(df, lsDigiCh, equalMap):
                     funcSrc = inspect.getsource(func)
                     funcStr = (funcSrc.partition("lambda ")[1]+funcSrc.partition("lambda ")[2]).partition(", 'end'")[0]
                     print("digiPHRaw%s --> digiPH%s via %s" % (iCh, iCh, funcStr))
-                    df.loc[dfBool + iCh] = func(*args)
+                    df.loc[dfBool, "digiPH" + iCh] = func(*args)
 
                 else:
                     print("digiPH%s = digiPHRaw%s, i.e. not equalised (not in equalMap)" % (iCh, iCh))
@@ -321,6 +321,38 @@ def caloSum(df, bPHCalo0, lsDigiChCalo, caloName, bOverwrite=True):
     #     --> original raw df variable not removed from df, but bPHCalo=False (run by run)
     return df, bPHCalo
     
+###############################################################################
+###############################################################################
+
+def caloTimeBool(df, bPHCalo, lsDigiChCalo, bDigiTime, caloName):
+    for iRun in df["iRun"].unique():
+        dfBool = df["iRun"] == iRun
+        print("run %s:" % iRun)
+        
+        if bPHCalo[iRun]:
+            if iRun in lsDigiChCalo:
+                if len(lsDigiChCalo[iRun]) > 0:
+                    lsTimeAvail = [s for s in lsDigiChCalo[iRun] if bDigiTime[s]]
+                    print("%d time entries found in df for Calo%s channels --> boolTimeCalo%s added to df (OR between channels)" % (len(lsTimeAvail), caloName, caloName))
+                    df.loc[dfBool, "boolTimeCalo"+caloName] = False
+                    for iCh in lsTimeAvail:
+                        df.loc[dfBool, "boolTimeCalo"+caloName] = df["boolTimeCalo"+caloName] | df["boolDigiTime"+iCh]
+                    
+                else:
+                    print("requested PHCalo%s not calculated from single channels --> boolTimeCalo%s always True" (caloName, caloName))
+                    df.loc[dfBool, "boolTimeCalo"+caloName] = True
+                    
+            else:
+                print("requested PHCalo%s not calculated from single channels --> boolTimeCalo%s always True" (caloName, caloName))
+                df.loc[dfBool, "boolTimeCalo"+caloName] = True
+
+        else:
+            print("requested PHCalo%s not available --> boolTimeCalo%s always True" (caloName, caloName))
+            df.loc[dfBool, "boolTimeCalo"+caloName] = True
+            
+    return df
+    
+
 ###############################################################################
 ###############################################################################
             

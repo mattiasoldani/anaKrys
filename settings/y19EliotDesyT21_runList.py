@@ -90,9 +90,15 @@ nRun0 = {
     "405424": "PWOStrip_AxisSearch_Presh0.40X0",
     "405425": "PWOStrip_AxisSearch_Presh0.40X0",
     
+    # calorimeter calibration
+    "405391": "CaloCalib_2.0GeV",
+    "405390": "CaloCalib_4.0GeV",
+    "405383": "CaloCalib_4.4GeV",
+    "405384": "CaloCalib_5.2GeV",
+    "405385": "CaloCalib_5.6GeV",
+    
     # other runs
     "405296": "Plastic_MagnetOn",
     "405297": "Direct_MagnetOn",
-    "405385": "Direct_MagnetOff"
     
 }
