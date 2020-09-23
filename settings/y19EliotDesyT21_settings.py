@@ -290,4 +290,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
 for iRun in nRun0:
-    calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [1/1892.03, -527.21/1892.03], 'end']})  # linear calibration
+#     calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [1, 0], 'end']})  # linear calibration -- ADC version (to get plain total PH -- equalised)
+#     calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [1/1892.03, -527.21/1892.03], 'end']})  # linear calibration
+#     calibMapFwd.update({iRun: [lambda x, a, b: x*a / (1 + x*b), [3.88927018e-04, -2.32945032e-05], 'end']})  # nonlinear calibration -- v0 data from simulations
+    calibMapFwd.update({iRun: [lambda x, a, b: x*a / (1 + x*b), [3.86684996e-04, -2.35628811e-05], 'end']})  # nonlinear calibration -- v1 data from simulations
