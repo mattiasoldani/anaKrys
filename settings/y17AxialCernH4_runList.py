@@ -9,6 +9,7 @@ nRun0 = {
     "113130": "PWOStrip_Axial_e-",
     
     # other runs
+    "113018": "Direct_MagnetOn_e+_LargeTrig",
     "113086": "Direct_MagnetOn_e+",
     "113087": "Direct_MagnetOn_e-",
     "113139": "Direct_MagnetOn_e-",  # used for alignment
