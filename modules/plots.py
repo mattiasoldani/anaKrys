@@ -172,6 +172,9 @@ def plot_th(
             if (len(x.unique()) > 1):
                 print("performing gaussian fit on %s..." % x.name)
                 xFit, yFit, eFit = xBars, yBars, yErrs
+                eFit = np.array([eFit[ii] for ii in range(len(yFit)) if (yFit[ii]!=0)])  # only nonempty bins are fitted
+                xFit = np.array([xFit[ii] for ii in range(len(yFit)) if (yFit[ii]!=0)])  # only nonempty bins are fitted
+                yFit = np.array([yFit[ii] for ii in range(len(yFit)) if (yFit[ii]!=0)])  # only nonempty bins are fitted
                 p0 = [float(yFit.max()), xFit[list(yFit).index(yFit.max())], min(x.std(), fitSigma) if fitSigma!=None else x.std()]
                 try:  # gaussian fits occasionally fail for some reason...
                     p, cov = curve_fit(sl.fGaus, xFit, yFit, p0=p0, sigma=eFit)  # fit here
@@ -583,7 +586,8 @@ def plot_energySingle(
     df,  # MANDATORY
     var,  # MANDATORY -- energy value, format: part of the variable name following "E"
     binSize,  # MANDATORY -- can't be set to None
-
+    
+    xRange0 = None,  # [min, max] or None -- if None, automatically defined
     fig = None,  # 1st output of a figure created externally with plt.subplots() -- if None, 1*1 brand new figure is created here
     ax = None,  # 2nd output of a figure created externally with plt.subplots() -- if None, 1*1 brand new figure is created here
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
@@ -623,7 +627,7 @@ def plot_energySingle(
         xName = x.name
         xFullName = xName + (units[xName] if xName in units else "")
 
-        xRange = [x.min(), x.max()]
+        xRange = [x.min(), x.max()] if xRange0==None else xRange0
         bins = int(abs(xRange[1] - xRange[0]) / binSize)
 
         ax.set_xlabel(xFullName, fontsize="small")
@@ -676,6 +680,7 @@ def plot_energyRuns(
     binSize,  # MANDATORY -- can't be set to None
     bE,  # MANDATORY -- dictionary with the run numbers as keys & True/False as values, depending on the variable existence in df (check carefully!)
 
+    xRange0 = None,  # [min, max] or None -- if None, automatically defined
     bEpoch=False,  # set it True only if the epoch variable actually exists in df
     bUseEpoch=False,  # if False, event index in the current execution (always available) is used -- only if epoch in df, otherwise index anyway
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
@@ -723,12 +728,12 @@ def plot_energyRuns(
     for i, iTypeRun in enumerate(np.unique([df[dfBool & (df["iRun"]==s)]["typeRun"].unique()[0] for s in bE if bE[s]])):
         print("studying E%s when typeRun = %s" % (var, iTypeRun))
         histC = plt.rcParams['axes.prop_cycle'].by_key()['color'][i]
-        outData = plot_energySingle(df[dfBool & (df["typeRun"] == iTypeRun)], var, binSize, fig, ax[0], lsBool, bLog, iTypeRun, "", outData, units, histC, bSave=False)
+        outData = plot_energySingle(df[dfBool & (df["typeRun"] == iTypeRun)], var, binSize, xRange0, fig, ax[0], lsBool, bLog, iTypeRun, "", outData, units, histC, bSave=False)
         print("--")
         
     # 2d -- value over time
     bins = [min(1000, x2d.max() - x2d.min()), 100]
-    ax[1].hist2d(x2d, y2d, bins, norm=LogNorm() if bLog else Normalize(), cmap=pal2d)
+    ax[1].hist2d(x2d, y2d, bins, range=[None, xRange0], norm=LogNorm() if bLog else Normalize(), cmap=pal2d)
     ax[1].set_xlabel(x2dFullName, fontsize="small")
     ax[1].set_ylabel(y2dFullName, fontsize="small")
     
@@ -752,6 +757,7 @@ def plot_gonioTrends(
     varY,  # MANDATORY -- full variable name in df
     dictGonioX,  # MANDATORY -- list of goniometer DOF to be studied with varY & of analysis parameter -- check below... 
     
+    bLog = False,  # if True (False), log (lin) scale on z
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
     outData = {},  # dictionary that will be updated with the profile plots & fit parameters -- details below...
     fitC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
@@ -824,7 +830,7 @@ def plot_gonioTrends(
         subtitle = "(%f <= %s <= %f) & (%f <= %s <= %f)" % (xL, xName, xR, yL, y.name, yR)
         
         # histogram
-        histo = ax[i, 0].hist2d(x, y, bins=bins, range=hRange, cmap=pal2d)
+        histo = ax[i, 0].hist2d(x, y, bins=bins, range=hRange, cmap=pal2d, norm=LogNorm() if bLog else None)
         ax[i, 0].set_xlabel(xFullName, fontsize="small")
         ax[i, 0].set_ylabel(yFullName, fontsize="small")
         ax[i, 0].set_title(subtitle, fontsize="small")
