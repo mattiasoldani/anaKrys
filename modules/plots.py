@@ -883,7 +883,8 @@ def plot_gonioTrends(
                 
                 if polyDeg=="Gaussian":
                     fPoly = sl.fGaus
-                    parGaus = [max(yFit)-np.mean(yFit), xFitL+0.5*(xFitR-xFitL), 0.1*(xFitR-xFitL)]  # parameter starting points given in case of Gaussian fit
+                    # parameter starting points given in case of Gaussian fit
+                    parGaus = [max(yFit)-np.mean(yFit), xFitL+0.5*(xFitR-xFitL), max(0.1*(xFitR-xFitL), (xFit[1]-xFit[0]))]
                 elif polyDeg==0:
                     fPoly = lambda x, x0: 0*x + x0
                 elif polyDeg==1:
@@ -894,9 +895,11 @@ def plot_gonioTrends(
                 # fit here
                 p, cov = curve_fit(fPoly, xFit, yFit, sigma=eFit, p0=parGaus if polyDeg=="Gaussian" else None)
                 ep = [np.sqrt(cov[k, k]) for k in range(len(p))]
-                print("fit parameters (highest-power first):")
+                print("fit parameters (highest-power first):" if polyDeg!="Gaussian" else "fit parameters (ampl., mean, sigma)")
                 for j in range(len(p)):
                     print("\t%e +- %e" % (p[j], ep[j]))
+                if polyDeg=="Gaussian":
+                    label += "\n(mean, sigma) = (%.3f, %.3f)" % (p[1], p[2])
                 if polyDeg==0:
                     label += "\nvalue = %.3f" % p[0]
                 if polyDeg==1:
