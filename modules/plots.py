@@ -776,13 +776,13 @@ def plot_gonioTrends(
     # dictGonioX
     # dictionary of the variables to be analysed -- shape:
     # {varY (string): {
-    #         varX0 (string): [[xL0, xR0, dx0], [yL0, yR0, dy0], [bFit0 (bool), deg0 (integer), xFitL0, xFitR0]], (float if not otherwise specified)
+    #         varX0 (string): [[xL0, xR0, dx0], [yL0, yR0, dy0], [bFit0 (bool), deg0 (integer/"Gaussian"), xFitL0, xFitR0]], (float if not otherwise specified)
     #         varX1: [[xL1, xR1, dx1], [yL1, yR1, dy1], [bFit1, deg1, xFitL1, xFitR1]],
     #         ...
     # }}
     # 1 figure per varY, each with 1 plot per varX -- varX format: part of the variable name following "xGonioRaw"
     # plot in ranges (xL, xR) & (yL, yR) with bin size dx & dy
-    # polynomial fit with degree deg -- supported deg = 0, 1, 2
+    # polynomial fit with degree deg -- supported deg = 0, 1, 2; Gaussian fit if deg = "Gaussian"
     # all entries (apart from bFit) can also be None -- automatic definition in this case (e.g. deg = 0)
     # # # # # # 
     
@@ -863,9 +863,11 @@ def plot_gonioTrends(
                 yFit = [k for j, k in enumerate(yProf) if ((xProf[j]>=xFitL) & (xProf[j]<=xFitR))]
                 eFit = [k for j, k in enumerate(eyProf) if ((xProf[j]>=xFitL) & (xProf[j]<=xFitR))]
                 
-                # polynomial degree -- if None, degree 0 polynomial (i.e. offset) if selected
+                # polynomial degree -- if None, degree 0 polynomial (i.e. offset) if selected -- if "Gaussian", Gaussian function is selected
                 polyDeg = dictGonioX[iX][2][2] if dictGonioX[iX][2][2]!=None else 0
-                if polyDeg==0:
+                if polyDeg=="Gaussian":
+                    polyName = "Gaussian"
+                elif polyDeg==0:
                     polyName = "offset"
                 elif polyDeg==1:
                     polyName = "linear"
@@ -878,8 +880,11 @@ def plot_gonioTrends(
                 
                 label = "%s fit in (%.4f, %.4f)" % (polyName, xFitL, xFitR)
                 print("performing %s fit on %s vs %s in (%f, %f)..." % (polyName, varY, xName, xFitL, xFitR))
-
-                if polyDeg==0:
+                
+                if polyDeg=="Gaussian":
+                    fPoly = sl.fGaus
+                    parGaus = [max(yFit)-np.mean(yFit), xFitL+0.5*(xFitR-xFitL), 0.1*(xFitR-xFitL)]  # parameter starting points given in case of Gaussian fit
+                elif polyDeg==0:
                     fPoly = lambda x, x0: 0*x + x0
                 elif polyDeg==1:
                     fPoly = lambda x, m, q: m*x + q
@@ -887,7 +892,7 @@ def plot_gonioTrends(
                     fPoly = lambda x, a, b, c: a*x*x + b*x + c
 
                 # fit here
-                p, cov = curve_fit(fPoly, xFit, yFit, sigma=eFit)
+                p, cov = curve_fit(fPoly, xFit, yFit, sigma=eFit, p0=parGaus if polyDeg=="Gaussian" else None)
                 ep = [np.sqrt(cov[k, k]) for k in range(len(p))]
                 print("fit parameters (highest-power first):")
                 for j in range(len(p)):
@@ -915,7 +920,7 @@ def plot_gonioTrends(
                     print("fit info are returned in a dictionary with key %s -- deg., par., cov. matr." % ("%s_%s_fit" % (varY, xName)))
                 
             else:
-                print("polynomial fit not performed (not requested)")
+                print("fit not performed (not requested)")
                 
         print("--")
 
