@@ -8,6 +8,8 @@ def loadGeneral(fileType, fileNameFormatFull, nRun, descFrac, mirrorMap, globDic
     # globDict must be globals() in the main program --> used to get filetype-specific info from imported settings
     
     print("opening %s files... --> data into DataFrame df" % fileType)
+    if not bProgress:
+        print("progressbars won't be visualized...")
     
     # loading -- if raw data files are ASCII...
     if fileType == "ASCII":  
