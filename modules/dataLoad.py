@@ -4,7 +4,7 @@ import pickle
 ###############################################################################
 ###############################################################################
 
-def loadGeneral(fileType, fileNameFormatFull, nRun, descFrac, mirrorMap, globDict):
+def loadGeneral(fileType, fileNameFormatFull, nRun, descFrac, mirrorMap, globDict, bProgress):
     # globDict must be globals() in the main program --> used to get filetype-specific info from imported settings
     
     print("opening %s files... --> data into DataFrame df" % fileType)
@@ -12,12 +12,12 @@ def loadGeneral(fileType, fileNameFormatFull, nRun, descFrac, mirrorMap, globDic
     # loading -- if raw data files are ASCII...
     if fileType == "ASCII":  
         asciiMap, nLinesEv = globDict["asciiMap"], globDict["nLinesEv"]
-        df, dt = sl.asciiToDfMulti(fileNameFormatFull, list(nRun.keys()), asciiMap, "iRun", nLinesEv, descFrac, mirrorMap, bVerbose=True)
+        df, dt = sl.asciiToDfMulti(fileNameFormatFull, list(nRun.keys()), asciiMap, "iRun", nLinesEv, descFrac, mirrorMap, bVerbose=True, bProgress=bProgress)
 
     # loading -- if raw data files are ROOT trees...
     elif fileType == "ROOT":
         treeMap, treeName = globDict["treeMap"], globDict["treeName"]
-        df, dt = sl.rootToDfMulti(fileNameFormatFull, list(nRun.keys()), treeName, "iRun", descFrac, treeMap, mirrorMap, bVerbose=True)
+        df, dt = sl.rootToDfMulti(fileNameFormatFull, list(nRun.keys()), treeName, "iRun", descFrac, treeMap, mirrorMap, bVerbose=True, bProgress=bProgress)
     
     # neither ASCII nor ROOT --> not loading anything --> error!
     else:
