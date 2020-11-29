@@ -1,0 +1,16 @@
+name: anaKrys
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python>3.0
+  - jupyterlab
+  - numpy
+  - pandas
+  - uproot
+  - matplotlib
+  - scipy
+  - tqdm
+  - pip
+  - pip:
+    - succolib
