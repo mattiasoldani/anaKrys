@@ -141,3 +141,5 @@ tree_sshfs/*
 succolib
 succolib.py
 succolib_old.py
+idea/
+*idea/
