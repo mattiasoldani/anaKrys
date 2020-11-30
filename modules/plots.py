@@ -201,13 +201,17 @@ def plot_th(
         # recall that thSel must be a dictionary with run names (range limits) as keys (values) --> if no runs are concerned, just use a single placeholder key (no need for a true run nr.)
         if bSel:
             for iRun in thSel:
-                if len(thSel[iRun]) == 1:  # cicrular cut
+                if len(thSel[iRun]) == 1:  # circular cut
                     plot_selectionX(ax[i], xRangeTot, [-thSel[iRun], thSel[iRun]], lineC, lineW)
                 elif len(thSel[iRun]) == 2:  # elliptical cut
                     plot_selectionX(ax[i], xRangeTot, [-thSel[iRun][i], thSel[iRun][i]], lineC, lineW)
                 elif len(thSel[iRun]) == 4:  # rectangular cut
                     plot_selectionX(ax[i], xRangeTot, [thSel[iRun][2*i], thSel[iRun][2*i+1]], lineC, lineW)
-                                                    
+
+        # fix for visualisation issues in case of bLog = True & bFit = True
+        if bLog:
+            ax[i].set_ylim([min(yBars), 2*max(yBars)])
+
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
     
@@ -229,8 +233,9 @@ def plot_th(
 def plot_nHit(
     df,  # MANDATORY
     var,  # MANDATORY -- full df name of the multiplicity value under study (e.g. "nHitIn")
-    
+
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
+    bLog=False,  # if True (False), log (lin) scale on y in 1d plots & z in 2d plots
     bEpoch=False,  # set it True only if the epoch variable actually exists in df
     bUseEpoch=False,  # if False, event index in the current execution (always available) is used -- only if epoch in df, otherwise index anyway
     maxNHit=None,  # multiplicity upper limit in plots -- if None, range (& binning) automatically defined
@@ -307,7 +312,7 @@ def plot_nHit(
     hRange = [None, [-0.5, bins[1]-0.5]]
         
     # 2d
-    histo2d = ax[1, 0].hist2d(x, y, bins, range=hRange, cmap=pal2d)
+    histo2d = ax[1, 0].hist2d(x, y, bins, range=hRange, cmap=pal2d, norm=LogNorm() if bLog else Normalize())
     ax[1, 0].set_xlabel(xFullName, fontsize="small")
     ax[1, 0].set_ylabel(yFullName, fontsize="small")
     
@@ -329,7 +334,7 @@ def plot_nHit(
     # 1d, run by run
     for iRun in (df[tRangeBool]["iRun"].unique() if len(lsBool)==0 else df[dfBool & tRangeBool]["iRun"].unique()):
         yTemp = y[(df["iRun"] == iRun) & tRangeBool] if len(lsBool)==0 else y[(df["iRun"] == iRun) & dfBool & tRangeBool]
-        histo = ax[1, 1].hist(yTemp, bins[1], range=hRange[1], density=True, histtype="step")
+        histo = ax[1, 1].hist(yTemp, bins[1], range=hRange[1], density=True, histtype="step", log=bLog)
         
         # extracting values and filling output dictionary
         print("studying %s when iRun = %s" % (var, iRun))
@@ -684,7 +689,7 @@ def plot_energyRuns(
     bEpoch=False,  # set it True only if the epoch variable actually exists in df
     bUseEpoch=False,  # if False, event index in the current execution (always available) is used -- only if epoch in df, otherwise index anyway
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
-    bLog = False,  # if True (False), log (lin) scale on y
+    bLog = False,  # if True (False), log (lin) scale on y in 1d plots & z in 2d plots
     outData = {},  # dictionary that will be updated with all the spectra values bin by bin -- details in plot_energySingle()
     pal2d = plt.rcParams["image.cmap"],
     units={}, 
@@ -830,7 +835,7 @@ def plot_gonioTrends(
         subtitle = "(%f <= %s <= %f) & (%f <= %s <= %f)" % (xL, xName, xR, yL, y.name, yR)
         
         # histogram
-        histo = ax[i, 0].hist2d(x, y, bins=bins, range=hRange, cmap=pal2d, norm=LogNorm() if bLog else None)
+        histo = ax[i, 0].hist2d(x, y, bins=bins, range=hRange, cmap=pal2d, norm=LogNorm() if bLog else Normalize())
         ax[i, 0].set_xlabel(xFullName, fontsize="small")
         ax[i, 0].set_ylabel(yFullName, fontsize="small")
         ax[i, 0].set_title(subtitle, fontsize="small")
