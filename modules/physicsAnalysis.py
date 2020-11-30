@@ -10,8 +10,11 @@ def peakedDistMode(series):
     if len(series.unique()) <= 1:
         centre = 0
     else:
-        cat0 = pd.cut(series, bins=np.arange(-0.5, 0.5, 0.0001)).value_counts()
+        # 1st iteration: 1e4 bins, range width is 1, range center is the mean of the series entries
+        cat0 = pd.cut(series, bins=np.arange(series.mean()-0.5, series.mean()+0.5, 0.0001)).value_counts()
         centre0 = cat0.index[0].mid
+
+        # 2nd iteration: 1e5 bins, range width is 5 times the series std, range center is the 1st iteration output
         range0 = 5*series.std()
         binning0 = 0.00005*series.std()
         cat = pd.cut(series, bins=np.arange(centre0-range0, centre0+range0, binning0)).value_counts()
