@@ -105,13 +105,13 @@ def plot_th(
     
     binSize = None,  # if None, 100 bins
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
-    bLog = False,  # if True (False), log (lin) scale on y
     xRange = [None, None],  # length 2 -- left-then-right, same for both x & y -- if value is None, corresponding boundary position is defined automatically
     bFit = False,  # fit & corresponding parameter output (on both vistas) is performed only if True
     fitSigma = None,  # starting point for gaussian sigma fit (set to ~ half the distribution FWHM) -- if None, automatically computed
     outData = {},  # dictionary that will be updated with the spectrum & fit parameters -- details below...
     bSel = False,  # cut edges are drawn only if True
     thSel = {},  # cut shape -- details below...
+    bLog = False,  # if True (False), log (lin) scale on y
     fitC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
     fitW = plt.rcParams['lines.linewidth'],
     lineC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
@@ -235,7 +235,6 @@ def plot_nHit(
     var,  # MANDATORY -- full df name of the multiplicity value under study (e.g. "nHitIn")
 
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
-    bLog=False,  # if True (False), log (lin) scale on y in 1d plots & z in 2d plots
     bEpoch=False,  # set it True only if the epoch variable actually exists in df
     bUseEpoch=False,  # if False, event index in the current execution (always available) is used -- only if epoch in df, otherwise index anyway
     maxNHit=None,  # multiplicity upper limit in plots -- if None, range (& binning) automatically defined
@@ -243,6 +242,7 @@ def plot_nHit(
     bSel=False,  # cut edges are drawn only if True
     hitSel={},  # cut shape -- details below...
     outData={},  # dictionary that will be updated with the spectrum (1d & 2d) parameters -- details below...
+    bLog=False,  # if True (False), log (lin) scale on y in 1d plots & z in 2d plots
     lineC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
     lineW = plt.rcParams['lines.linewidth'],
     pal2d = plt.rcParams["image.cmap"],
@@ -385,6 +385,7 @@ def plot_proj(
     hRange = [None, None],  # plot range -- shape [rangeX, rangeY] with range = [left, right] or None (i.e. automatic computation)
     bSel=False,  # cut edges are drawn only if True
     fidSel={},  # cut shape -- details below...
+    bLog = False,  # if True (False), log (lin) scale on z
     lineC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
     lineW = plt.rcParams['lines.linewidth'],
     pal2d = plt.rcParams["image.cmap"],
@@ -422,7 +423,7 @@ def plot_proj(
     bins = [int(abs(hRange[0][1] - hRange[0][0]) / binSize), int(abs(hRange[1][1] - hRange[1][0]) / binSize)] if binSize!=None else [100, 100]
 
     # histogram
-    ax.hist2d(x, y, bins=bins, range=hRange, cmap=pal2d)
+    ax.hist2d(x, y, bins=bins, range=hRange, cmap=pal2d, norm=LogNorm() if bLog else Normalize())
     ax.set_xlabel(xFullName, fontsize="small")
     ax.set_ylabel(yFullName, fontsize="small")
     
@@ -448,6 +449,7 @@ def plot_gonioCorr(
     lsVar,  # MANDATORY -- x-then-y, format: part of the variable name following "xGonioRaw"
     
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
+    bLog = False,  # if True (False), log (lin) scale on z
     pal2d = plt.rcParams["image.cmap"],
     units={},
     xSize=plt.rcParams["figure.figsize"][0],
@@ -478,7 +480,7 @@ def plot_gonioCorr(
     xFullName = x.name + (units[x.name] if x.name in units else "")
     yFullName = y.name + (units[y.name] if y.name in units else "")
 
-    ax.hist2d(x, y, bins=bins, cmap=pal2d, norm=LogNorm())
+    ax.hist2d(x, y, bins=bins, cmap=pal2d, norm=LogNorm() if bLog else Normalize())
     ax.set_xlabel(xFullName, fontsize="small")
     ax.set_ylabel(yFullName, fontsize="small")
     
@@ -503,6 +505,7 @@ def plot_digi(
     bSel = False,  # cut edges are drawn only if True
     PHSel = {},  # x cut shape (overall cut x & y) -- details below...
     timeSel = {},  # y cut shape (overall cut x & y) -- details below...
+    bLog = False,  # if True (False), log (lin) scale on z
     lineC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
     lineW = plt.rcParams['lines.linewidth'],
     pal2d = plt.rcParams["image.cmap"],
@@ -555,7 +558,7 @@ def plot_digi(
         if bDigiTime[iVar]:  # time data available --> 2d histogram (PH vs time)
             hRange = [[x[iVar].min(), x[iVar].max()], [y[iVar].min(), y[iVar].max()]]
             bins = [int(abs((hRange[0][1] - hRange[0][0]) / binSize[0])) if binSize[0]!=None else 100, int(abs((hRange[1][1] - hRange[1][0]) / binSize[1])) if binSize[1]!=None else 100]
-            ax[xAx, yAx].hist2d(x[iVar], y[iVar], bins=bins, range=hRange, cmap=pal2d, norm=LogNorm())
+            ax[xAx, yAx].hist2d(x[iVar], y[iVar], bins=bins, range=hRange, cmap=pal2d, norm=LogNorm() if bLog else Normalize())
             ax[xAx, yAx].set_xlabel(xFullName, fontsize="small")
             ax[xAx, yAx].set_ylabel(yFullName, fontsize="small")
             
@@ -762,9 +765,9 @@ def plot_gonioTrends(
     varY,  # MANDATORY -- full variable name in df
     dictGonioX,  # MANDATORY -- list of goniometer DOF to be studied with varY & of analysis parameter -- check below... 
     
-    bLog = False,  # if True (False), log (lin) scale on z
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
     outData = {},  # dictionary that will be updated with the profile plots & fit parameters -- details below...
+    bLog = False,  # if True (False), log (lin) scale on z
     fitC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
     fitW = plt.rcParams['lines.linewidth'],
     lineC = plt.rcParams['axes.prop_cycle'].by_key()['color'][0],
