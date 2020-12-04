@@ -143,3 +143,9 @@ succolib.py
 succolib_old.py
 idea/
 *idea/
+
+# i/o stuff which doesn't need to be uploaded to the repo
+out_data/*
+!.keep
+out_plots/*
+!.keep
