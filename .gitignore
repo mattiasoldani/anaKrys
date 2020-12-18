@@ -149,3 +149,4 @@ out_data/*
 !.keep
 out_plots/*
 !.keep
+anaKrys.py

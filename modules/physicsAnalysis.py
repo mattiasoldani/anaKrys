@@ -75,8 +75,8 @@ def trackingAngleAlign(df, trackingMap, thCentres, thName, z, bThCut, thCut = {}
             axis = ["x", "y"]
             zU = z[iRun][trackingMap[i].replace("xRaw", "").replace("xCry"+str(i), "gonio")]  # replace arguments to deal with both input/output cases
             zD = z[iRun][trackingMap[i+2].replace("xRaw", "")]
-            xRawU = df[dfBool][trackingMap[i]]
-            xRawD = df[dfBool][trackingMap[i+2]]
+            xRawU = df[dfBool][trackingMap[i]].values
+            xRawD = df[dfBool][trackingMap[i+2]].values
             
             # raw angles
             df.loc[dfBool, thName+"Raw"+str(i)] = sl.zAngle(xRawD, zD, xRawU, zU)
@@ -91,11 +91,11 @@ def trackingAngleAlign(df, trackingMap, thCentres, thName, z, bThCut, thCut = {}
                 print("aligning %s layers (%s & %s) with the value given in the settings: %.10f" % (axis[i], trackingMap[i], trackingMap[i+2], centre))
                 
             # shift downstream modules
-            df.loc[dfBool, xRawU.name.replace("Raw", "")] = xRawU  # actually upstream module is not shifted -- copied with new name (trivially in itself) in input (output) analysis
-            df.loc[dfBool, xRawD.name.replace("Raw", "")] = xRawD - centre*(zD - zU)
+            df.loc[dfBool, trackingMap[i].replace("Raw", "")] = xRawU  # actually upstream module is not shifted -- copied with new name (trivially in itself) in input (output) analysis
+            df.loc[dfBool, trackingMap[i+2].replace("Raw", "")] = xRawD - centre*(zD - zU)
             
             # shift raw angles
-            df.loc[dfBool, thName+str(i)] = df[thName+"Raw"+str(i)] - centre
+            df.loc[dfBool, thName+str(i)] = df[dfBool][thName+"Raw"+str(i)].values - centre
             
         # input angle selection (if required)
         # name of the variable is "bool" + thName.replace("th", "") + "Aligned"
@@ -106,17 +106,17 @@ def trackingAngleAlign(df, trackingMap, thCentres, thName, z, bThCut, thCut = {}
                     xCutR = thCut[iRun][1]
                     yCutL = thCut[iRun][2]
                     yCutR = thCut[iRun][3]
-                    cutX = (df[thName+"0"] > xCutL) & (df[thName+"0"] < xCutR)
-                    cutY = (df[thName+"1"] > yCutL) & (df[thName+"1"] < yCutR)
+                    cutX = (df[dfBool][thName+"0"].values > xCutL) & (df[dfBool][thName+"0"].values < xCutR)
+                    cutY = (df[dfBool][thName+"1"].values > yCutL) & (df[dfBool][thName+"1"].values < yCutR)
                     df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = cutX & cutY
                     print("bool%sAligned: rectangle centered in 0 with hor. (ver.) side %f (%f) (edges excluded)" % (thName.replace("th", ""), abs(xCutR-xCutL), abs(yCutR-yCutL)))
                 elif len(thCut[iRun]) == 2:  # elliptical cut (different x & y axes)
                     xCut = thCut[iRun][0]
                     yCut = thCut[iRun][1]
-                    df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = (df[thName+"0"] / xCut)**2 + (df[thName+"1"] / yCut)**2 < 1
+                    df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = (df[dfBool][thName+"0"].values / xCut)**2 + (df[dfBool][thName+"1"].values / yCut)**2 < 1
                     print("bool%sAligned: ellipse centered in 0 with hor. (ver.) half-axis %f (%f) (edge excluded)" % (thName.replace("th", ""), xCut, yCut))
                 elif len(thCut[iRun]) == 1:  # circular cut -- radius as only parameter
-                    df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = (df[thName+"0"] / thCut[iRun])**2 + (df[thName+"1"] / thCut[iRun])**2 < 1
+                    df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = (df[dfBool][thName+"0"].values / thCut[iRun])**2 + (df[dfBool][thName+"1"].values / thCut[iRun])**2 < 1
                     print("bool%sAligned: circle centered in 0 with radius %f (edge excluded)" % (thName.replace("th", ""), thCut[iRun]))
                 else:
                     df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = True
