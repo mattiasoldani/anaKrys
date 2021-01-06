@@ -951,3 +951,88 @@ def plot_gonioTrends(
     #         (0) & (1) like the case above, but starting from an empty dictionary
     #         (2) the newly created dictionary is returned
     return outData
+
+###############################################################################
+###############################################################################
+
+# beam profiles (2 together) to a transverse plane with range delimiters (optional)
+# returns a dictionary -- see below...
+def plot_prof(
+    df,  # MANDATORY
+    var,  # MANDATORY -- tuple with the names of the 2 spatial variables to be plotted
+    
+    binSize = None,  # if None, 100*100 bins
+    lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
+    hRange = [None, None],  # plot range -- shape [rangeX, rangeY] with range = [left, right] or None (i.e. automatic computation)
+    outData = {},  # dictionary that will be updated with the spectrum & statistical parameters -- details below...
+    bLog = False,  # if True (False), log (lin) scale on z
+    units={},
+    xSize=plt.rcParams["figure.figsize"][0],
+    ySize=plt.rcParams["figure.figsize"][1],
+    figName="temp",
+    bSave=False,
+):
+
+    plt.close(figName)
+    fig, ax = plt.subplots(nrows=1, ncols=2, figsize=[xSize, ySize], num=figName)
+    
+    # plot boolean & corresponding title & x & y
+    title = ""
+    if len(lsBool)>0:
+        dfBool = True
+        for iBool in [df[s] for s in lsBool]:
+            dfBool = dfBool & iBool
+        x = df[dfBool][var[0]]
+        y = df[dfBool][var[1]]
+        for i in range(len(lsBool)-1):
+            title += lsBool[i] + " & "
+        title += lsBool[len(lsBool)-1]
+    else:
+        x = df[var[0]]
+        y = df[var[1]]
+    xFullName = x.name + (units[x.name] if x.name in units else "")
+    yFullName = y.name + (units[y.name] if y.name in units else "")
+    
+    if hRange[0] is None:
+        hRange[0] = [x.min(), x.max()]
+    if hRange[1] is None:
+        hRange[1] = [y.min(), y.max()]
+    bins = [int(abs(hRange[0][1] - hRange[0][0]) / binSize), int(abs(hRange[1][1] - hRange[1][0]) / binSize)] if binSize!=None else [100, 100]
+
+    # histograms
+    histo = ax[0].hist(x, bins[0], range=hRange[0], histtype="step", log=bLog)
+    ax[0].set_xlabel(xFullName, fontsize="small")
+    xBarsX = np.array([x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]])
+    yBarsX = histo[0]
+    yErrsX = np.array([max(1, np.sqrt(y0)) for y0 in yBarsX])
+    outName = x.name + "_histo"
+    outData[outName] = [xBarsX, yBarsX, yErrsX]
+    
+    histo = ax[1].hist(y, bins[1], range=hRange[1], histtype="step", log=bLog)
+    ax[1].set_xlabel(yFullName, fontsize="small")
+    xBarsY = np.array([x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]])
+    yBarsY = histo[0]
+    yErrsY = np.array([max(1, np.sqrt(y0)) for y0 in yBarsY])
+    outName = y.name + "_histo"
+    outData[outName] = [xBarsY, yBarsY, yErrsY]
+    
+    fig.suptitle(title, y=1, va="top", fontsize="small")
+    fig.tight_layout()
+    
+    # some stats from the histograms
+    meanX = sum([x0*y0 for x0, y0 in zip(xBarsX, yBarsX)]) / sum(yBarsX)
+    outName = x.name + "_stat"
+    outData[outName] = [meanX]
+    
+    meanY = sum([x0*y0 for x0, y0 in zip(xBarsY, yBarsY)]) / sum(yBarsY)
+    outName = y.name + "_stat"
+    outData[outName] = [meanY]
+    
+    # save output figure
+    if bSave:
+        plt.savefig(fname="./out_plots/"+figName+".png", dpi=1000)
+        
+    # careful with outData:
+    #     if a dictionary is given as argument, both the spectra (x, y, ey) and the stats (mean, FWHM/2, center of the FWHM range) are added to it with the variable names as keys (plus "_histo" and "_stat" respectively) & the updated dictionary is returned
+    #     if no dictionary is given as argument, a new dictionary with the aforementioned content is returned
+    return outData
