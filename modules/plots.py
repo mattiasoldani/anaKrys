@@ -186,7 +186,7 @@ def plot_th(
                     print("\tmean\t%e +- %e" % (p[1], [cov[i][i] for i in range(len(p))][1]))
                     print("\tsigma\t%e +- %e" % (p[2], [cov[i][i] for i in range(len(p))][2]))
                     outData[x.name + "_fit"] = [p, cov]  # filling output dictionary
-                    print("fit parameters are returned in a dictionary with key %s -- parameters, cov. matrix" % x.name)
+                    print("fit parameters are returned in a dictionary with key %s -- parameters, cov. matrix" % x.name + "_fit")
                     print("--")
                 except:
                     print("fit failed\n--")
@@ -378,7 +378,7 @@ def plot_nHit(
 # x-y beam projection to a transverse plane with range delimiters (optional)
 def plot_proj(
     df,  # MANDATORY
-    var,  # MANDATORY -- full df name of the set of (x & y) beam projections without the vista index 0/1 (e.g. "xCry")
+    var,  # MANDATORY -- full df name of the set of (x & y) beam projections without the vista index 0/1 (e.g. "xCry") or tuple with the full names of the 2 variables to be plotted (y-then-x)
     
     binSize = None,  # if None, 100*100 bins
     lsBool = [],  # list of boolean names (to be defined a priori as variables in df) to filter the data to plot
@@ -405,14 +405,14 @@ def plot_proj(
         dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
-        x = df[dfBool][var+"0"]
-        y = df[dfBool][var+"1"]
+        x = df[dfBool][var+"0" if type(var)==str else var[0]]
+        y = df[dfBool][var+"1" if type(var)==str else var[1]]
         for i in range(len(lsBool)-1):
             title += lsBool[i] + " & "
         title += lsBool[len(lsBool)-1]
     else:
-        x = df[var+"0"]
-        y = df[var+"1"]
+        x = df[var+"0" if type(var)==str else var[0]]
+        y = df[var+"1" if type(var)==str else var[1]]
     xFullName = x.name + (units[x.name] if x.name in units else "")
     yFullName = y.name + (units[y.name] if y.name in units else "")
     
@@ -999,7 +999,7 @@ def plot_prof(
         hRange[1] = [y.min(), y.max()]
     bins = [int(abs(hRange[0][1] - hRange[0][0]) / binSize), int(abs(hRange[1][1] - hRange[1][0]) / binSize)] if binSize!=None else [100, 100]
 
-    # histograms
+    # histograms & some stats
     histo = ax[0].hist(x, bins[0], range=hRange[0], histtype="step", log=bLog)
     ax[0].set_xlabel(xFullName, fontsize="small")
     xBarsX = np.array([x0 + (histo[1][1] - histo[1][0])/2 for x0 in histo[1][:-1]])
@@ -1007,6 +1007,20 @@ def plot_prof(
     yErrsX = np.array([max(1, np.sqrt(y0)) for y0 in yBarsX])
     outName = x.name + "_histo"
     outData[outName] = [xBarsX, yBarsX, yErrsX]
+    print("%s spectrum returned in a dictionary with key %s -- x, y, ey" % (x.name, outName))
+    
+    meanX = sum([x0*y0 for x0, y0 in zip(xBarsX, yBarsX)]) / sum(yBarsX)
+    fwhmPopX = [xBarsX[i] for i in list(np.where(np.array(yBarsX)>0.5*max(yBarsX))[0])]
+    fwhmX = max(fwhmPopX) - min(fwhmPopX)
+    fwhmCentreX = min(fwhmPopX) + fwhmX/2
+    outName = x.name + "_stat"
+    outData[outName] = [meanX, fwhmCentreX, fwhmX]
+    print("stats:")
+    print("\tmean\t\t\t%f" % meanX)
+    print("\tFWHM range centre\t%f" % fwhmCentreX)
+    print("\tFWHM\t\t\t%f" % fwhmX)
+    print("==> returned in a dictionary with key %s -- mean, FWHM range centre, FWHM" % outName)
+    print("--")
     
     histo = ax[1].hist(y, bins[1], range=hRange[1], histtype="step", log=bLog)
     ax[1].set_xlabel(yFullName, fontsize="small")
@@ -1015,18 +1029,23 @@ def plot_prof(
     yErrsY = np.array([max(1, np.sqrt(y0)) for y0 in yBarsY])
     outName = y.name + "_histo"
     outData[outName] = [xBarsY, yBarsY, yErrsY]
+    print("%s spectrum returned in a dictionary with key %s -- x, y, ey" % (y.name, outName))
+    
+    meanY = sum([x0*y0 for x0, y0 in zip(xBarsY, yBarsY)]) / sum(yBarsY)
+    fwhmPopY = [xBarsY[i] for i in list(np.where(np.array(yBarsY)>0.5*max(yBarsY))[0])]
+    fwhmY = max(fwhmPopY) - min(fwhmPopY)
+    fwhmCentreY = min(fwhmPopY) + fwhmY/2
+    outName = y.name + "_stat"
+    outData[outName] = [meanY, fwhmCentreY, fwhmY]
+    print("stats:")
+    print("\tmean\t\t\t%f" % meanY)
+    print("\tFWHM range centre\t%f" % fwhmCentreY)
+    print("\tFWHM\t\t\t%f" % fwhmY)
+    print("==> returned in a dictionary with key %s -- mean, FWHM range centre, FWHM" % outName)
+    print("--")
     
     fig.suptitle(title, y=1, va="top", fontsize="small")
     fig.tight_layout()
-    
-    # some stats from the histograms
-    meanX = sum([x0*y0 for x0, y0 in zip(xBarsX, yBarsX)]) / sum(yBarsX)
-    outName = x.name + "_stat"
-    outData[outName] = [meanX]
-    
-    meanY = sum([x0*y0 for x0, y0 in zip(xBarsY, yBarsY)]) / sum(yBarsY)
-    outName = y.name + "_stat"
-    outData[outName] = [meanY]
     
     # save output figure
     if bSave:
