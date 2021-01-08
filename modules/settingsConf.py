@@ -7,28 +7,22 @@ def settingsSelect(boolTest, whichInput):
     
     if not boolTest:  # physics files -- either ROOT or ASCII
         print("looking for files with label %s in ./settings/" % whichInput)
-        return "settings.%s_inputFileFormat" % whichInput, "settings.%s_runList" % whichInput, "settings.%s_settings" % whichInput
+        return "settings.%s_runList" % whichInput, "settings.%s_settings" % whichInput
 
-    else:
-        
-        if whichInput:  # ROOT test files
-            print("test mode: will operate with test settings & ROOT files")
-            return "settings.test.testRoot.y20Test_inputFileFormat", "settings.test.y20Test_runList", "settings.test.y20Test_settings"
-
-        else:  # ASCII test files
-            print("test mode: will operate with test settings & ASCII files")
-            return "settings.test.testAscii.y20Test_inputFileFormat", "settings.test.y20Test_runList", "settings.test.y20Test_settings"
+    else:  # test files -- either ROOT or ASCII
+        print("test mode: will operate with test settings & %s files" % whichInput)
+        return "settings.test.y20Test_runList", "settings.test.y20Test_settings"
 
 
 ###############################################################################
 ###############################################################################
 
-def boolControlPrint(boolLoad, boolPlot, boolTest):
+def boolControlPrint(boolLoad, boolPlot, boolTest, fileType):
     print("execution control booleans:")
     print("data reload controller: %s" % str(boolLoad))
     print("base plots controller: %s" % str(boolPlot))
-    whichInput = (" (ROOT)" if boolTest[1] else " (ASCII)") if boolTest[0] else ""
-    print("test mode controller: %s%s" % (str(boolTest[0]), whichInput))
+    whichInput = (" (%s)" % fileType) if boolTest else ""
+    print("test mode controller: %s%s" % (str(boolTest), whichInput))
     
 ###############################################################################
 ###############################################################################
