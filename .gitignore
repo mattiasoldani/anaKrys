@@ -150,3 +150,4 @@ out_data/*
 out_plots/*
 !.keep
 anaKrys.py
+temp_settings
