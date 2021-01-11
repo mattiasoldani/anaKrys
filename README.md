@@ -15,3 +15,30 @@ Found a bug? Or simply have any questions, comments or suggestions you'd like to
 ---
 
 ### Installation and environment setup
+
+**HOW TO INSTALL ANAKRYS**
+
+**HOW TO SET THE (ANACONDA) ENVIRONMENT UP**
+
+The environment.yml file contains all the necessary information on the Anaconda environment setup, which can be automatically installed (with the only prerequisite that Anaconda itself is installed) via
+```
+conda update conda
+conda env create -f environment.yml
+```
+This will install the anaKrys environment, which then can be accessed via `conda activate anaKrys` (and closed via `conda deactivate`).
+
+If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interactive mode, you need to set `%matplotlib inline` in the **notebook settings & imports** section and `bProgressBars = False` in the "settings" section. Once these have been set, the software will work in the plain environment installed with the environment.yml file only. For more complex environment configurations, see the sections below &mdash; express installation scripts are also available, check below.
+
+**HOW TO ENABLE INTERACTIVE PLOTS & WIDGETS**
+
+_(sources: [here](https://stackoverflow.com/questions/50149562/jupyterlab-interactive-plot) and [here](https://towardsdatascience.com/how-to-produce-interactive-matplotlib-plots-in-jupyter-environment-1e4329d71651))_
+
+On the other hand, in order to enable the interactive mode in JupyterLab, you need to run these steps in the anaKrys environment:
+```
+conda install "ipympl=0.5.8"
+conda install "nodejs>=10.0"
+jupyter labextension install @jupyter-widgets/jupyterlab-manager
+jupyter labextension install jupyter-matplotlib@0.7.4
+jupyter nbextension enable --py widgetsnbextension
+```
+(where the extensions versions have been chosen to match those of the rest of the environment &mdash; see the [ipympl documentation](https://github.com/matplotlib/ipympl)) and then decorate with `%matplotlib widget` (whereas `bProgressBar` can be set either to True or False). Moreover, in order to run the interactive mode in Jupyter Notebook rather than in JupyterLab, it is sufficient to run `conda install "ipympl=0.5.8"` in the fresh anaKrys environment.
