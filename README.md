@@ -42,3 +42,23 @@ jupyter labextension install jupyter-matplotlib@0.7.4
 jupyter nbextension enable --py widgetsnbextension
 ```
 (where the extensions versions have been chosen to match those of the rest of the environment &mdash; see the [ipympl documentation](https://github.com/matplotlib/ipympl)) and then decorate with `%matplotlib widget` (whereas `bProgressBar` can be set either to True or False). Moreover, in order to run the interactive mode in Jupyter Notebook rather than in JupyterLab, it is sufficient to run `conda install "ipympl=0.5.8"` in the fresh anaKrys environment.
+
+**HOW TO ENABLE THE JUPYTERLAB GIT EXTENSION**
+
+_(source: [here](https://github.com/jupyterlab/jupyterlab-git))_
+
+In order to be able to execute Git actions, e.g. switching branches, from a drop-down menu within JupyterLab, the jupyterlab-git extension has to be installed and enabled via
+```
+conda install "git>2.0"
+conda install jupyterlab-git
+jupyter labextension install @jupyterlab/git
+```
+
+**HOW TO PERFORM A FULL ENVIRONMENT EXPRESS INSTALLATION**
+
+The createEnvComplete.sh and createEnvNoExtensions.sh Bash scripts are provided in order to automatically perform the full environment installation, i.e. with all the aforementioned extensions, and the installation of the anaKrys environment and of the interactive mode for Jupyter Notebook only respectively. Just run e.g. createEnvComplete.sh out of any Anaconda environment:
+```
+bash -i createEnvComplete.sh
+```
+
+Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
