@@ -4,7 +4,7 @@
 # note: run this with "bash -i createEnvNoExtensions.sh" i.e. in interactive mode
 # note: for different configurations, see the anaKrys documentation
 
-ENVNAME=anaKrys_noExtensions
+ENVNAME=anaKrys
 
 # 1st of all, update conda
 conda update -y conda
