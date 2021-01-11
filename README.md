@@ -1,6 +1,6 @@
 # anaKrys
 
-[![python](https://img.shields.io/badge/python-3-blue.svg)](https://www.python.org/) [![anaconda](https://img.shields.io/badge/anaconda-3-blue.svg)](https://www.python.org/)
+[![python](https://img.shields.io/badge/python-3-blue.svg)](https://www.python.org/) [![anaconda](https://img.shields.io/badge/anaconda-3-blue.svg)](https://www.anaconda.com/)
 
 This is **anaKrys**, a Python- and Jupyter-based data analysis software for the AXIAL/ELIOT team experimental studies on the electromagnetic interactions between high-energy particles and oriented crystalline lattices. In particular, it has been developed with a focus on the event-by-event analysis of the data collected during the fixed-target experiments performed at several high-energy particle beam facilities with the INSULAb detectors &mdash; further information on both the particle-crystal interaction physics and on the experimental setup features can be found, for example, [here](http://cds.cern.ch/record/1353904) and [here](http://annali.unife.it/iuss/article/view/1630).
 
@@ -29,7 +29,7 @@ This will install the anaKrys environment, which then can be accessed via `conda
 
 If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interactive mode, you need to set `%matplotlib inline` in the **notebook settings & imports** section and `bProgressBars = False` in the "settings" section. Once these have been set, the software will work in the plain environment installed with the environment.yml file only. For more complex environment configurations, see the sections below &mdash; express installation scripts are also available, check below.
 
-**HOW TO ENABLE INTERACTIVE PLOTS & WIDGETS**
+**HOW TO ENABLE INTERACTIVE PLOTS & WIDGETS** [![ipympl](https://img.shields.io/badge/ipympl-0.5.8-blue.svg)](https://github.com/matplotlib/ipympl) [![nodejs](https://img.shields.io/badge/nodejs->10-blue.svg)](https://nodejs.org/)
 
 _(sources: [here](https://stackoverflow.com/questions/50149562/jupyterlab-interactive-plot) and [here](https://towardsdatascience.com/how-to-produce-interactive-matplotlib-plots-in-jupyter-environment-1e4329d71651))_
 
