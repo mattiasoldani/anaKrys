@@ -1,24 +1,24 @@
 #!/bin/bash
 
 # note: conda has to be installed and deactivated
-# note: run this with "bash -i createEnvNotebook.sh" i.e. in interactive mode
+# note: run this with "bash -i createEnvNoExtensions.sh" i.e. in interactive mode
 # note: for different configurations, see the anaKrys documentation
 
-ENVNAME=anaKrys
+ENVNAME=anaKrys_noExtensions
 
 # 1st of all, update conda
 conda update -y conda
 
 # install all the necessary dependencies
 echo "environment installation..."
-conda env create -f environment.yml  # check ENVNAME in here as well
+conda env create --name $ENVNAME --file environment.yml
 
 # activate the newly created environment (ENVNAME)
 conda activate $ENVNAME
 
-# interactive mode in Jupyter Notebook only
+# interactive mode -- Jupyter Notebook only
 echo "extensions for interactive mode..."
-conda install -y ipympl
+conda install -y "ipympl=0.5.8"
 
 # in the end, deactivate environment
 conda deactivate
