@@ -1,30 +1,45 @@
+#!/bin/bash
+
 # note: conda has to be installed and deactivated
+# note: run this with "bash -i createEnvComplete.sh" i.e. in interactive mode
+# note: for different configurations, see the anaKrys documentation
+
+ENVNAME=anaKrys
 
 # 1st of all, update conda
-conda update conda
+conda update -y conda
 
 # install all the necessary dependencies
-conda env create -f environment.yml
+echo "environment installation..."
+conda env create -f environment.yml  # check ENVNAME in here as well
 
-# activate the newly created environment (anaKrys)
-conda activate anaKrys
+# activate the newly created environment (ENVNAME)
+conda activate $ENVNAME
 
-# interactive mode in Jupyternotebook only
+# interactive mode in Jupyter Notebook only
+echo "extensions for interactive mode (1/2)..."
 conda install -y ipympl
 
 # interactive mode in JupyterLab also
+echo "extensions for interactive mode (2/2)..."
 conda install -y "nodejs>=10.0"
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter labextension install jupyter-matplotlib
 jupyter nbextension enable --py widgetsnbextension
 
 # Git extension
+echo "extensions for Git..."
 conda install -y jupyterlab-git
 jupyter labextension install @jupyterlab/git
 
+# to make the extension build work
+conda deactivate
+conda install nodejs
+conda activate $ENVNAME
+jupyter lab build
+
 # in the end, deactivate environment
 conda deactivate
-
-# for different configurations, see the anaKrys documentation
+echo "to activate the environment: conda activate $ENVNAME"
 
 
