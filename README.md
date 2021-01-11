@@ -11,3 +11,7 @@ Basic dependencies:
 Note: all the basic dependencies, as well as the required installation channels and the optional JupyterLab extension dependencies, are listed in the environment.yml file &mdash; see the section on environment setup for further details.
 
 Found a bug? Or simply have any questions, comments or suggestions you'd like to talk about? Feel free to contact me at <mattiasoldani93@gmail.com>. And brace yourself, for the best is yet to come!
+
+---
+
+### Installation and environment setup
