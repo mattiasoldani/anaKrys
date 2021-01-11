@@ -32,12 +32,6 @@ echo "extensions for Git..."
 conda install -y jupyterlab-git
 jupyter labextension install @jupyterlab/git
 
-# to make the extension build work
-conda deactivate
-conda install nodejs
-conda activate $ENVNAME
-jupyter lab build
-
 # in the end, deactivate environment
 conda deactivate
 echo "to activate the environment: conda activate $ENVNAME"
