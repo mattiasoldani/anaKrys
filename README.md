@@ -16,7 +16,7 @@ Found a bug? Or simply have any questions, comments or suggestions you'd like to
 
 ### Installation and environment setup
 
-**HOW TO INSTALL ANAKRYS**
+**HOW TO DOWNLOAD ANAKRYS**
 
 **HOW TO SET THE (ANACONDA) ENVIRONMENT UP**
 
