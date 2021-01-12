@@ -92,7 +92,7 @@ Plots are not drawn in any graphic window but output is saved the same way as wh
 
 ### Settings, I/O and analysis flow
 
-#### **INPUT DATA & SETTINGS**
+#### **INPUT DATA AND SETTINGS**
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
