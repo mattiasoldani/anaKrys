@@ -117,7 +117,43 @@ respectively. The variable `settingsFileMods` in the **input settings** section 
 
 #### **THE DATAFRAME**
 
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+All the input data are stored into the `df` [pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/frame.html). In order to fully exploit the anaKrys features, the variable names should be compliant to some rules &mdash; check the `asciiMap` and `treeMap` settings.
+
+|   **name in `df`** |  **type**  | **description**                                                                                                                     |
+|-------------------:|:----------:|-------------------------------------------------------------------------------------------------------------------------------------|
+|             `iRun` |   string   | Run ID &mdash; if absent among the raw data, it is created starting from the filename                                               |
+|          `typeRun` |   string   | Run name (from `nRun0`)                                                                                                             |
+|            `iStep` |   number   | Goniometer scan step number                                                                                                         |
+|            `epoch` |   number   | Event timestamp                                                                                                                     |
+|     `xGonioRaw...` |  number(s) | Goniometer DOF &mdash; raw                                                                                                          |
+|        `xGonio...` |  number(s) | Goniometer DOF &mdash; paired with tracking variables and aligned, check `gonioMap` setting                                         |
+|          `nHit...` |  number(s) | Tracking multiplicities, i.e. nr. of particles per tracking layer                                                                   |
+|           `nHitIn` |   number   | Average input multiplicity &mdash; obtained from the 4 input tracking layers, check `baseTrackingMap` setting                       |
+|          `nHitOut` |   number   | Average output multiplicity &mdash; obtained from the 2 output tracking layers, check `baseTrackingMap` setting                     |
+|          `xRaw...` |  number(s) | Tracking 1st hits &mdash; raw, but already mirrored, check `mirrorMap` setting                                                      |
+|       `thInRaw0/1` |   numbers  | Input angles (0 & 1) &mdash; raw, obtained from the 4 input tracking layers, check `baseTrackingMap` setting                        |
+|          `thIn0/1` |   numbers  | Input angles (0 & 1) &mdash; centered to zero                                                                                       |
+|             `x...` |  number(s) | Tracking 1st hits &mdash; aligned via `thInRaw0/1`                                                                                  |
+|          `xCry0/1` |   numbers  | Input (aligned) positions projected to the goniometer _z_ (0 & 1)                                                                   |
+|      `thOutRaw0/1` |   numbers  | Output angles (0 & 1) &mdash; raw, obtained from `xCry0/1` and the 2 output tracking layers, check `baseTrackingMap` setting        |
+|         `thOut0/1` |   numbers  | Output angles (0 & 1) &mdash; centered to zero                                                                                      |
+|       `thDelta0/1` |   numbers  | Deflection (i.e. output-minus-input aligned) angles (0 & 1)                                                                         |
+|      `xCaloFwd0/1` |   numbers  | Input (aligned) positions projected to the forward calorimeter _z_ (0 & 1)                                                          |
+|     `digiPHRaw...` |  number(s) | Digitizer pulse heights &mdash; raw                                                                                                 |
+|        `digiPH...` |  number(s) | Digitizer pulse heights &mdash; equalised, check `equalMap` setting                                                                 |
+|      `digiTime...` |  number(s) | Digitizer peaking times                                                                                                             |
+|      `digiBase...` |  number(s) | Digitizer baselines                                                                                                                 |
+|        `PHCaloFwd` |   number   | Forward calorimeter total pulse height &mdash; check `lsDigiChCaloFwd` setting                                                      |
+|             `EFwd` |   number   | Forward calorimeter total calibrated energy &mdash; check  `calibMapFwd` setting                                                    |
+|  `boolSingleHitIn` |   boolean  | True if the 4 input multiplicities are equal to 1; check `baseTrackingMap` setting                                                  |
+| `boolSingleHitOut` |   boolean  | True if the 2 output multiplicities are equal to 1; check `baseTrackingMap` setting                                                 |
+|    `boolInAligned` |   boolean  | True if the input particle is aligned with the _z_ axis &mdash; check  `thInCut` setting                                            |
+|   `boolLowOutMult` |   boolean  | True if the overall output multiplicity is low &mdash; check `outMultCut` setting                                                   |
+|  `boolHighOutMult` |   boolean  | True if the overall output multiplicity is high &mdash; check `outMultCut` setting                                                  |
+|     `boolInCry0/1` |  booleans  | True if the input trajectory falls within the fiducial box at the goniometer _z_ &mdash; check  `xCryCut` setting, 0 & 1 separately |
+|        `boolInCry` |   boolean  | True if the input trajectory falls within the fiducial box at the goniometer _z_ &mdash; check  `xCryCut` setting, 0 & 1 together   |
+|    `boolDigiPH...` | boolean(s) | True if the digitizer pulse heights are within the selected range &mdash; check `digiPHCut` setting                                 |
+|  `boolDigiTime...` | boolean(s) | True if the digitizer peaking times are within the selected range &mdash; check `digiTimeCut` setting                               |
 
 #### **PLOTS**
 
@@ -137,4 +173,3 @@ inFile = open("[PATH_TO_IPYNB]/out_data/outData.pickle",'rb')
 outData = pickle.load(inFile)
 inFile.close()
 ```
-
