@@ -39,8 +39,6 @@ If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interacti
 
 [![ipympl](https://img.shields.io/badge/ipympl-0.5.8-blue.svg)](https://github.com/matplotlib/ipympl) [![nodejs](https://img.shields.io/badge/nodejs->=10-blue.svg)](https://nodejs.org/)
 
-_(sources: [here](https://stackoverflow.com/questions/50149562/jupyterlab-interactive-plot) and [here](https://towardsdatascience.com/how-to-produce-interactive-matplotlib-plots-in-jupyter-environment-1e4329d71651))_
-
 On the other hand, in order to enable the interactive mode in JupyterLab, you need to run these steps in the anaKrys environment:
 ```shell
 conda install "ipympl=0.5.8"
@@ -54,8 +52,6 @@ jupyter nbextension enable --py widgetsnbextension
 **HOW TO ENABLE THE JUPYTERLAB GIT EXTENSION**
 
 [![git](https://img.shields.io/badge/git->2-blue.svg)](https://git-scm.com/) [![jupyterlab-git](https://img.shields.io/badge/jupyterlab/git-grey.svg)](https://github.com/jupyterlab/jupyterlab-git)
-
-_(source: [here](https://github.com/jupyterlab/jupyterlab-git))_
 
 In order to be able to execute Git actions, e.g. switching branches, from a drop-down menu within JupyterLab, the jupyterlab-git extension has to be installed and enabled via
 ```shell
