@@ -155,7 +155,7 @@ All the input data are stored into the `df` [pandas DataFrame](https://pandas.py
 |    `boolDigiPH...` | boolean(s) | True if the digitizer pulse heights are within the selected range &mdash; check `digiPHCut` setting                                 |
 |  `boolDigiTime...` | boolean(s) | True if the digitizer peaking times are within the selected range &mdash; check `digiTimeCut` setting                               |
 
-The availability of these variables and therefore the parts of the analysis that are actually executed depend on the input data structure. The single `df` variables are [pandas Series](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html) objects and can be accessed via e.g. `df.iRun` or `df["iRun"]`. New variables can be added to 
+The availability of these variables and therefore the parts of the analysis that are actually executed depend on the input data structure. The single `df` variables are [pandas Series](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html) objects and can be accessed via e.g. `df.iRun` or `df["iRun"]`. New variables can be added to `df` anytime, e.g. in the **whiteboard**.
 
 #### **PLOTS**
 
