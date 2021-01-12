@@ -60,9 +60,8 @@ def loadDonePrint(df, dt):
 ###############################################################################
 
 def readOutData(pathToMain=""):
-    inFile = open("./" + pathToMain + "/out_data/outData.pickle",'rb')
-    outData = pickle.load(inFile)
-    inFile.close()
+    with open("./" + pathToMain + "/out_data/outData.pickle",'rb') as inFile:
+        outData = pickle.load(inFile)
     return outData
     
     
