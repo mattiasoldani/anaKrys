@@ -14,7 +14,7 @@ Found a bug? Or simply have any questions, comments or suggestions you'd like to
 
 ---
 
-### Installation and environment setup
+### Installation, environment setup and execution
 
 **HOW TO DOWNLOAD ANAKRYS**
 
@@ -68,11 +68,6 @@ bash -i createEnvComplete.sh
 ```
 
 Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
-
-
----
-
-### Execution
 
 **HOW TO RUN ANAKRYS IN JUPYTERLAB (OR JUPYTER NOTEBOOK)**
 
