@@ -10,6 +10,5 @@ def saveOutData(globDict, pathToMain=""):
     outPath = "./" + pathToMain + "out_data/"
     outFileName = outPath + "outData.pickle"
     print("saving output dictionary outData to %s, with %d entries" % (outFileName, len(outData)))
-    outFile = open(outFileName, "wb")
-    pickle.dump(outData, outFile)
-    outFile.close()
+    with open(outFileName, "wb") as outFile:
+        pickle.dump(outData, outFile)
