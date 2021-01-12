@@ -90,7 +90,7 @@ Plots are not drawn in any graphic window but output is saved the same way as wh
 
 ---
 
-### Settings and I/O
+### Settings, I/O and analysis flow
 
 **INPUT DATA**
 
@@ -100,10 +100,23 @@ vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
+**THE DATAFRAME**
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
 **PLOTS**
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 **OUTPUT**
 
-If `bPlotSave = True`, all the plots are saved as PNG images in ./out_plots. Moreover, a .pickle file with the `outData` dictionary is always saved in ./out_data.
+Whatever the execution mode, if `bPlotSave = True`, all the default plots are saved as PNG images in ./out_plots. Recall that custom plots, e.g. from the **whiteboard**, have to be saved manually via `plt.savefig(...)` &mdash; `plt` referring to `matplotlib.pyplot`.
+
+Moreover, the `outData` dictionary is created in the **plots & output** section and filled with many useful information from the physics analysis &mdash; e.g. bin-by-bin points for important histograms, fit results and statistical parameters. The content of the dictionary may vary depending on the input data available and on the plots actually drawn. Further useful data can be added in the **whiteboard**.
+
+The outData.pickle [pickle](https://docs.python.org/3/library/pickle.html#module-pickle) file with the `outData` dictionary is always saved in ./out_data at the end of the execution. You can open it via
+```
+inFile = open("[PATH_TO_IPYNB]/out_data/outData.pickle",'rb')
+outData = pickle.load(inFile)
+inFile.close()
+```
