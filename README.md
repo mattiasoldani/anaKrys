@@ -94,7 +94,7 @@ Plots are not drawn in any graphic window but output is saved the same way as wh
 
 #### **INPUT DATA AND SETTINGS**
 
-anaKrys data input stage exploits the [succolib](https://github.com/mattiasoldani/succolib) input tools; it supports sets of formatted text files (e.g. DAT files) and of [ROOT](https://root.cern.ch/) [tree](https://root.cern.ch/doc/master/classTTree.html) files. Multiple filesets can be opened at a time, a fileset being a set of files coming from the same data taking run. In turn, each fileset can consist of multiple files. All the filenames must share the same format, differing only in one (optionally two) part(s): the part which unambiguously identifies the fileset, i.e. the run ID and, in case of multiple files per fileset, the part that differentiates the names of the single files, usually a file ID. For example, the file list
+anaKrys data input stage (**opening the data files** section) exploits the [succolib](https://github.com/mattiasoldani/succolib) input tools; it supports sets of formatted text files (e.g. DAT files) and of [ROOT](https://root.cern.ch/) [tree](https://root.cern.ch/doc/master/classTTree.html) files. Multiple filesets can be opened at a time, a fileset being a set of files coming from the same data taking run. In turn, each fileset can consist of multiple files. All the filenames must share the same format, differing only in one (optionally two) part(s): the part which unambiguously identifies the fileset, i.e. the run ID and, in case of multiple files per fileset, the part that differentiates the names of the single files, usually a file ID. For example, the file list
 ```shell
 run000000_spill00001.dat
 run000000_spill00009.dat
@@ -155,11 +155,11 @@ All the input data are stored into the `df` [pandas DataFrame](https://pandas.py
 |    `boolDigiPH...` | boolean(s) | True if the digitizer pulse heights are within the selected range &mdash; check `digiPHCut` setting                                 |
 |  `boolDigiTime...` | boolean(s) | True if the digitizer peaking times are within the selected range &mdash; check `digiTimeCut` setting                               |
 
-The availability of these variables and therefore the parts of the analysis that are actually executed depend on the input data structure. The single `df` variables are [pandas Series](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html) objects and can be accessed via e.g. `df.iRun` or `df["iRun"]`. New variables can be added to `df` anytime, e.g. in the **whiteboard** &mdash; see dedicated section.
+All these variables either come directly from the raw data or are computed in the **physics analysis** section. Their availability and therefore the parts of the analysis that are actually executed depend on the input data structure. The single `df` variables are [pandas Series](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html) objects and can be accessed via e.g. `df.iRun` or `df["iRun"]`. New variables can be added to `df` anytime, e.g. in the **whiteboard** &mdash; see dedicated section.
 
 #### **PLOTS**
 
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+All the plots, together with the related statistical analysis, are obtained in the **plots & output** section.
 
 #### **OUTPUT**
 
