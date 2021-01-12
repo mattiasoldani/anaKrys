@@ -18,7 +18,7 @@ Found a bug? Or simply have any questions, comments or suggestions you'd like to
 
 **HOW TO DOWNLOAD ANAKRYS**
 
-The anaKrys source code can be downloaded either as a ZIP archive, from the Code drop-down menu [here](https://github.com/mattiasoldani/anaKrys), or directly from the terminal (opened in your project working directory) via
+The anaKrys source code can be downloaded either as a ZIP archive, from the Code drop-down menu [here](https://github.com/mattiasoldani/anaKrys), or directly from the terminal (open in your project working directory) via
 ```
 git clone git://github.com/mattiasoldani/anaKrys.git
 ```
