@@ -35,7 +35,16 @@ This will install the anaKrys environment, which then can be accessed via `conda
 
 If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interactive mode, you need to set `%matplotlib inline` in the **notebook settings & imports** section and `bProgressBars = False` in the **input settings** section. Once these have been set, the software will work in the plain environment installed with the environment.yml file only. For more complex environment configurations, see the sections below &mdash; express installation scripts are also available, check below.
 
-#### **HOW TO ENABLE INTERACTIVE PLOTS & WIDGETS**
+#### **HOW TO PERFORM A FULL ENVIRONMENT EXPRESS INSTALLATION**
+
+The createEnvComplete.sh and createEnvNoExtensions.sh Bash scripts are provided in order to automatically perform the full environment installation, i.e. with all the useful extensions described below, and the installation of the anaKrys environment and of the interactive mode for Jupyter Notebook only respectively. Just run e.g. createEnvComplete.sh out of any Anaconda environment:
+```shell
+bash -i createEnvComplete.sh
+```
+
+Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
+
+#### **HOW TO MANUALLY ENABLE INTERACTIVE PLOTS & WIDGETS**
 
 [![ipympl](https://img.shields.io/badge/ipympl-0.5.8-blue.svg)](https://github.com/matplotlib/ipympl) [![nodejs](https://img.shields.io/badge/nodejs->=10-blue.svg)](https://nodejs.org/)
 
@@ -49,7 +58,7 @@ jupyter nbextension enable --py widgetsnbextension
 ```
 (where the extensions versions have been chosen to match those of the rest of the environment &mdash; see the [ipympl documentation](https://github.com/matplotlib/ipympl)) and then decorate with `%matplotlib widget` (whereas `bProgressBar` can be set either to True or False). Moreover, in order to run the interactive mode in Jupyter Notebook rather than in JupyterLab, it is sufficient to run `conda install "ipympl=0.5.8"` in the fresh anaKrys environment.
 
-#### **HOW TO ENABLE THE JUPYTERLAB GIT EXTENSION**
+#### **HOW TO MANUALLY ENABLE THE JUPYTERLAB GIT EXTENSION**
 
 [![git](https://img.shields.io/badge/git->2-blue.svg)](https://git-scm.com/) [![jupyterlab-git](https://img.shields.io/badge/jupyterlab/git-grey.svg)](https://github.com/jupyterlab/jupyterlab-git)
 
@@ -59,15 +68,6 @@ conda install "git>2.0"
 conda install jupyterlab-git
 jupyter labextension install @jupyterlab/git
 ```
-
-#### **HOW TO PERFORM A FULL ENVIRONMENT EXPRESS INSTALLATION**
-
-The createEnvComplete.sh and createEnvNoExtensions.sh Bash scripts are provided in order to automatically perform the full environment installation, i.e. with all the aforementioned extensions, and the installation of the anaKrys environment and of the interactive mode for Jupyter Notebook only respectively. Just run e.g. createEnvComplete.sh out of any Anaconda environment:
-```shell
-bash -i createEnvComplete.sh
-```
-
-Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
 
 #### **HOW TO RUN ANAKRYS IN JUPYTERLAB (OR JUPYTER NOTEBOOK)**
 
