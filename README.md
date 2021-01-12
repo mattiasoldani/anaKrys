@@ -159,7 +159,9 @@ All these variables either come directly from the raw data or are computed in th
 
 #### **PLOTS**
 
-All the plots, together with the related statistical analysis, are obtained in the **plots & output** section.
+All the plots, together with the related statistical analysis, are obtained in the **plots & output** section. General settings on these operations can be found in the **plot & output settings** subsection right at the beginning of the latter, whereas each plot or set of common plots can be tuned via some specific settings on the top of its own cell.
+
+Of course, there is room to implement custom calculations and plots that might be required in case of more complex analyses: the **whiteboard** section, empty by default, provides a clean workspace for custom pieces of code.
 
 #### **OUTPUT**
 
@@ -167,7 +169,7 @@ Whatever the execution mode, if `bPlotSave = True`, all the default plots are sa
 
 Moreover, the `outData` dictionary is created in the **plots & output** section and filled with many useful information from the physics analysis &mdash; e.g. bin-by-bin points for important histograms, fit results and statistical parameters. The content of the dictionary may vary depending on the input data available and on the plots actually drawn. Further useful data can be added in the **whiteboard**.
 
-The outData.pickle [pickle](https://docs.python.org/3/library/pickle.html#module-pickle) file with the `outData` dictionary is always saved in ./out_data at the end of the execution. You can open it via
+The outData.pickle [pickle](https://docs.python.org/3/library/pickle.html#module-pickle) file with the `outData` dictionary is always saved in ./out_data at the end of the execution of the default part of the program (i.e. above the **whiteboard** section) and then again at the end of the whole program execution. You can open it via
 ```python
 import pickle
 
