@@ -16,7 +16,7 @@ Found a bug? Or simply have any questions, comments or suggestions you'd like to
 
 ### Installation, environment setup and execution
 
-**HOW TO DOWNLOAD ANAKRYS**
+#### **HOW TO DOWNLOAD ANAKRYS**
 
 The anaKrys source code can be downloaded either as a ZIP archive, from the Code drop-down menu [here](https://github.com/mattiasoldani/anaKrys), or directly from the terminal (open in your project working directory) via
 ```shell
@@ -24,7 +24,7 @@ git clone git://github.com/mattiasoldani/anaKrys.git
 ```
 Note: the latter requires  [Git](https://git-scm.com/) installed on your machine.
 
-**HOW TO SET THE ([ANACONDA](https://www.anaconda.com/)) ENVIRONMENT UP**
+#### **HOW TO SET THE ([ANACONDA](https://www.anaconda.com/)) ENVIRONMENT UP**
 
 The environment.yml file contains all the necessary information on the Anaconda environment setup, which can be automatically installed (with the only prerequisite that Anaconda itself is installed &mdash; check [here](https://docs.anaconda.com/anaconda/install/) for details) via
 ```shell
@@ -35,7 +35,7 @@ This will install the anaKrys environment, which then can be accessed via `conda
 
 If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interactive mode, you need to set `%matplotlib inline` in the **notebook settings & imports** section and `bProgressBars = False` in the **input settings** section. Once these have been set, the software will work in the plain environment installed with the environment.yml file only. For more complex environment configurations, see the sections below &mdash; express installation scripts are also available, check below.
 
-**HOW TO ENABLE INTERACTIVE PLOTS & WIDGETS**
+#### **HOW TO ENABLE INTERACTIVE PLOTS & WIDGETS**
 
 [![ipympl](https://img.shields.io/badge/ipympl-0.5.8-blue.svg)](https://github.com/matplotlib/ipympl) [![nodejs](https://img.shields.io/badge/nodejs->=10-blue.svg)](https://nodejs.org/)
 
@@ -49,7 +49,7 @@ jupyter nbextension enable --py widgetsnbextension
 ```
 (where the extensions versions have been chosen to match those of the rest of the environment &mdash; see the [ipympl documentation](https://github.com/matplotlib/ipympl)) and then decorate with `%matplotlib widget` (whereas `bProgressBar` can be set either to True or False). Moreover, in order to run the interactive mode in Jupyter Notebook rather than in JupyterLab, it is sufficient to run `conda install "ipympl=0.5.8"` in the fresh anaKrys environment.
 
-**HOW TO ENABLE THE JUPYTERLAB GIT EXTENSION**
+#### **HOW TO ENABLE THE JUPYTERLAB GIT EXTENSION**
 
 [![git](https://img.shields.io/badge/git->2-blue.svg)](https://git-scm.com/) [![jupyterlab-git](https://img.shields.io/badge/jupyterlab/git-grey.svg)](https://github.com/jupyterlab/jupyterlab-git)
 
@@ -60,7 +60,7 @@ conda install jupyterlab-git
 jupyter labextension install @jupyterlab/git
 ```
 
-**HOW TO PERFORM A FULL ENVIRONMENT EXPRESS INSTALLATION**
+#### **HOW TO PERFORM A FULL ENVIRONMENT EXPRESS INSTALLATION**
 
 The createEnvComplete.sh and createEnvNoExtensions.sh Bash scripts are provided in order to automatically perform the full environment installation, i.e. with all the aforementioned extensions, and the installation of the anaKrys environment and of the interactive mode for Jupyter Notebook only respectively. Just run e.g. createEnvComplete.sh out of any Anaconda environment:
 ```shell
@@ -69,11 +69,11 @@ bash -i createEnvComplete.sh
 
 Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
 
-**HOW TO RUN ANAKRYS IN JUPYTERLAB (OR JUPYTER NOTEBOOK)**
+#### **HOW TO RUN ANAKRYS IN JUPYTERLAB (OR JUPYTER NOTEBOOK)**
 
 Once the environment is set up properly, it can be activated via  `conda activate anaKrys`. Running  `jupyter-lab` (or `jupyter-notebook`) there will open the JupyterLab (or Jupyter Notebook) server which can then be accessed via web browser.
 
-**HOW TO RUN ANAKRYS AS A PYTHON SCRIPT**
+#### **HOW TO RUN ANAKRYS AS A PYTHON SCRIPT**
 
 First of all, an executable PY script has to be created starting from the IPYNB notebook. This can be done, after commenting all the magic lines (e.g. `%matplotlib ...`) out, either in the JupyterLab drop-down File menu or in the terminal, via
 ```shell
@@ -92,23 +92,23 @@ Plots are not drawn in any graphic window but output is saved the same way as wh
 
 ### Settings, I/O and analysis flow
 
-**INPUT DATA**
+#### **INPUT DATA**
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-**INPUT SETTINGS**
+#### **INPUT SETTINGS**
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-**THE DATAFRAME**
+#### **THE DATAFRAME**
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-**PLOTS**
+#### **PLOTS**
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-**OUTPUT**
+#### **OUTPUT**
 
 Whatever the execution mode, if `bPlotSave = True`, all the default plots are saved as PNG images in ./out_plots. Recall that custom plots, e.g. from the **whiteboard**, have to be saved manually via `plt.savefig(...)` &mdash; `plt` referring to `matplotlib.pyplot`.
 
