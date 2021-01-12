@@ -113,7 +113,7 @@ respectively. The variable `settingsFileMods` in the **input settings** section 
 
 [EXPERIMENT_NAME]_runList.py contains the `nRun0` dictionary which has the run IDs as keys and human-readable run names as values. Multiple run IDs can be associated with the same run name &mdash; this allows to merge multiple runs acquired in the same experimental conditions. Only the filesets referenced there can be opened; the latter is done by referencing either the run IDs or the run names of interest in the `nRunToOpen` in the **input settings** section.
 
-[EXPERIMENT_NAME]_settings.py contains all the information needed for the data conditioning and analysis &mdash; data structure, experiment geometry, tuning of the detectors raw data, standard data selections. In particular, it is worth mentioning the `filterMap` setting, which allows for a preliminary noise rejection. Further details on how to set everything up are given in the comments inside the template file.
+[EXPERIMENT_NAME]_settings.py contains all the information needed for the data conditioning and analysis &mdash; data structure, experiment geometry, tuning of the detectors raw data, standard data selections. In particular, it is worth mentioning the `descFrac` setting, which allows to load only a fraction of the overall data, and the `filterMap` setting, which allows for a preliminary noise rejection. Further details on how to set everything up are given in the comments inside the template file.
 
 #### **THE DATAFRAME**
 
