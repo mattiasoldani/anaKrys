@@ -76,8 +76,19 @@ Note: running the script via `./createEnvComplete.sh` won't work since the Bash 
 
 **HOW TO RUN ANAKRYS IN JUPYTERLAB (OR JUPYTER NOTEBOOK)**
 
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+Once the environment is set up properly, it can be activated via  `conda activate anaKrys`. Running  `jupyter-lab` (or `jupyter-notebook`) there will open the JupyterLab (or Jupyter Notebook) server which can then be accessed via web browser.
 
 **HOW TO RUN ANAKRYS AS A PYTHON SCRIPT**
 
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+First of all, an executable PY script has to be created starting from the IPYNB notebook. This can be done, after commenting all the magic lines (e.g. `%matplotlib ...`) out, either in the JupyterLab drop-down File menu or in the terminal, via
+```
+jupyter nbconvert --to script anaKrys.ipynb
+```
+Both these operations will result in the creation of the anaKrys.py file.
+
+The anaKrys.py script has to be run in the same path as anaKrys.ipynb because it exploits the same modules and folders for I/O. It can be run within the python interpreter (e.g. `python` in the anaKrys environment) via
+```
+exec(open("anaKrys.py").read())
+```
+
+Plots are not drawn in any graphic window but, if `bPlotSave = True`, they are saved as PNG images in ./out_plots; moreover, a .pickle file with the `outData` dictionary is always saved in ./out_data.
