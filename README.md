@@ -66,3 +66,5 @@ bash -i createEnvComplete.sh
 ```
 
 Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
+
+**HOW TO RUN ANAKRYS AS A PYTHON SCRIPT**
