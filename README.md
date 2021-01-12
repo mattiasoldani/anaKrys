@@ -70,6 +70,10 @@ bash -i createEnvComplete.sh
 Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
 
 
+---
+
+### Execution
+
 **HOW TO RUN ANAKRYS IN JUPYTERLAB (OR JUPYTER NOTEBOOK)**
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
