@@ -115,8 +115,6 @@ respectively. The variable `settingsFileMods` in the **input settings** section 
 
 [EXPERIMENT_NAME]_settings.py contains all the information needed for the data conditioning and analysis &mdash; data structure, experiment geometry, tuning of the detectors raw data, standard data selections. Further details on how to set everything up are given in the comments inside the template file.
 
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-
 #### **THE DATAFRAME**
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
