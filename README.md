@@ -159,7 +159,9 @@ All these variables either come directly from the raw data or are computed in th
 
 #### **PLOTS**
 
-All the plots, together with the related statistical analysis, are obtained in the **plots & output** section. General settings on these operations can be found in the **plot & output settings** subsection right at the beginning of the latter, whereas each plot or set of common plots can be tuned via some specific settings on the top of its own cell. All the plots that are drawn are saved as PNG images in ./out_plots, provided that `bPlotSave = True` &mdash; check the section on the program output; furthermore, if the interactive mode is enabled, some graphical properties of the plots can be edited after the execution, and the latter can be saved manually anytime &mdash; the resulting images should end up in your system default directory for downloaded content, e.g. Downloads.
+All the plots, together with the related statistical analysis, are obtained in the **plots & output** section. General settings on these operations can be found in the **plot & output settings** subsection right at the beginning of the latter, whereas each plot or set of common plots can be tuned via some specific settings on the top of its own cell. The subsections are organised according to the typical experiment logic: input beam tracking, goniometer phase space and digitizer (which in general comprises the calorimeter channels).
+
+All the plots that are drawn are saved as PNG images in ./out_plots, provided that `bPlotSave = True` &mdash; check the section on the program output; furthermore, if the interactive mode is enabled, some graphical properties of the plots can be edited after the execution, and the latter can be saved manually anytime &mdash; the resulting images should end up in your system default directory for downloaded content, e.g. Downloads.
 
 Of course, there is room to implement custom calculations and plots that might be required in case of more complex analyses: the **whiteboard** section, empty by default, provides a clean workspace for custom pieces of code.
 
