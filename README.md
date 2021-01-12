@@ -94,7 +94,18 @@ Plots are not drawn in any graphic window but output is saved the same way as wh
 
 #### **INPUT DATA AND SETTINGS**
 
-anaKrys data input stage exploits the [succolib](https://github.com/mattiasoldani/succolib) input tools; it supports sets of formatted text files (e.g. DAT files) and of [ROOT](https://root.cern.ch/) [tree](https://root.cern.ch/doc/master/classTTree.html) files.
+anaKrys data input stage exploits the [succolib](https://github.com/mattiasoldani/succolib) input tools; it supports sets of formatted text files (e.g. DAT files) and of [ROOT](https://root.cern.ch/) [tree](https://root.cern.ch/doc/master/classTTree.html) files. Multiple filesets can be opened at a time, a fileset being a set of files coming from the same data taking run. In turn, each fileset can consist of multiple files. All the filenames must share the same format, differing only in one (optionally two) part(s): the part which unambiguously identifies the fileset, i.e. the run number and, in case of multiple files per fileset, the part that differentiates the names of the single files, usually a file number. For example, the file list
+```shell
+run000000_spill00001.dat
+run000000_spill00009.dat
+run000000_spill00099.dat
+run0001_spillFirst.dat
+run0001_spillSecond.dat
+runABC_spillIJK.dat
+```
+consists of 3 different filesets, whose IDs are "000000", "0001" and "ABC", which in turn comprise 3, 2 and 1 files respectively; all these name formats are valid. Obviously, the file structure should also be common to all the files. The file name structure, path and type, as well as other input settings, are set within the anaKrys.ipynb notebook, in the **input settings** section.
+
+Tipically, data from different data taking sessions have to be dealt with separately. For each experiment two settings files 
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
