@@ -18,6 +18,8 @@ Found a bug? Or simply have any questions, comments or suggestions you'd like to
 
 **HOW TO DOWNLOAD ANAKRYS**
 
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
 **HOW TO SET THE (ANACONDA) ENVIRONMENT UP**
 
 The environment.yml file contains all the necessary information on the Anaconda environment setup, which can be automatically installed (with the only prerequisite that Anaconda itself is installed) via
@@ -68,3 +70,5 @@ bash -i createEnvComplete.sh
 Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
 
 **HOW TO RUN ANAKRYS AS A PYTHON SCRIPT**
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
