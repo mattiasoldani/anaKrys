@@ -29,7 +29,7 @@ conda env create -f environment.yml
 ```
 This will install the anaKrys environment, which then can be accessed via `conda activate anaKrys` (and closed via `conda deactivate`).
 
-If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interactive mode, you need to set `%matplotlib inline` in the **notebook settings & imports** section and `bProgressBars = False` in the "settings" section. Once these have been set, the software will work in the plain environment installed with the environment.yml file only. For more complex environment configurations, see the sections below &mdash; express installation scripts are also available, check below.
+If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interactive mode, you need to set `%matplotlib inline` in the **notebook settings & imports** section and `bProgressBars = False` in the **input settings** section. Once these have been set, the software will work in the plain environment installed with the environment.yml file only. For more complex environment configurations, see the sections below &mdash; express installation scripts are also available, check below.
 
 **HOW TO ENABLE INTERACTIVE PLOTS & WIDGETS**
 
