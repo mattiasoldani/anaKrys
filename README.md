@@ -20,9 +20,9 @@ Found a bug? Or simply have any questions, comments or suggestions you'd like to
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-**HOW TO SET THE (ANACONDA) ENVIRONMENT UP**
+**HOW TO SET THE ([ANACONDA](https://www.anaconda.com/)) ENVIRONMENT UP**
 
-The environment.yml file contains all the necessary information on the Anaconda environment setup, which can be automatically installed (with the only prerequisite that Anaconda itself is installed) via
+The environment.yml file contains all the necessary information on the Anaconda environment setup, which can be automatically installed (with the only prerequisite that Anaconda itself is installed &mdash; check [here](https://docs.anaconda.com/anaconda/install/) for details) via
 ```
 conda update conda
 conda env create -f environment.yml
