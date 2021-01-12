@@ -116,6 +116,8 @@ Moreover, the `outData` dictionary is created in the **plots & output** section 
 
 The outData.pickle [pickle](https://docs.python.org/3/library/pickle.html#module-pickle) file with the `outData` dictionary is always saved in ./out_data at the end of the execution. You can open it via
 ```
+import pickle
+
 inFile = open("[PATH_TO_IPYNB]/out_data/outData.pickle",'rb')
 outData = pickle.load(inFile)
 inFile.close()
