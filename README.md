@@ -84,7 +84,7 @@ First of all, an executable PY script has to be created starting from the IPYNB 
 ```
 jupyter nbconvert --to script anaKrys.ipynb
 ```
-Both these operations will result in the creation of the anaKrys.py file.
+Both these operations will result in the creation of the anaKrys.py file. Obviously, it is convenient to set everything properly inside the notebook before the conversion.
 
 The anaKrys.py script has to be run in the same path as anaKrys.ipynb because it exploits the same modules and folders for I/O. It can be run within the python interpreter (e.g. `python` in the anaKrys environment) via
 ```
