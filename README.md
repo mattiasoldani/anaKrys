@@ -31,7 +31,7 @@ If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interacti
 
 **HOW TO ENABLE INTERACTIVE PLOTS & WIDGETS**
 
-[![ipympl](https://img.shields.io/badge/ipympl-0.5.8-blue.svg)](https://github.com/matplotlib/ipympl) [![nodejs](https://img.shields.io/badge/nodejs->=10-blue.svg)](https://nodejs.org/) [![jupyterlab-widgets](https://img.shields.io/badge/jupyterlab_widgets-grey.svg)](https://www.npmjs.com/package/@jupyter-widgets/jupyterlab-manager) [![jupyter-matplotlib](https://img.shields.io/badge/jupyter-matplotlib-0.7.4-blue.svg)](https://github.com/matplotlib/ipympl)
+[![ipympl](https://img.shields.io/badge/ipympl-0.5.8-blue.svg)](https://github.com/matplotlib/ipympl) [![nodejs](https://img.shields.io/badge/nodejs->=10-blue.svg)](https://nodejs.org/)
 
 _(sources: [here](https://stackoverflow.com/questions/50149562/jupyterlab-interactive-plot) and [here](https://towardsdatascience.com/how-to-produce-interactive-matplotlib-plots-in-jupyter-environment-1e4329d71651))_
 
