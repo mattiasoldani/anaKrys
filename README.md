@@ -96,6 +96,8 @@ Plots are not drawn in any graphic window but output is saved the same way as wh
 
 anaKrys data input stage exploits the [succolib](https://github.com/mattiasoldani/succolib) input tools; it supports sets of formatted text files (e.g. DAT files) and of [ROOT](https://root.cern.ch/) [tree](https://root.cern.ch/doc/master/classTTree.html) files.
 
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
 #### **THE DATAFRAME**
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
