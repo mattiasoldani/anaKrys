@@ -12,9 +12,11 @@ Basic dependencies:
 
 [![jupyterlab](https://img.shields.io/badge/jupyterlab-2-blue.svg)](https://jupyterlab.readthedocs.io/en/stable/) [![matplotlib](https://img.shields.io/badge/matplotlib-3.3.1-blue.svg)](https://matplotlib.org/) [![numpy](https://img.shields.io/badge/numpy-grey.svg)](https://numpy.org/) [![pandas](https://img.shields.io/badge/pandas-grey.svg)](https://pandas.pydata.org/) [![pip](https://img.shields.io/badge/pip-grey.svg)](https://pip.pypa.io/en/stable/) [![scipy](https://img.shields.io/badge/scipy-grey.svg)](https://www.scipy.org/)  [![succolib](https://img.shields.io/badge/succolib-grey.svg)](https://github.com/mattiasoldani/succolib) [![tqdm](https://img.shields.io/badge/tqdm-grey.svg)](https://github.com/tqdm/tqdm) [![uproot](https://img.shields.io/badge/uproot->=4-blue.svg)](https://github.com/scikit-hep/uproot) 
 
-Note: [ROOT](https://root.cern.ch/) itself is not required.
+Notes:
+- [ROOT](https://root.cern.ch/) itself is not required.
+- all the basic dependencies, as well as the required installation channels, are listed in the Anaconda environment.yml file &mdash; see the section on environment setup for further details on this and on the optional JupyterLab extensions.
 
-Note: all the basic dependencies, as well as the required installation channels, are listed in the Anaconda environment.yml file &mdash; see the section on environment setup for further details on this and on the optional JupyterLab extensions.
+Note: the program was developed and tested in an Ubuntu 16.04 system and in a Windows 10 system equipped with the [WSL](https://docs.microsoft.com/en-gb/windows/wsl/about) (Windows Subsystem for Linux &mdash; with Ubuntu 18.04); in both cases, this was done within [Anaconda](https://www.anaconda.com/) 3 &mdash; check [here](https://docs.anaconda.com/anaconda/install/) for details on the Anaconda installation.
 
 Found a bug? Or simply have any questions, comments or suggestions you'd like to talk about? Feel free to contact me at <mattiasoldani93@gmail.com>. And brace yourself, for the best is yet to come!
 
@@ -30,9 +32,9 @@ git clone git://github.com/mattiasoldani/anaKrys.git
 ```
 Note: the latter requires  [Git](https://git-scm.com/) installed on your machine.
 
-#### **HOW TO SET THE ([ANACONDA](https://www.anaconda.com/)) ENVIRONMENT UP**
+#### **HOW TO SET THE (ANACONDA) ENVIRONMENT UP**
 
-The environment.yml file contains all the necessary information on the Anaconda environment setup, which can be automatically installed (with the only prerequisite that Anaconda itself is installed &mdash; check [here](https://docs.anaconda.com/anaconda/install/) for details) via
+The environment.yml file contains all the necessary information on the Anaconda environment setup, which can be automatically installed (with the only prerequisite that Anaconda itself is installed) via
 ```shell
 conda update conda
 conda env create -f environment.yml
