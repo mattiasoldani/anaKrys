@@ -138,11 +138,11 @@ All the input data are stored into the `df` [pandas DataFrame](https://pandas.py
 |          `nHitOut` |   number   | Average output multiplicity &mdash; obtained from the 2 output tracking layers, check `baseTrackingMap` setting                     |
 |          `xRaw...` |  number(s) | Tracking 1st hits &mdash; raw, but already mirrored, check `mirrorMap` setting                                                      |
 |       `thInRaw0/1` |   numbers  | Input angles (0 & 1) &mdash; raw, obtained from the 4 input tracking layers, check `baseTrackingMap` setting                        |
-|          `thIn0/1` |   numbers  | Input angles (0 & 1) &mdash; centered to zero                                                                                       |
+|          `thIn0/1` |   numbers  | Input angles (0 & 1) &mdash; centered to zero, check `thInCentres` setting                                                          |
 |             `x...` |  number(s) | Tracking 1st hits &mdash; aligned via `thInRaw0/1`                                                                                  |
 |          `xCry0/1` |   numbers  | Input (aligned) positions projected to the goniometer _z_ (0 & 1)                                                                   |
 |      `thOutRaw0/1` |   numbers  | Output angles (0 & 1) &mdash; raw, obtained from `xCry0/1` and the 2 output tracking layers, check `baseTrackingMap` setting        |
-|         `thOut0/1` |   numbers  | Output angles (0 & 1) &mdash; centered to zero                                                                                      |
+|         `thOut0/1` |   numbers  | Output angles (0 & 1) &mdash; centered to zero, check `thOutCentres` setting                                                        |
 |       `thDelta0/1` |   numbers  | Deflection (i.e. output-minus-input aligned) angles (0 & 1)                                                                         |
 |      `xCaloFwd0/1` |   numbers  | Input (aligned) positions projected to the forward calorimeter _z_ (0 & 1)                                                          |
 |     `digiPHRaw...` |  number(s) | Digitizer pulse heights &mdash; raw                                                                                                 |
