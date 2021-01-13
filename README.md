@@ -123,7 +123,7 @@ respectively. The variable `settingsFileMods` in the **input settings** section 
 
 #### **THE DATAFRAME**
 
-All the input data are stored into the `df` [pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/frame.html). In order to fully exploit the anaKrys features, the variable names should be compliant to some rules &mdash; check the `asciiMap` and `treeMap` settings.
+All the input data are stored into the `df` [pandas DataFrame](https://pandas.pydata.org/pandas-docs/stable/reference/frame.html). In order to fully exploit the anaKrys features, the variable names and formats should be compliant to some rules &mdash; check the `asciiMap` and `treeMap` settings. Such rules, together with the data conditioning tools associated with each variable, al listed below.
 
 |   **name in `df`** |  **type**  | **description**                                                                                                                     |
 |-------------------:|:----------:|-------------------------------------------------------------------------------------------------------------------------------------|
