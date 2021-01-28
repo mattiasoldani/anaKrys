@@ -17,10 +17,9 @@ def settingsSelect(boolTest, whichInput):
 ###############################################################################
 ###############################################################################
 
-def boolControlPrint(boolLoad, boolPlot, boolTest, fileType):
+def boolControlPrint(boolLoad, boolTest, fileType):
     print("execution control booleans:")
     print("data reload controller: %s" % str(boolLoad))
-    print("base plots controller: %s" % str(boolPlot))
     whichInput = (" (%s)" % fileType) if boolTest else ""
     print("test mode controller: %s%s" % (str(boolTest), whichInput))
     
