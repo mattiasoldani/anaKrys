@@ -227,7 +227,7 @@ gonioMap = {
 digiPHCut = {}
 for iRun in nRun0:
     digiPHCut.update({iRun: {}})
-    digiPHCut[iRun].update({"Veto": [-999999, 150]})
+    digiPHCut[iRun].update({"Veto": [-999999, 180]})
     for s in ["CaloFwd"+str(i) for i in range(9)]:
         digiPHCut[iRun].update({s: [20, 999999]})
 
