@@ -50,13 +50,13 @@ nRun0 = {
     "405378": "PWOThick_Axial_Presh0.20X0",
     "405380": "PWOThick_Axial_Presh0.20X0",
     
-    "405400": "PWOThick_AxisToRandom_D0",
-    "405401": "PWOThick_AxisToRandom_D1",
-    "405403": "PWOThick_AxisToRandom_D6",
-    "405404": "PWOThick_AxisToRandom_D4",
-    "405405": "PWOThick_AxisToRandom_D3",
-    "405406": "PWOThick_AxisToRandom_D2",
-    "405407": "PWOThick_AxisToRandom_D5",
+    "405400": "PWOThick_AxisToRandom_D0_Presh0.20X0",
+    "405401": "PWOThick_AxisToRandom_D1_Presh0.20X0",
+    "405403": "PWOThick_AxisToRandom_D6_Presh0.20X0",
+    "405404": "PWOThick_AxisToRandom_D4_Presh0.20X0",
+    "405405": "PWOThick_AxisToRandom_D3_Presh0.20X0",
+    "405406": "PWOThick_AxisToRandom_D2_Presh0.20X0",
+    "405407": "PWOThick_AxisToRandom_D5_Presh0.20X0",
     
     "405324": "PWOThick_AxisSearch",
     "405325": "PWOThick_AxisSearch",
@@ -66,7 +66,7 @@ nRun0 = {
     "405372": "PWOThick_45deg_ScanCradle",  # different axis -- @ 45°
     "405373": "PWOThick_45deg_ScanCradle",  # different axis -- @ 45°
 
-    # PWO [100] "strip"
+    # PWO [100] "strip" (all data with preshower Cu @ 0.2X0 if not differently specified)
     "405428": "PWOStrip_Random",  # used for divergence characterisation after collimator tweaking & for PWOStrip shape identification
     "405427": "PWOStrip_Axial",
     "405436": "PWOStrip_Axial",
