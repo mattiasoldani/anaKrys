@@ -13,12 +13,12 @@ nRun0 = {
     "405409": "WSquare_Random_Presh0.20X0",
     "405408": "WSquare_Axial_Presh0.20X0",
     
-    "405434": "WSquare_AxisToRandom_D0",  # run type name hardcoded in xCryCut (in y19EliotDesyT21.py file), careful
-    "405433": "WSquare_AxisToRandom_D1",  # run type name hardcoded in xCryCut (in y19EliotDesyT21.py file), careful
-    "405432": "WSquare_AxisToRandom_D2",  # run type name hardcoded in xCryCut (in y19EliotDesyT21.py file), careful
-    "405431": "WSquare_AxisToRandom_D3",  # run type name hardcoded in xCryCut (in y19EliotDesyT21.py file), careful
-    "405430": "WSquare_AxisToRandom_D4",  # run type name hardcoded in xCryCut (in y19EliotDesyT21.py file), careful
-    "405429": "WSquare_AxisToRandom_D5",  # run type name hardcoded in xCryCut (in y19EliotDesyT21.py file), careful
+    "405434": "WSquare_AxisToRandom_D0",  # run type name hardcoded in xCryCut (in y19EliotDesyT21 settings file), careful
+    "405433": "WSquare_AxisToRandom_D1",  # run type name hardcoded in xCryCut (in y19EliotDesyT21 settings file), careful
+    "405432": "WSquare_AxisToRandom_D2",  # run type name hardcoded in xCryCut (in y19EliotDesyT21 settings file), careful
+    "405431": "WSquare_AxisToRandom_D3",  # run type name hardcoded in xCryCut (in y19EliotDesyT21 settings file), careful
+    "405430": "WSquare_AxisToRandom_D4",  # run type name hardcoded in xCryCut (in y19EliotDesyT21 settings file), careful
+    "405429": "WSquare_AxisToRandom_D5",  # run type name hardcoded in xCryCut (in y19EliotDesyT21 settings file), careful
     
     "405195": "WSquare_ScanHorsa0_Old",  # "Old" addresses old trigger and/or position (changed due to magnet accident) configuration
     "405198": "WSquare_ScanHorsa1_Old",
