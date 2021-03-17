@@ -6,8 +6,9 @@
 
 ENVNAME=anaKrys
 
-# 1st of all, update conda
+# 1st of all, update conda & add conda-forge repo
 conda update -y conda
+conda config --add channels conda-forge
 
 # install all the necessary dependencies
 echo "environment installation..."
