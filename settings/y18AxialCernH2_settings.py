@@ -198,8 +198,10 @@ gonioMap = {
 digiPHCut = {}
 for iRun in nRun0:
     digiPHCut.update({iRun: {}})
-    digiPHCut.update({iRun: {"CaloFwd": [50, 999999]}})
-    for s in ["CaloLat0", "CaloLat1", "CaloLat2"]: digiPHCut.update({iRun: {s: [50, 999999]}})
+    digiPHCut[iRun].update({"CaloFwd": [50, 999999]})
+    digiPHCut[iRun].update({"CaloLat0": [50, 999999]})
+    digiPHCut[iRun].update({"CaloLat1": [50, 999999]})
+    digiPHCut[iRun].update({"CaloLat2": [50, 999999]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -210,9 +212,12 @@ for iRun in nRun0:
 digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
-    digiTimeCut.update({iRun: {"Trig": [275, 300]}})
-    digiTimeCut.update({iRun: {"Crys": [260, 290]}})
-    for s in ["CaloFwd", "CaloLat0", "CaloLat1", "CaloLat2"]: digiTimeCut.update({iRun: {s: [220, 235]}})
+    digiTimeCut[iRun].update({"Trig": [275, 300]})
+    digiTimeCut[iRun].update({"Crys": [260, 290]})
+    digiTimeCut[iRun].update({"CaloFwd": [220, 235]})
+    digiTimeCut[iRun].update({"CaloLat0": [220, 235]})
+    digiTimeCut[iRun].update({"CaloLat1": [220, 235]})
+    digiTimeCut[iRun].update({"CaloLat2": [220, 235]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
