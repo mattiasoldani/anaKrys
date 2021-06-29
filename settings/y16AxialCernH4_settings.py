@@ -125,7 +125,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [9.271174e-04, -2.545209e-05]})
+    thInCentres.update({iRun: [0, 0]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -135,7 +135,7 @@ for iRun in nRun0:
 # mandatory for all the runs
 thOutCentres = {}
 for iRun in nRun0:
-    thOutCentres.update({iRun: [-8.392635e-03+9.467382e-04, 8.559226e-03-2.599120e-05]})
+    thOutCentres.update({iRun: [0, 0]})
 
 # aligned input angle range cut, centered around 0, boundaries excluded
 # has to be set run by run
@@ -160,7 +160,7 @@ for iRun in nRun0:
 xCryCut = {}
 for iRun in nRun0:
     if "PWOStrip" in nRun0[iRun]:
-        xCryCut.update({iRun: [0.88, 1.06, 0.95, 1.85]})
+        xCryCut.update({iRun: [-10, 10, -10, 10]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -200,9 +200,9 @@ digiPHCut = {}
 for iRun in nRun0:
     digiPHCut.update({iRun: {}})
     for s in ["CaloFwd"+str(i) for i in range(9)]:
-        digiPHCut[iRun].update({s: [50, 999999]})
+        digiPHCut[iRun].update({s: [-100, 999999]})
     for s in ["CaloLat"+str(i) for i in range(3)]:
-        digiPHCut[iRun].update({s: [50, 999999]})
+        digiPHCut[iRun].update({s: [-100, 999999]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -214,10 +214,9 @@ digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
     for s in ["CaloFwd"+str(i) for i in range(9)]:
-        digiTimeCut[iRun].update({s: [185, 210]})
+        digiTimeCut[iRun].update({s: [-100, 999999]})
     for s in ["CaloLat"+str(i) for i in range(3)]:
-        digiTimeCut[iRun].update({s: [175, 205]})
-    digiTimeCut[iRun].update({"Crys": [210, 250]})
+        digiTimeCut[iRun].update({s: [-100, 999999]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
