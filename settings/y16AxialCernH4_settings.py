@@ -10,7 +10,7 @@ nRun0 = (importlib.import_module("."+os.path.basename(__file__).replace("setting
 
 # ROOT tree name, string
 # mandatory with ROOT, useless with ASCII files
-treeName = ""
+treeName = "channel2016"
 
 # descaling fraction, i.e. fraction of events to be processed (uniformly distributed along the run)
 # the lower is this value, the smaller the loaded dataset
@@ -23,7 +23,7 @@ descFrac = {}
 # number of lines per event in the ASCII files -- integer >0
 # see asciiMap for the variable list format
 # mandatory with ASCII, useless with ROOT files
-nLinesEv = 1  # TBC
+nLinesEv = 0
 
 # map of the ASCII file variables
 # list of strings -- the names must be entered in the list in the same order as the ASCII table (left-to-right)
@@ -31,29 +31,6 @@ nLinesEv = 1  # TBC
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII, useless with ROOT files
 asciiMap = list()
-# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
-# for i in range(6): asciiMap.append("xRaw"+str(i))
-# for i in range(6): asciiMap.append("nStripHit"+str(i))
-# for i in range(6): asciiMap.append("nHit"+str(i))
-# for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))  # STEFI ECal -- digi. channels 0-8
-# for i in range(3): asciiMap.append("digiBaseCaloFwd"+str(i))  # DEVA ECal -- digi. channels 9-11
-# asciiMap.append("digiBaseCrys")  # SiPM coupled to crystal -- digi. channel 12
-# for i in [13, 14, 15]: asciiMap.append("digiBaseNone"+str(i))
-# for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
-# for i in range(3): asciiMap.append("digiPHRawCaloLat"+str(i))  
-# asciiMap.append("digiPHRawCrys")
-# for i in [13, 14, 15]: asciiMap.append("digiPHRawNone"+str(i))
-# for i in range(9): asciiMap.append("digiTimeCaloFwd"+str(i))
-# for i in range(3): asciiMap.append("digiTimeCaloLat"+str(i))
-# asciiMap.append("digiTimeCrys")
-# for i in [13, 14, 15]: asciiMap.append("digiTimeNone"+str(i))
-# asciiMap.append("xGonioRawRot")
-# asciiMap.append("xGonioRawCrad")
-# asciiMap.append("xGonioRawHorsa")
-# asciiMap.append("iSpill")
-# asciiMap.append("iStep")
-# asciiMap.append("iAEv")
-# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -61,6 +38,14 @@ asciiMap = list()
 # if oldName refers to a multivariable branch, each element must be inserted individually
 # mandatory, but can be left empty --> no variable mapping
 treeMap = {}
+for i in range(6): treeMap.update({"xRaw%d" % i: "xPos%d" % i})
+for i in range(6): treeMap.update({"nHit%d" % i: "nClu%d" % i})
+for i in range(6): treeMap.update({"nStripPerHit%d" % i: "nStrip%d" % i})
+treeMap.update({"EFwd": "energyStefiGev"})
+treeMap.update({"PHCaloLat": "energyDeva"})
+for i in range(3): treeMap.update({"info%d" % i: "xInfo%d" % i})
+for i in range(3): treeMap.update({"info%d" % (3+i): "infoPlus%d" % i})
+treeMap.update({"iEvent": "eventNumber"})
     
 # variables to mirror, i.e. var --> -var
 # has to be set run by run
@@ -68,10 +53,6 @@ treeMap = {}
 # var format: the full dataframe variable name
 # mandatory, but can be skipped/filled with [] for some/all runs --> no variable mirroring for missing runs
 mirrorMap = {}
-# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
-# for iRun in nRun0:
-#     mirrorMap.update({iRun: ["xRaw4"]})
-# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
     
 # 1st level data filters
 # dictionary -- shape: 
@@ -102,20 +83,18 @@ for i in range(6):
 #     for tracking modules, use the part of the variable name following "xRaw" (base: 4/2 input/output layers)
 # mandatory, but can be skipped/filled partially for some/all runs --> all missing base positions set to 0
 z = {}
-# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
-# for iVar in nRun0:
-#     z.update({iVar: {
-#         "0": 0.0,
-#         "1": 0.0,
-#         "2": 516.8,
-#         "3": 516.8,
-#         "4": 516.8+635.3,
-#         "5": 516.8+635.3,
-#         "gonio": 516.8+65.3,
-#         "caloFwd": 516.8+1590.1,
-#         "caloLat": 516.8+1639.1,
-#     }})
-# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
+for iVar in nRun0:
+    z.update({iVar: {
+        "0": 0,
+        "1": 0,
+        "2": 560,
+        "3": 560,
+        "4": 560+4.5+49+531,
+        "5": 560+4.5+49+531,
+        "gonio": 560+4.5+49,
+        "caloFwd": 560+4.5+49+531+5+46+200+1394,
+        "caloLat": 560+4.5+49+531+5+46+200+1394+54,
+    }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
 # list of lists of strings -- shape: [[xIn0, yIn0, xIn1, yIn1], [xOut, yOut]]
@@ -131,7 +110,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [0, 0]})
+    thInCentres.update({iRun: [2.973191e-05, -6.416132e-04]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -141,7 +120,7 @@ for iRun in nRun0:
 # mandatory for all the runs
 thOutCentres = {}
 for iRun in nRun0:
-    thOutCentres.update({iRun: [0, 0]})
+    thOutCentres.update({iRun: [-1.732286e-04, -1.024383e-03]})
 
 # aligned input angle range cut, centered around 0, boundaries excluded
 # has to be set run by run
@@ -164,11 +143,9 @@ for iRun in nRun0:
 # dictionary -- shape: {run (string): [xCut0, xCut1, yCut0, yCut1] (4 float)}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
-# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
-# for iRun in nRun0:
-#     if "PWOStrip" in nRun0[iRun]:
-#         xCryCut.update({iRun: [-10, 10, -10, 10]})
-# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
+for iRun in nRun0:
+    if "PWOStrip" in nRun0[iRun]:
+        xCryCut.update({iRun: [-10, 10, -10, 10]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -205,12 +182,6 @@ gonioMap = {
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiPHCut = {}
-for iRun in nRun0:
-    digiPHCut.update({iRun: {}})
-    for s in ["CaloFwd"+str(i) for i in range(9)]:
-        digiPHCut[iRun].update({s: [-100, 999999]})
-    for s in ["CaloLat"+str(i) for i in range(3)]:
-        digiPHCut[iRun].update({s: [-100, 999999]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -219,19 +190,13 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
-for iRun in nRun0:
-    digiTimeCut.update({iRun: {}})
-    for s in ["CaloFwd"+str(i) for i in range(9)]:
-        digiTimeCut[iRun].update({s: [-100, 999999]})
-    for s in ["CaloLat"+str(i) for i in range(3)]:
-        digiTimeCut[iRun].update({s: [-100, 999999]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
 # dictionary -- shape: {run: [var0, var1, ...]} (all string)
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
-lsDigiChCaloFwd = {}  # TBC
+lsDigiChCaloFwd = {}
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
@@ -243,7 +208,7 @@ lsDigiChCaloFwd = {}  # TBC
 # param format: the list of the N parameters values for channel var, in the same order as in func arguments 1-to-N
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
-equalMap = {}  # TBC
+equalMap = {}
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -254,4 +219,4 @@ equalMap = {}  # TBC
 # param format: the list of the N parameters values, in the same order as in func arguments 1-to-N
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
-calibMapFwd = {}  # TBC
+calibMapFwd = {}
