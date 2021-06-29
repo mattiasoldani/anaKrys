@@ -145,7 +145,7 @@ for iRun in nRun0:
 xCryCut = {}
 for iRun in nRun0:
     if "PWOStrip" in nRun0[iRun]:
-        xCryCut.update({iRun: [-10, 10, -10, 10]})
+        xCryCut.update({iRun: [0.912, 1.100, 0.884, 1.676]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
