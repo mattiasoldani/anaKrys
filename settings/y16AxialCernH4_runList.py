@@ -3,7 +3,7 @@
 # select the run numbers or types to be opened with nRunToOpen...
 nRun0 = {
     
-    # PWO [001] "strip" (rotated)
+    # PWO [001] "strip"
     "112576": "PWOStrip_Random_e-",
     "112581": "PWOStrip_Axial_e-",
     
