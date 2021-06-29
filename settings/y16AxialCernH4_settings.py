@@ -23,7 +23,7 @@ descFrac = {}
 # number of lines per event in the ASCII files -- integer >0
 # see asciiMap for the variable list format
 # mandatory with ASCII, useless with ROOT files
-nLinesEv = 1
+nLinesEv = 1  # TBC
 
 # map of the ASCII file variables
 # list of strings -- the names must be entered in the list in the same order as the ASCII table (left-to-right)
@@ -31,27 +31,29 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII, useless with ROOT files
 asciiMap = list()
-for i in range(6): asciiMap.append("xRaw"+str(i))
-for i in range(6): asciiMap.append("nStripHit"+str(i))
-for i in range(6): asciiMap.append("nHit"+str(i))
-for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))  # STEFI ECal -- digi. channels 0-8
-for i in range(3): asciiMap.append("digiBaseCaloFwd"+str(i))  # DEVA ECal -- digi. channels 9-11
-asciiMap.append("digiBaseCrys")  # SiPM coupled to crystal -- digi. channel 12
-for i in [13, 14, 15]: asciiMap.append("digiBaseNone"+str(i))
-for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
-for i in range(3): asciiMap.append("digiPHRawCaloLat"+str(i))  
-asciiMap.append("digiPHRawCrys")
-for i in [13, 14, 15]: asciiMap.append("digiPHRawNone"+str(i))
-for i in range(9): asciiMap.append("digiTimeCaloFwd"+str(i))
-for i in range(3): asciiMap.append("digiTimeCaloLat"+str(i))
-asciiMap.append("digiTimeCrys")
-for i in [13, 14, 15]: asciiMap.append("digiTimeNone"+str(i))
-asciiMap.append("xGonioRawRot")
-asciiMap.append("xGonioRawCrad")
-asciiMap.append("xGonioRawHorsa")
-asciiMap.append("iSpill")
-asciiMap.append("iStep")
-asciiMap.append("iAEv")
+# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
+# for i in range(6): asciiMap.append("xRaw"+str(i))
+# for i in range(6): asciiMap.append("nStripHit"+str(i))
+# for i in range(6): asciiMap.append("nHit"+str(i))
+# for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))  # STEFI ECal -- digi. channels 0-8
+# for i in range(3): asciiMap.append("digiBaseCaloFwd"+str(i))  # DEVA ECal -- digi. channels 9-11
+# asciiMap.append("digiBaseCrys")  # SiPM coupled to crystal -- digi. channel 12
+# for i in [13, 14, 15]: asciiMap.append("digiBaseNone"+str(i))
+# for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
+# for i in range(3): asciiMap.append("digiPHRawCaloLat"+str(i))  
+# asciiMap.append("digiPHRawCrys")
+# for i in [13, 14, 15]: asciiMap.append("digiPHRawNone"+str(i))
+# for i in range(9): asciiMap.append("digiTimeCaloFwd"+str(i))
+# for i in range(3): asciiMap.append("digiTimeCaloLat"+str(i))
+# asciiMap.append("digiTimeCrys")
+# for i in [13, 14, 15]: asciiMap.append("digiTimeNone"+str(i))
+# asciiMap.append("xGonioRawRot")
+# asciiMap.append("xGonioRawCrad")
+# asciiMap.append("xGonioRawHorsa")
+# asciiMap.append("iSpill")
+# asciiMap.append("iStep")
+# asciiMap.append("iAEv")
+# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -66,8 +68,10 @@ treeMap = {}
 # var format: the full dataframe variable name
 # mandatory, but can be skipped/filled with [] for some/all runs --> no variable mirroring for missing runs
 mirrorMap = {}
-for iRun in nRun0:
-    mirrorMap.update({iRun: ["xRaw4"]})
+# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
+# for iRun in nRun0:
+#     mirrorMap.update({iRun: ["xRaw4"]})
+# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
     
 # 1st level data filters
 # dictionary -- shape: 
@@ -98,18 +102,20 @@ for i in range(6):
 #     for tracking modules, use the part of the variable name following "xRaw" (base: 4/2 input/output layers)
 # mandatory, but can be skipped/filled partially for some/all runs --> all missing base positions set to 0
 z = {}
-for iVar in nRun0:
-    z.update({iVar: {
-        "0": 0.0,
-        "1": 0.0,
-        "2": 516.8,
-        "3": 516.8,
-        "4": 516.8+635.3,
-        "5": 516.8+635.3,
-        "gonio": 516.8+65.3,
-        "caloFwd": 516.8+1590.1,
-        "caloLat": 516.8+1639.1,
-    }})
+# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
+# for iVar in nRun0:
+#     z.update({iVar: {
+#         "0": 0.0,
+#         "1": 0.0,
+#         "2": 516.8,
+#         "3": 516.8,
+#         "4": 516.8+635.3,
+#         "5": 516.8+635.3,
+#         "gonio": 516.8+65.3,
+#         "caloFwd": 516.8+1590.1,
+#         "caloLat": 516.8+1639.1,
+#     }})
+# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
 # list of lists of strings -- shape: [[xIn0, yIn0, xIn1, yIn1], [xOut, yOut]]
@@ -158,9 +164,11 @@ for iRun in nRun0:
 # dictionary -- shape: {run (string): [xCut0, xCut1, yCut0, yCut1] (4 float)}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
-for iRun in nRun0:
-    if "PWOStrip" in nRun0[iRun]:
-        xCryCut.update({iRun: [-10, 10, -10, 10]})
+# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
+# for iRun in nRun0:
+#     if "PWOStrip" in nRun0[iRun]:
+#         xCryCut.update({iRun: [-10, 10, -10, 10]})
+# TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC TBC
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
