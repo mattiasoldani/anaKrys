@@ -43,8 +43,8 @@ for i in range(6): treeMap.update({"nHit%d" % i: "nClu%d" % i})
 for i in range(6): treeMap.update({"nStripPerHit%d" % i: "nStrip%d" % i})
 treeMap.update({"EFwd": "energyStefiGev"})
 treeMap.update({"PHCaloLat": "energyDeva"})
-for i in range(3): treeMap.update({"info%d" % i: "xInfo%d" % i})
-for i in range(3): treeMap.update({"info%d" % (3+i): "infoPlus%d" % i})
+for i in range(3): treeMap.update({"info%d" % i: "xInfo%d" % i})  # goniometer & other stuff -- TBC
+for i in range(3): treeMap.update({"info%d" % (3+i): "infoPlus%d" % i})  # goniometer & other stuff -- TBC
 treeMap.update({"iEvent": "eventNumber"})
     
 # variables to mirror, i.e. var --> -var
@@ -110,7 +110,10 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [2.973191e-05, -6.416132e-04]})
+    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "e-" in s]:
+        thInCentres.update({iRun: [2.973191e-05, -6.416132e-04]})
+    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "e+" in s]:
+        thInCentres.update({iRun: [5.656581e-05, -7.092809e-04]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -120,8 +123,11 @@ for iRun in nRun0:
 # mandatory for all the runs
 thOutCentres = {}
 for iRun in nRun0:
-    thOutCentres.update({iRun: [-1.732286e-04, -1.024383e-03]})
-
+    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "e-" in s]:
+        thOutCentres.update({iRun: [-1.732286e-04, -1.024383e-03]})
+    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "e+" in s]:
+        thOutCentres.update({iRun: [-1.032770e-04, -1.162306e-03]})
+        
 # aligned input angle range cut, centered around 0, boundaries excluded
 # has to be set run by run
 # dictionary -- shape: {run (string): cut}
@@ -145,7 +151,14 @@ for iRun in nRun0:
 xCryCut = {}
 for iRun in nRun0:
     if "PWOStrip" in nRun0[iRun]:
-        xCryCut.update({iRun: [0.912, 1.100, 0.884, 1.676]})
+        if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Random_e-" in s]:
+            xCryCut.update({iRun: [0.922, 1.090, 0.884, 1.676]})
+        if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial_e-" in s]:
+            xCryCut.update({iRun: [0.902, 1.070, 0.884, 1.676]})
+        if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Random_e+" in s]:
+            xCryCut.update({iRun: [0.952, 1.120, 0.884, 1.676]})
+        if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial_e+" in s]:
+            xCryCut.update({iRun: [0.937, 1.105, 0.884, 1.676]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
