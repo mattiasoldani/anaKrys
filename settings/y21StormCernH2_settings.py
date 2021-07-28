@@ -23,7 +23,7 @@ descFrac = {}
 # number of lines per event in the ASCII files -- integer >0
 # see asciiMap for the variable list format
 # mandatory with ASCII, useless with ROOT files
-nLinesEv = 0
+nLinesEv = 1
 
 # map of the ASCII file variables
 # list of strings -- the names must be entered in the list in the same order as the ASCII table (left-to-right)
@@ -31,6 +31,27 @@ nLinesEv = 0
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII, useless with ROOT files
 asciiMap = list()
+# for i in range(6): asciiMap.append("xRaw"+str(i))
+# for i in range(6): asciiMap.append("nStripHit"+str(i))
+# for i in range(6): asciiMap.append("nHit"+str(i))
+# for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))  # STEFI ECal -- digi. channels 0-8
+# for i in range(3): asciiMap.append("digiBaseCaloFwd"+str(i))  # DEVA ECal -- digi. channels 9-11
+# asciiMap.append("digiBaseCrys")  # SiPM coupled to crystal -- digi. channel 12
+# for i in [13, 14, 15]: asciiMap.append("digiBaseNone"+str(i))
+# for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
+# for i in range(3): asciiMap.append("digiPHRawCaloLat"+str(i))  
+# asciiMap.append("digiPHRawCrys")
+# for i in [13, 14, 15]: asciiMap.append("digiPHRawNone"+str(i))
+# for i in range(9): asciiMap.append("digiTimeCaloFwd"+str(i))
+# for i in range(3): asciiMap.append("digiTimeCaloLat"+str(i))
+# asciiMap.append("digiTimeCrys")
+# for i in [13, 14, 15]: asciiMap.append("digiTimeNone"+str(i))
+# asciiMap.append("xGonioRawRot")
+# asciiMap.append("xGonioRawCrad")
+# asciiMap.append("xGonioRawHorsa")
+# asciiMap.append("iSpill")
+# asciiMap.append("iStep")
+# asciiMap.append("iAEv")
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -228,3 +249,5 @@ equalMap = {}
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
+for iRun in nRun0:
+    calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [1, 0], 'end']})  # linear calibration -- ADC version (to get plain total PH -- equalised)
