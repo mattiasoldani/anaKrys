@@ -41,7 +41,7 @@ conda env create -f environment.yml
 ```
 This will install the anaKrys environment, which then can be accessed via `conda activate anaKrys` (and closed via `conda deactivate`).
 
-If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interactive mode, you need to set `%matplotlib inline` in the **notebook settings & imports (edit %matplotlib magic here)** section and `bProgressBars = False` in the **input settings** section. Once these have been set, the software will work in the plain environment installed with the environment.yml file only. For more complex environment configurations, see the sections below &mdash; express installation scripts are also available, check below.
+If you want to use anaKrys in JupyterLab (or Jupyter Notebook) without interactive mode (with interactive mode in external windows), you need to set `%matplotlib inline` (`%matplotlib qt`) in the **notebook settings & imports (edit %matplotlib magic here)** section and `bProgressBars = False` in the **input settings** section. Once these have been set, the software will work in the plain environment installed with the environment.yml file only. For more complex environment configurations, see the sections below &mdash; express installation scripts are also available, check below.
 
 #### **HOW TO PERFORM A FULL ENVIRONMENT EXPRESS INSTALLATION**
 
@@ -52,11 +52,11 @@ bash -i createEnvComplete.sh
 
 Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
 
-#### **HOW TO MANUALLY ENABLE INTERACTIVE PLOTS & WIDGETS**
+#### **HOW TO MANUALLY ENABLE ON-PAGE INTERACTIVE PLOTS & WIDGETS**
 
 [![ipympl](https://img.shields.io/badge/ipympl-0.5.8-blue.svg)](https://github.com/matplotlib/ipympl) [![nodejs](https://img.shields.io/badge/nodejs->=10-blue.svg)](https://nodejs.org/)
 
-In order to manually enable the interactive mode in JupyterLab, you need to run these steps in the anaKrys environment:
+In order to manually enable the Jupyterlab on-page interactive mode, you need to run these steps in the anaKrys environment:
 ```shell
 conda install "ipympl=0.5.8"
 conda install "nodejs>=10.0"
@@ -113,11 +113,11 @@ runABC_spillIJK.dat
 ```
 consists of 3 different filesets, whose IDs are "000000", "0001" and "ABC", which in turn comprise 3, 2 and 1 files respectively; all these name formats are valid. Obviously, the file structure should also be common to all the files. The file name structure, path and type, as well as other input settings, are set within the anaKrys.ipynb notebook, in the **input settings** section.
 
-Tipically, data from different data taking sessions have to be dealt with separately. For each experiment two settings files must be created in ./settings with name formats
+Typically, data from different data taking sessions have to be dealt with separately. For each experiment two settings files must be created in ./settings with name formats
 - [EXPERIMENT_NAME]_runList.py, and
 - [EXPERIMENT_NAME]_settings.py
 
-respectively. The variable `settingsFileMods` in the **input settings** section must be assigned the string `[EXPERIMENT_NAME]` for the settings to load properly. Tipycally, [EXPERIMENT_NAME] directly refers to the year, team and place of a specific data taking session, e.g. "y19EliotDesyT21". Template files are available with the name "y21EmptyTemplate", as well as examples from the test mode, in ./settings/test.
+respectively. The variable `settingsFileMods` in the **input settings** section must be assigned the string `[EXPERIMENT_NAME]` for the settings to load properly. Typically, [EXPERIMENT_NAME] directly refers to the year, team and place of a specific data taking session, e.g. "y19EliotDesyT21". Template files are available with the name "y21EmptyTemplate", as well as examples from the test mode, in ./settings/test.
 
 [EXPERIMENT_NAME]_runList.py contains the `nRun0` dictionary which has the run IDs as keys and human-readable run names as values. Multiple run IDs can be associated with the same run name &mdash; this allows to merge multiple runs acquired in the same experimental conditions. Only the filesets referenced there can be opened; the latter is done by referencing either the run IDs or the run names of interest in the `nRunToOpen` in the **input settings** section.
 
