@@ -160,7 +160,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cuts defined, i.e. booleans always True, in missing runs
 outMultCut = {}
 for iRun in nRun0:
-    outMultCut.update({iRun: [0, 2]})
+    outMultCut.update({iRun: [1, 1]})
     
 ########################################################################################################################
 # GONIOMETER
@@ -187,7 +187,7 @@ gonioMap = {
 # var format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
-digiPHCut = {}
+digiPHCut = {}  # no digitizers in this beamtest
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -195,14 +195,14 @@ digiPHCut = {}
 # var format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
-digiTimeCut = {}
+digiTimeCut = {}  # no digitizers in this beamtest
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
 # dictionary -- shape: {run: [var0, var1, ...]} (all string)
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
-lsDigiChCaloFwd = {}
+lsDigiChCaloFwd = {}  # no digitizers in this beamtest
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
@@ -214,7 +214,7 @@ lsDigiChCaloFwd = {}
 # param format: the list of the N parameters values for channel var, in the same order as in func arguments 1-to-N
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
-equalMap = {}
+equalMap = {}  # no digitizers in this beamtest
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -225,4 +225,4 @@ equalMap = {}
 # param format: the list of the N parameters values, in the same order as in func arguments 1-to-N
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
-calibMapFwd = {}
+calibMapFwd = {}  # no digitizers in this beamtest
