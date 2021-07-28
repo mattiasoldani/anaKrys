@@ -34,9 +34,9 @@ asciiMap = list()
 # for i in range(6): asciiMap.append("xRaw"+str(i))
 # for i in range(6): asciiMap.append("nStripHit"+str(i))
 # for i in range(6): asciiMap.append("nHit"+str(i))
-# for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))  # STEFI ECal -- digi. channels 0-8
-# for i in range(3): asciiMap.append("digiBaseCaloFwd"+str(i))  # DEVA ECal -- digi. channels 9-11
-# asciiMap.append("digiBaseCrys")  # SiPM coupled to crystal -- digi. channel 12
+# for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))
+# for i in range(3): asciiMap.append("digiBaseCaloFwd"+str(i))
+# asciiMap.append("digiBaseCrys")
 # for i in [13, 14, 15]: asciiMap.append("digiBaseNone"+str(i))
 # for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
 # for i in range(3): asciiMap.append("digiPHRawCaloLat"+str(i))  
@@ -58,7 +58,7 @@ asciiMap = list()
 # oldName format: look into the raw ROOT tree for the variable names
 # if oldName refers to a multivariable branch, each element must be inserted individually
 # mandatory, but can be left empty --> no variable mapping
-treeMap = { }
+treeMap = {}
     
 # variables to mirror, i.e. var --> -var
 # has to be set run by run
@@ -81,8 +81,8 @@ mirrorMap = {}
 #     and/or of all the out-of-range/in-range values for all the (lowX, upX) ranges for which bInclX=False/True
 # mandatory, but can be left empty --> no filtering
 filterMap = {}
-# for i in range(4):
-#     filterMap.update({"xRaw"+str(i): [[True, [-20, 20]]]})  # senseful data from input tracking layers
+for i in range(4):
+    filterMap.update({"xRaw"+str(i): [[True, [-20, 20]]]})  # senseful data from input tracking layers
 
 ########################################################################################################################
 # SETUP GEOMETRY & TRACKING
@@ -147,8 +147,6 @@ for iRun in nRun0:
     thInCut.update({iRun: [0.01, 0.01]})  # large cut for random (any crystal) and no-crystal runs
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
         thInCut.update({iRun: [0.0001, 0.0001]})
-    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Planar" in s]:  # strict cut along x for planar runs (any crystal)
-        thInCut.update({iRun: [0.0001, 0.0001, 0.01, 0.01]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
@@ -165,7 +163,7 @@ xCryCut = {}
 # mandatory, but can be skipped for some/all runs --> no cuts defined, i.e. booleans always True, in missing runs
 outMultCut = {}
 for iRun in nRun0:
-    outMultCut.update({iRun: [1, 2]})
+    outMultCut.update({iRun: [1, 3]})
     
 ########################################################################################################################
 # GONIOMETER
@@ -195,12 +193,9 @@ gonioMap = {
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiPHCut = {}
-for iRun in nRun0:
-    digiPHCut.update({iRun: {}})
+# for iRun in nRun0:
+#     digiPHCut.update({iRun: {}})
 #     digiPHCut[iRun].update({"CaloFwd": [50, 999999]})
-#     digiPHCut[iRun].update({"CaloLat0": [50, 999999]})
-#     digiPHCut[iRun].update({"CaloLat1": [50, 999999]})
-#     digiPHCut[iRun].update({"CaloLat2": [50, 999999]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -209,14 +204,9 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
-for iRun in nRun0:
-    digiTimeCut.update({iRun: {}})
-#     digiTimeCut[iRun].update({"Trig": [275, 300]})
-#     digiTimeCut[iRun].update({"Crys": [260, 290]})
-#     digiTimeCut[iRun].update({"CaloFwd": [220, 235]})
-#     digiTimeCut[iRun].update({"CaloLat0": [220, 235]})
-#     digiTimeCut[iRun].update({"CaloLat1": [220, 235]})
-#     digiTimeCut[iRun].update({"CaloLat2": [220, 235]})
+# for iRun in nRun0:
+#     digiTimeCut.update({iRun: {}})
+#     digiTimeCut[iRun].update({"CaloFwd": [100, 400]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -224,8 +214,8 @@ for iRun in nRun0:
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-for iRun in nRun0:
-    lsDigiChCaloFwd.update({iRun: ["CaloFwd"]})
+# for iRun in nRun0:
+#     lsDigiChCaloFwd.update({iRun: ["CaloFwd"]})
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
