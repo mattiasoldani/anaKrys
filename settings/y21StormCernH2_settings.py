@@ -10,7 +10,7 @@ nRun0 = (importlib.import_module("."+os.path.basename(__file__).replace("setting
 
 # ROOT tree name, string
 # mandatory with ROOT, useless with ASCII files
-treeName = "t"
+treeName = ""
 
 # descaling fraction, i.e. fraction of events to be processed (uniformly distributed along the run)
 # the lower is this value, the smaller the loaded dataset
@@ -38,28 +38,6 @@ asciiMap = list()
 # if oldName refers to a multivariable branch, each element must be inserted individually
 # mandatory, but can be left empty --> no variable mapping
 treeMap = { }
-treeMap.update({"iStep": "istep"})
-treeMap.update({"iRun0": "nrun"})  # this is to avoid mixing the original run nr. with the one defined ad hoc for the software test
-for i in range(6): treeMap.update({"xRaw%d" % i: "x%d" % i})
-for i in range(6): treeMap.update({"nHit%d" % i: "nclu%d" % i})
-treeMap.update({"xGonioRawRot": "xgonio0"})
-treeMap.update({"xGonioRawCrad": "xgonio1"})
-treeMap.update({"xGonioRawHorsa": "xgonio2"})
-treeMap.update({"xGonioRawHorsaBig": "xgonio3"})
-treeMap.update({"xGonioRawVersa": "xgonio4"})
-treeMap.update({"digiPHRawTrig": "ph0"})  # trigger scinti (between crystal & output tracking module) -- digi. channel 0 (might have changed along the bt)
-treeMap.update({"digiPHRawCrys": "ph1"})  # SiPM coupled to crystal -- digi. channel 2 (might have changed along the bt)
-treeMap.update({"digiPHRawCaloFwdBad": "ph2"})  # Pb glass blocks in the photon branch - digi. channels 2(bad)-3 (might have changed along the bt)
-treeMap.update({"digiPHRawCaloFwd": "ph3"})  # Pb glass blocks in the photon branch - digi. channels 2(bad)-3 (might have changed along the bt)
-treeMap.update({"digiPHRawCaloLatBad": "ph4"})  # Pb glass blocks in the charged branch - digi. channels 4(bad)-5-6-7 (might have changed along the bt)
-for i in range(3): treeMap.update({"digiPHRawCaloLat%d" % i: "ph%d" % (i+5)})  # Pb glass blocks in the charged branch - digi. channels 4(bad)-5-6-7 (might have changed along the bt)
-treeMap.update({"digiTimeTrig": "time0"})
-treeMap.update({"digiTimeCrys": "time1"})
-treeMap.update({"digiTimeCaloFwdBad": "time2"})
-treeMap.update({"digiTimeCaloFwd": "time3"})
-treeMap.update({"digiTimeCaloLatBad": "time4"})
-for i in range(3): treeMap.update({"digiTimeCaloLat%d" % i: "time%d" % (i+5)})
-treeMap.update({"EFwd": "Egamma"})  # using photon energy values computed by Luca & Valerio
     
 # variables to mirror, i.e. var --> -var
 # has to be set run by run
@@ -82,8 +60,8 @@ mirrorMap = {}
 #     and/or of all the out-of-range/in-range values for all the (lowX, upX) ranges for which bInclX=False/True
 # mandatory, but can be left empty --> no filtering
 filterMap = {}
-for i in range(4):
-    filterMap.update({"xRaw"+str(i): [[True, [-20, 20]]]})  # senseful data from input tracking layers
+# for i in range(4):
+#     filterMap.update({"xRaw"+str(i): [[True, [-20, 20]]]})  # senseful data from input tracking layers
 
 ########################################################################################################################
 # SETUP GEOMETRY & TRACKING
@@ -101,12 +79,12 @@ for iVar in nRun0:
     z.update({iVar: {
         "0": 0,
         "1": 0,
-        "2": 1190,
-        "3": 1190,
-        "4": 1724,
-        "5": 1724,
-        "gonio": 1240,
-        "caloFwd": 3072,
+        "2": 1000,
+        "3": 1000,
+        "4": 1500,
+        "5": 1500,
+        "gonio": 1250,
+        "caloFwd": 3000,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -123,7 +101,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [-6.468831e-05, 2.440018e-04]})
+    thInCentres.update({iRun: [0, 0]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -133,7 +111,7 @@ for iRun in nRun0:
 # mandatory for all the runs
 thOutCentres = {}
 for iRun in nRun0:
-    thOutCentres.update({iRun: [6.546774e-03, 5.696304e-03]})
+    thOutCentres.update({iRun: [0, 0]})
 
 # aligned input angle range cut, centered around 0, boundaries excluded
 # has to be set run by run
@@ -156,9 +134,9 @@ for iRun in nRun0:
 # dictionary -- shape: {run (string): [xCut0, xCut1, yCut0, yCut1] (4 float)}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
-for iRun in nRun0:
-    if "PWOStrip" in nRun0[iRun]:
-        xCryCut.update({iRun: [1.25, 1.41, 0.33, 1.43]})
+# for iRun in nRun0:
+#     if "PWOStrip" in nRun0[iRun]:
+#         xCryCut.update({iRun: [1.25, 1.41, 0.33, 1.43]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -198,10 +176,10 @@ gonioMap = {
 digiPHCut = {}
 for iRun in nRun0:
     digiPHCut.update({iRun: {}})
-    digiPHCut[iRun].update({"CaloFwd": [50, 999999]})
-    digiPHCut[iRun].update({"CaloLat0": [50, 999999]})
-    digiPHCut[iRun].update({"CaloLat1": [50, 999999]})
-    digiPHCut[iRun].update({"CaloLat2": [50, 999999]})
+#     digiPHCut[iRun].update({"CaloFwd": [50, 999999]})
+#     digiPHCut[iRun].update({"CaloLat0": [50, 999999]})
+#     digiPHCut[iRun].update({"CaloLat1": [50, 999999]})
+#     digiPHCut[iRun].update({"CaloLat2": [50, 999999]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -212,12 +190,12 @@ for iRun in nRun0:
 digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
-    digiTimeCut[iRun].update({"Trig": [275, 300]})
-    digiTimeCut[iRun].update({"Crys": [260, 290]})
-    digiTimeCut[iRun].update({"CaloFwd": [220, 235]})
-    digiTimeCut[iRun].update({"CaloLat0": [220, 235]})
-    digiTimeCut[iRun].update({"CaloLat1": [220, 235]})
-    digiTimeCut[iRun].update({"CaloLat2": [220, 235]})
+#     digiTimeCut[iRun].update({"Trig": [275, 300]})
+#     digiTimeCut[iRun].update({"Crys": [260, 290]})
+#     digiTimeCut[iRun].update({"CaloFwd": [220, 235]})
+#     digiTimeCut[iRun].update({"CaloLat0": [220, 235]})
+#     digiTimeCut[iRun].update({"CaloLat1": [220, 235]})
+#     digiTimeCut[iRun].update({"CaloLat2": [220, 235]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -238,7 +216,7 @@ for iRun in nRun0:
 # param format: the list of the N parameters values for channel var, in the same order as in func arguments 1-to-N
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
-equalMap = {}  # not used, since the photon energy computed by Luca & Valerio is being used
+equalMap = {}
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -249,4 +227,4 @@ equalMap = {}  # not used, since the photon energy computed by Luca & Valerio is
 # param format: the list of the N parameters values, in the same order as in func arguments 1-to-N
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
-calibMapFwd = {}  # not used, since the photon energy computed by Luca & Valerio is being used
+calibMapFwd = {}
