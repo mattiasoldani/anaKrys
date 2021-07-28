@@ -52,11 +52,11 @@ bash -i createEnvComplete.sh
 
 Note: running the script via `./createEnvComplete.sh` won't work since the Bash interactive mode is needed.
 
-#### **HOW TO MANUALLY ENABLE INTERACTIVE PLOTS & WIDGETS**
+#### **HOW TO MANUALLY ENABLE ON-PAGE INTERACTIVE PLOTS & WIDGETS**
 
 [![ipympl](https://img.shields.io/badge/ipympl-0.5.8-blue.svg)](https://github.com/matplotlib/ipympl) [![nodejs](https://img.shields.io/badge/nodejs->=10-blue.svg)](https://nodejs.org/)
 
-In order to manually enable the interactive mode in JupyterLab, you need to run these steps in the anaKrys environment:
+In order to manually enable the Jupyterlab on-page interactive mode, you need to run these steps in the anaKrys environment:
 ```shell
 conda install "ipympl=0.5.8"
 conda install "nodejs>=10.0"
