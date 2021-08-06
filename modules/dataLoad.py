@@ -15,13 +15,18 @@ def loadGeneral(fileType, fileNameFormatFull, nRun, descFrac, mirrorMap, globDic
     if fileType == "ASCII":  
         asciiMap, nLinesEv = globDict["asciiMap"], globDict["nLinesEv"]
         df, dt = sl.asciiToDfMulti(fileNameFormatFull, list(nRun.keys()), asciiMap, "iRun", nLinesEv, descFrac, mirrorMap, bVerbose=True, bProgress=bProgress)
+        
+    # loading -- if raw data files are NumPy compressed array files...
+    elif fileType == "NPZ":  
+        npzMap, nLinesEv, arrayName = globDict["asciiMap"], globDict["nLinesEv"], globDict["treeName"]
+        df, dt = sl.npzToDfMulti(fileNameFormatFull, list(nRun.keys()), npzMap, arrayName, "iRun", nLinesEv, descFrac, mirrorMap, bVerbose=True, bProgress=bProgress)
 
     # loading -- if raw data files are ROOT trees...
     elif fileType == "ROOT":
         treeMap, treeName = globDict["treeMap"], globDict["treeName"]
         df, dt = sl.rootToDfMulti(fileNameFormatFull, list(nRun.keys()), treeName, "iRun", descFrac, treeMap, mirrorMap, bVerbose=True, bProgress=bProgress)
     
-    # neither ASCII nor ROOT --> not loading anything --> error!
+    # neither ASCII nor NPZ nor ROOT --> not loading anything --> error!
     else:
         print("%s is not a valid filetype --> execution won't work..." % fileType)
         
