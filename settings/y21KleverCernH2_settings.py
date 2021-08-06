@@ -8,8 +8,8 @@ nRun0 = (importlib.import_module("."+os.path.basename(__file__).replace("setting
 ########################################################################################################################
 # DATA STRUCTURE
 
-# ROOT tree name, string
-# mandatory with ROOT, useless with ASCII files
+# ROOT tree or NumPy array name, string
+# mandatory with ROOT/NPZ, useless with ASCII files
 treeName = ""
 
 # descaling fraction, i.e. fraction of events to be processed (uniformly distributed along the run)
@@ -20,16 +20,16 @@ treeName = ""
 # mandatory, but can be left empty --> value set to 1
 descFrac = {}
 
-# number of lines per event in the ASCII files -- integer >0
+# number of lines per event in the ASCII/NPZ files -- integer >0
 # see asciiMap for the variable list format
-# mandatory with ASCII, useless with ROOT files
+# mandatory with ASCII/NPZ, useless with ROOT files
 nLinesEv = 1
 
-# map of the ASCII file variables
-# list of strings -- the names must be entered in the list in the same order as the ASCII table (left-to-right)
+# map of the ASCII/NPZ file variables
+# list of strings -- the names must be entered in the list in the same order as the ASCII/NumPy table (left-to-right)
 # in case of multiple lines per event (nLinesEv > 1), follow the columns-then-rows order:
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
-# mandatory with ASCII, useless with ROOT files
+# mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
 # for i in range(6): asciiMap.append("xRaw"+str(i))
 # for i in range(6): asciiMap.append("nStripHit"+str(i))
