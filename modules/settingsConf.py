@@ -5,7 +5,7 @@ from settings import *
 
 def settingsSelect(boolTest, whichInput):
     
-    if not boolTest:  # physics files -- either ROOT or ASCII
+    if not boolTest:  # physics files -- either ROOT or ASCII or NPZ
         print("looking for files with label %s in ./settings/" % whichInput)
         return "settings.%s_runList" % whichInput, "settings.%s_settings" % whichInput
 
