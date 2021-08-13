@@ -2,5 +2,5 @@
 # shape: {number: type} (all string)
 # select the run numbers or types to be opened with nRunToOpen...
 nRun0 = {
-    "500145" : "WThick_ScanHorsa",
+    "500187" : "WThick_ScanHorsa",
 }

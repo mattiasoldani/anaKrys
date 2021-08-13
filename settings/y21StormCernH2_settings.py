@@ -127,7 +127,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [0, 0]})
+    thInCentres.update({iRun: [2.786865e-06, 2.184221e-04]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
