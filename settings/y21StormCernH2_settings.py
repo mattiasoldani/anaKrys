@@ -23,7 +23,8 @@ descFrac = {}
 # number of lines per event in the ASCII/NPZ files -- integer >0
 # see asciiMap for the variable list format
 # mandatory with ASCII/NPZ, useless with ROOT files
-nLinesEv = 1
+nLinesEv = 4  # ASCII raw
+# nLinesEv =  1  # ASCII merged & NPZ
 
 # map of the ASCII/NPZ file variables
 # list of strings -- the names must be entered in the list in the same order as the ASCII/NumPy table (left-to-right)
