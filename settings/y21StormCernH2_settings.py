@@ -34,14 +34,26 @@ asciiMap = list()
 for i in range(8): asciiMap.append("xRaw"+str(i))
 for i in range(8): asciiMap.append("nStripHit"+str(i))
 for i in range(8): asciiMap.append("nHit"+str(i))
-for i in range(24): asciiMap.append("digiBaseCaloFwd"+str(i))
-for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
+asciiMap.append("digiBaseCounterOut")
+for i in range(7): asciiMap.append("digiBaseEmpty"+str(i))
+for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))
+for i in range(2): asciiMap.append("digiBaseCaloLat"+str(i))
+for i in range(5): asciiMap.append("digiBaseEmpty"+str(i))
+asciiMap.append("digiPHCounterOut")
+for i in range(7): asciiMap.append("digiPHEmpty"+str(i))
+for i in range(9): asciiMap.append("digiPHCaloFwd"+str(i))
+for i in range(2): asciiMap.append("digiPHCaloLat"+str(i))
+for i in range(5): asciiMap.append("digiPHEmpty"+str(i))
+asciiMap.append("digiTimeCounterOut")
+for i in range(7): asciiMap.append("digiTimeEmpty"+str(i))
 for i in range(9): asciiMap.append("digiTimeCaloFwd"+str(i))
+for i in range(2): asciiMap.append("digiTimeCaloLat"+str(i))
+for i in range(5): asciiMap.append("digiTimeEmpty"+str(i))
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
 asciiMap.append("xGonioRawHorsa")
-asciiMap.append("xGonioRawHorsa")
-asciiMap.append("xGonioRawHorsa")
+asciiMap.append("xGonioRawHorsaBig")
+asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iAEv")
@@ -93,12 +105,12 @@ for iVar in nRun0:
     z.update({iVar: {
         "0": 0,
         "1": 0,
-        "2": 1000,
-        "3": 1000,
-        "4": 1500,
-        "5": 1500,
-        "gonio": 1250,
-        "caloFwd": 3000,
+        "2": 1365,
+        "3": 1365,
+        "4": 1365+525+4.5,
+        "5": 1365+525+4.5,
+        "gonio": 1365+50,
+        "caloFwd": 1365+525+4.5+1211+4.5+42,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -138,8 +150,8 @@ for iRun in nRun0:
 thInCut = {}
 for iRun in nRun0:
     thInCut.update({iRun: [0.01, 0.01]})  # large cut for random (any crystal) and no-crystal runs
-    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
-        thInCut.update({iRun: [0.0001, 0.0001]})
+#     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
+#         thInCut.update({iRun: [0.0001, 0.0001]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
@@ -156,7 +168,7 @@ xCryCut = {}
 # mandatory, but can be skipped for some/all runs --> no cuts defined, i.e. booleans always True, in missing runs
 outMultCut = {}
 for iRun in nRun0:
-    outMultCut.update({iRun: [1, 3]})
+    outMultCut.update({iRun: [1, 5]})
     
 ########################################################################################################################
 # GONIOMETER
