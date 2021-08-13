@@ -10,7 +10,7 @@ nRun0 = (importlib.import_module("."+os.path.basename(__file__).replace("setting
 
 # ROOT tree or NumPy array name, string
 # mandatory with ROOT/NPZ, useless with ASCII files
-treeName = ""
+treeName = "data"
 
 # descaling fraction, i.e. fraction of events to be processed (uniformly distributed along the run)
 # the lower is this value, the smaller the loaded dataset
@@ -57,6 +57,9 @@ asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iAEv")
+for i in range(263): asciiMap.append("wfSiPM0_"+str(i))
+for i in range(263): asciiMap.append("wfSiPM1_"+str(i))
+for i in range(263): asciiMap.append("wfSiPM2_"+str(i))
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
