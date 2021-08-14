@@ -6,4 +6,7 @@ nRun0 = {
     "500191" : "WThick_ScanHorsa",
     "500202" : "WThick_ScanRot",
     "500203" : "WThick_ScanCrad",
+    
+    "500232" : "PWO1X0_AxisSearch0",
+    "500234" : "PWO1X0_ScanRot",
 }
