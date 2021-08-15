@@ -23,8 +23,8 @@ descFrac = {}
 # number of lines per event in the ASCII/NPZ files -- integer >0
 # see asciiMap for the variable list format
 # mandatory with ASCII/NPZ, useless with ROOT files
-nLinesEv = 4  # ASCII raw
-# nLinesEv =  1  # ASCII merged & NPZ
+# nLinesEv = 4  # ASCII raw
+nLinesEv =  1  # ASCII merged & NPZ & ASCII stripped
 
 # map of the ASCII/NPZ file variables
 # list of strings -- the names must be entered in the list in the same order as the ASCII/NumPy table (left-to-right)
@@ -64,9 +64,9 @@ asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iAEv")
-for i in range(263): asciiMap.append("wfSiPM0_"+str(i))
-for i in range(263): asciiMap.append("wfSiPM1_"+str(i))
-for i in range(263): asciiMap.append("wfSiPM2_"+str(i))
+# for i in range(263): asciiMap.append("wfSiPM0_"+str(i))
+# for i in range(263): asciiMap.append("wfSiPM1_"+str(i))
+# for i in range(263): asciiMap.append("wfSiPM2_"+str(i))
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -160,17 +160,17 @@ for iRun in nRun0:
 thInCut = {}
 for iRun in nRun0:
     thInCut.update({iRun: [0.01, 0.01]})  # large cut for random (any crystal) and no-crystal runs
-#     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
-#         thInCut.update({iRun: [0.0001, 0.0001]})
+    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
+        thInCut.update({iRun: [0.0001, 0.0001]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
 # dictionary -- shape: {run (string): [xCut0, xCut1, yCut0, yCut1] (4 float)}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
-# for iRun in nRun0:
-#     if "PWOStrip" in nRun0[iRun]:
-#         xCryCut.update({iRun: [1.25, 1.41, 0.33, 1.43]})
+for iRun in nRun0:
+    if ("WThick" in nRun0[iRun]) | ("PWO1X0" in nRun0[iRun]):
+        xCryCut.update({iRun: [0, 2, 0, 2]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -178,7 +178,7 @@ xCryCut = {}
 # mandatory, but can be skipped for some/all runs --> no cuts defined, i.e. booleans always True, in missing runs
 outMultCut = {}
 for iRun in nRun0:
-    outMultCut.update({iRun: [1, 5]})
+    outMultCut.update({iRun: [1, 6]})
     
 ########################################################################################################################
 # GONIOMETER
@@ -208,9 +208,6 @@ gonioMap = {
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiPHCut = {}
-# for iRun in nRun0:
-#     digiPHCut.update({iRun: {}})
-#     digiPHCut[iRun].update({"CaloFwd": [50, 999999]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -219,9 +216,10 @@ digiPHCut = {}
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
-# for iRun in nRun0:
-#     digiTimeCut.update({iRun: {}})
-#     digiTimeCut[iRun].update({"CaloFwd": [100, 400]})
+for iRun in nRun0:
+    digiTimeCut.update({iRun: {}})
+    for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [95, 115]})
+    for i in range(3): digiTimeCut[iRun].update({"Ringo%d" % i : [130, 150]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -229,8 +227,8 @@ digiTimeCut = {}
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-# for iRun in nRun0:
-#     lsDigiChCaloFwd.update({iRun: ["CaloFwd"]})
+for iRun in nRun0:
+    lsDigiChCaloFwd.update({iRun: ["CaloFwd%d" % i for i in range(9)]})
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
@@ -243,6 +241,17 @@ lsDigiChCaloFwd = {}
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
 equalMap = {}
+for iRun in nRun0:
+    equalMap.update({iRun: {}})
+    equalMap[iRun].update({"CaloFwd0" : [lambda x, xref, a: xref*x/a, [191, 131.9]]})
+    equalMap[iRun].update({"CaloFwd1" : [lambda x, xref, a: xref*x/a, [191, 61.5]]})
+    equalMap[iRun].update({"CaloFwd2" : [lambda x, xref, a: xref*x/a, [191, 87.8]]})
+    equalMap[iRun].update({"CaloFwd3" : [lambda x, xref, a: xref*x/a, [191, 84.5]]})
+    equalMap[iRun].update({"CaloFwd4" : [lambda x, xref, a: xref*x/a, [191, 33.23]]})
+    equalMap[iRun].update({"CaloFwd5" : [lambda x, xref, a: xref*x/a, [191, 42.8]]})
+    equalMap[iRun].update({"CaloFwd6" : [lambda x, xref, a: xref*x/a, [191, 107.6]]})
+    equalMap[iRun].update({"CaloFwd7" : [lambda x, xref, a: xref*x/a, [191, 191]]})
+    equalMap[iRun].update({"CaloFwd8" : [lambda x, xref, a: xref*x/a, [191, 65.4]]})
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -255,4 +264,4 @@ equalMap = {}
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
 for iRun in nRun0:
-    calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [1, 0], 'end']})  # linear calibration -- ADC version (to get plain total PH -- equalised)
+    calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [63, 48.8], 'end']})
