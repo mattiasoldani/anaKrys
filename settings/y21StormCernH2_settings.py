@@ -41,21 +41,24 @@ for i in range(3): asciiMap.append("digiBaseJohn"+str(i))
 asciiMap.append("digiBaseEmpty0")
 for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))
 for i in range(2): asciiMap.append("digiBaseCaloLat"+str(i))
-for i in range(5): asciiMap.append("digiBaseEmpty"+str(i+1))
+for i in range(2): asciiMap.append("digiBasePresh"+str(i))
+for i in range(3): asciiMap.append("digiBaseEmpty"+str(i+1))
 asciiMap.append("digiPHRawCounterOut")
 for i in range(3): asciiMap.append("digiPHRawRingo"+str(i))
 for i in range(3): asciiMap.append("digiPHRawJohn"+str(i))
 asciiMap.append("digiPHRawEmpty0")
 for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
 for i in range(2): asciiMap.append("digiPHRawCaloLat"+str(i))
-for i in range(5): asciiMap.append("digiPHRawEmpty"+str(i+1))
+for i in range(2): asciiMap.append("digiPHRawPresh"+str(i))
+for i in range(3): asciiMap.append("digiPHRawEmpty"+str(i+1))
 asciiMap.append("digiTimeCounterOut")
 for i in range(3): asciiMap.append("digiTimeRingo"+str(i))
 for i in range(3): asciiMap.append("digiTimeJohn"+str(i))
 asciiMap.append("digiTimeEmpty0")
 for i in range(9): asciiMap.append("digiTimeCaloFwd"+str(i))
 for i in range(2): asciiMap.append("digiTimeCaloLat"+str(i))
-for i in range(5): asciiMap.append("digiTimeEmpty"+str(i+1))
+for i in range(2): asciiMap.append("digiTimePresh"+str(i))
+for i in range(3): asciiMap.append("digiTimeEmpty"+str(i+1))
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
 asciiMap.append("xGonioRawHorsa")
@@ -137,7 +140,14 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [2.786865e-06, 2.184221e-04]})
+    if ("WThick" in nRun0[iRun]):
+        thInCentres.update({iRun: [2.301262e-06, 1.355881e-04]})
+    elif ("PWO1X0" in nRun0[iRun]):
+        thInCentres.update({iRun: [1.785500e-06, 1.772722e-04]})
+    elif ("PWO2X0" in nRun0[iRun]):
+        thInCentres.update({iRun: [0.349774e-06, 1.734844e-04]})
+    else:
+        thInCentres.update({iRun: [-3.504294e-08, 1.760424e-04]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -162,6 +172,10 @@ for iRun in nRun0:
     thInCut.update({iRun: [0.01, 0.01]})  # large cut for random (any crystal) and no-crystal runs
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
         thInCut.update({iRun: [0.0001, 0.0001]})
+    elif nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisToRandom" in s]:  # slightly loose cut for transition runs close to the axis (any crystal)
+        thInCut.update({iRun: [0.0002, 0.0002]})
+        if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "8000urad" in s]:
+            thInCut.update({iRun: [0.001, 0.001]})  # large cut for transition runs far from the axis
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
@@ -171,6 +185,10 @@ xCryCut = {}
 for iRun in nRun0:
     if ("WThick" in nRun0[iRun]) | ("PWO1X0" in nRun0[iRun]):
         xCryCut.update({iRun: [0, 2, 0, 2]})
+    elif ("PWO2X0" in nRun0[iRun]):
+        xCryCut.update({iRun: [0.664, 1.365, 0, 2]})
+    elif ("WThin" in nRun0[iRun]):
+        xCryCut.update({iRun: [0.95, 1.54, 0.66, 1.37]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -178,7 +196,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cuts defined, i.e. booleans always True, in missing runs
 outMultCut = {}
 for iRun in nRun0:
-    outMultCut.update({iRun: [1, 6]})
+    outMultCut.update({iRun: [1, 4]})
     
 ########################################################################################################################
 # GONIOMETER
@@ -192,9 +210,9 @@ for iRun in nRun0:
 # mandatory, but can be left empty --> no goniometer DOF pairing
 gonioMap = { 
     "Rot": ["thIn0", False, 10**6],
-    "Crad": ["thIn1", False, 10**6],
-    "Horsa": ["xCry0", True, 10],
-    "HorsaBig": ["xCry0", True, 10],
+    "Crad": ["thIn1", False, -10**6],
+    "Horsa": ["xCry0", True, -10],
+    "HorsaBig": ["xCry0", True, -2*10],
     "Versa": ["xCry1", True, -10],
 }
 
@@ -243,15 +261,15 @@ for iRun in nRun0:
 equalMap = {}
 for iRun in nRun0:
     equalMap.update({iRun: {}})
-    equalMap[iRun].update({"CaloFwd0" : [lambda x, xref, a: xref*x/a, [191, 131.9]]})
-    equalMap[iRun].update({"CaloFwd1" : [lambda x, xref, a: xref*x/a, [191, 61.5]]})
-    equalMap[iRun].update({"CaloFwd2" : [lambda x, xref, a: xref*x/a, [191, 87.8]]})
-    equalMap[iRun].update({"CaloFwd3" : [lambda x, xref, a: xref*x/a, [191, 84.5]]})
-    equalMap[iRun].update({"CaloFwd4" : [lambda x, xref, a: xref*x/a, [191, 33.23]]})
-    equalMap[iRun].update({"CaloFwd5" : [lambda x, xref, a: xref*x/a, [191, 42.8]]})
-    equalMap[iRun].update({"CaloFwd6" : [lambda x, xref, a: xref*x/a, [191, 107.6]]})
-    equalMap[iRun].update({"CaloFwd7" : [lambda x, xref, a: xref*x/a, [191, 191]]})
-    equalMap[iRun].update({"CaloFwd8" : [lambda x, xref, a: xref*x/a, [191, 65.4]]})
+    equalMap[iRun].update({"CaloFwd0" : [lambda x, xref, a: xref*x/a, [191, 131.9], 'end']})
+    equalMap[iRun].update({"CaloFwd1" : [lambda x, xref, a: xref*x/a, [191, 61.5], 'end']})
+    equalMap[iRun].update({"CaloFwd2" : [lambda x, xref, a: xref*x/a, [191, 87.8], 'end']})
+    equalMap[iRun].update({"CaloFwd3" : [lambda x, xref, a: xref*x/a, [191, 84.5], 'end']})
+    equalMap[iRun].update({"CaloFwd4" : [lambda x, xref, a: xref*x/a, [191, 33.23], 'end']})
+    equalMap[iRun].update({"CaloFwd5" : [lambda x, xref, a: xref*x/a, [191, 42.8], 'end']})
+    equalMap[iRun].update({"CaloFwd6" : [lambda x, xref, a: xref*x/a, [191, 107.6], 'end']})
+    equalMap[iRun].update({"CaloFwd7" : [lambda x, xref, a: xref*x/a, [191, 191], 'end']})
+    equalMap[iRun].update({"CaloFwd8" : [lambda x, xref, a: xref*x/a, [191, 65.4], 'end']})
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
