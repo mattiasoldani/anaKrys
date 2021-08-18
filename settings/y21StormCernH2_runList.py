@@ -57,15 +57,20 @@ nRun0 = {
     "500439" : "WThin_AxisSearch1",
     "500440" : "WThin_AxisSearch2",
     "500441" : "WThin_ScanRot0",
-    "500443" : "WThin_AxisSearch3",
-    "500444" : "WThin_ScanRot1",  # bad for preshower
-    "500445" : "WThin_AxisSearch4",
-    "500457" : "WThin_ScanCrad0",
+    "500443" : "WThin_AxisSearch3_120GeV",
+    "500444" : "WThin_ScanRot1_120GeV",  # bad for preshower
+    "500445" : "WThin_AxisSearch4_120GeV",
+    "500457" : "WThin_ScanCrad0_120GeV",
+    "500479" : "WThin_Axial_120GeV",
+    "500481" : "WThin_Random_120GeV",
+    "500485" : "WThin_Axial",
+    "500490" : "WThin_Axial0",
+    "500491" : "WThin_Axial",
+    "500493" : "WThin_Random",
+    "500495" : "WThin_AxisToRandom_1500urad",
     
     "500339" : "Bkg",   # used to align input tracker in runs w/ no crystal
     "500364" : "Bkg_MagnOff",
     "500374" : "Bkg_100GeV",
     "500377" : "Bkg_MagnOff_100GeV",
-    "XXXXXX" : "Bkg_100GeV",
-    "XXXXXX" : "Bkg_MagnOff_100GeV",
 }

@@ -146,6 +146,8 @@ for iRun in nRun0:
         thInCentres.update({iRun: [1.785500e-06, 1.772722e-04]})
     elif ("PWO2X0" in nRun0[iRun]):
         thInCentres.update({iRun: [0.349774e-06, 1.734844e-04]})
+    elif (("WThin" in nRun0[iRun]) & (not ("120GeV" in nRun0[iRun]))):
+        thInCentres.update({iRun: [0.349774e-06-1.034630e-04, 1.734844e-04-1.373516e-05]})
     else:
         thInCentres.update({iRun: [-3.504294e-08, 1.760424e-04]})
     
@@ -171,7 +173,10 @@ thInCut = {}
 for iRun in nRun0:
     thInCut.update({iRun: [0.01, 0.01]})  # large cut for random (any crystal) and no-crystal runs
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
-        thInCut.update({iRun: [0.0001, 0.0001]})
+        if nRun0[iRun] in [s for s in sorted(nRun0.values()) if (("WThin" in s) | ("WThick" in s))]:
+            thInCut.update({iRun: [0.00015, 0.00015]}) 
+        else:
+            thInCut.update({iRun: [0.0001, 0.0001]})
     elif nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisToRandom" in s]:  # slightly loose cut for transition runs close to the axis (any crystal)
         thInCut.update({iRun: [0.0002, 0.0002]})
         if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "8000urad" in s]:
@@ -188,7 +193,10 @@ for iRun in nRun0:
     elif ("PWO2X0" in nRun0[iRun]):
         xCryCut.update({iRun: [0.664, 1.365, 0, 2]})
     elif ("WThin" in nRun0[iRun]):
-        xCryCut.update({iRun: [0.95, 1.54, 0.66, 1.37]})
+        if ("120GeV" in nRun0[iRun]):
+            xCryCut.update({iRun: [1.285, 1.607, 0.626, 1.112]})
+        else:
+            xCryCut.update({iRun: [1.421, 1.752, 0.671, 1.226]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -209,8 +217,8 @@ for iRun in nRun0:
 # scale can be negative to adjust relative verso
 # mandatory, but can be left empty --> no goniometer DOF pairing
 gonioMap = { 
-    "Rot": ["thIn0", False, 10**6],
-    "Crad": ["thIn1", False, -10**6],
+    "Rot": ["thIn0", False, -10**6],
+    "Crad": ["thIn1", False, 10**6],
     "Horsa": ["xCry0", True, -10],
     "HorsaBig": ["xCry0", True, -2*10],
     "Versa": ["xCry1", True, -10],
@@ -236,8 +244,13 @@ digiPHCut = {}
 digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
-    for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [95, 115]})
+    if (("WThin" in nRun0[iRun]) & (not ("120GeV" in nRun0[iRun]))):
+        for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [75, 95]})
+    else:
+        for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [95, 115]})
     for i in range(3): digiTimeCut[iRun].update({"Ringo%d" % i : [130, 150]})
+    for i in range(3): digiTimeCut[iRun].update({"John%d" % i : [130, 150]})
+    for i in range(2): digiTimeCut[iRun].update({"Presh%d" % i : [55, 80]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -282,4 +295,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
 for iRun in nRun0:
-    calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [63, 48.8], 'end']})
+    if ("WThin" in nRun0[iRun]):
+        calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [58.45, 177.87], 'end']})
+    else:
+        calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [63, 48.8], 'end']})
