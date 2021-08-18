@@ -68,9 +68,15 @@ nRun0 = {
     "500491" : "WThin_Axial",
     "500493" : "WThin_Random",
     "500495" : "WThin_AxisToRandom_1500urad",
+    "500497" : "WThin_AxisToRandom_750urad",
+    "500498" : "WThin_AxisToRandom_2000urad",
+    "500499" : "WThin_AxisToRandom_9000urad",
+    "500501" : "WThin_Axial",
     
     "500339" : "Bkg",   # used to align input tracker in runs w/ no crystal
     "500364" : "Bkg_MagnOff",
     "500374" : "Bkg_100GeV",
     "500377" : "Bkg_MagnOff_100GeV",
+    "500496" : "Bkg_20GeV",
+    "500500" : "Bkg_20GeV",
 }
