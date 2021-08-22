@@ -23,7 +23,7 @@ descFrac = {}
 # number of lines per event in the ASCII/NPZ files -- integer >0
 # see asciiMap for the variable list format
 # mandatory with ASCII/NPZ, useless with ROOT files
-nLinesEv = 1  # 
+nLinesEv = 1  # 1 for ASCII w/o waveforms, 9 for ASCII w/ waveforms
 
 # map of the ASCII/NPZ file variables
 # list of strings -- the names must be entered in the list in the same order as the ASCII/NumPy table (left-to-right)
@@ -246,6 +246,8 @@ for iRun in nRun0:
 thInCut = {}
 for iRun in nRun0:
     thInCut.update({iRun: [0.01, 0.01]})  # large cut for random (any crystal) and no-crystal runs
+    if ("Axial" in nRun0[iRun]):
+        thInCut.update({iRun: [1e-3, 1e-3]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
@@ -304,6 +306,8 @@ for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
     digiTimeCut[iRun].update({"CounterOut" : [650, 750]})
     for i in range(4): digiTimeCut[iRun].update({"SiPM%d" % i : [530, 610]})
+    for i in range(8): digiTimeCut[iRun].update({"CaloFwd%d" % i : [75, 100]})
+    digiTimeCut[iRun].update({"CaloFwd8" : [85, 120]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -311,8 +315,8 @@ for iRun in nRun0:
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-# for iRun in nRun0:
-#     lsDigiChCaloFwd.update({iRun: ["CaloFwd%d" % i for i in range(9)]})
+for iRun in nRun0:
+    lsDigiChCaloFwd.update({iRun: ["CaloFwd%d" % i for i in range(9)]})
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
@@ -325,17 +329,19 @@ lsDigiChCaloFwd = {}
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
 equalMap = {}
-# for iRun in nRun0:
-#     equalMap.update({iRun: {}})
-#     equalMap[iRun].update({"CaloFwd0" : [lambda x, xref, a: xref*x/a, [191, 131.9], 'end']})
-#     equalMap[iRun].update({"CaloFwd1" : [lambda x, xref, a: xref*x/a, [191, 61.5], 'end']})
-#     equalMap[iRun].update({"CaloFwd2" : [lambda x, xref, a: xref*x/a, [191, 87.8], 'end']})
-#     equalMap[iRun].update({"CaloFwd3" : [lambda x, xref, a: xref*x/a, [191, 84.5], 'end']})
-#     equalMap[iRun].update({"CaloFwd4" : [lambda x, xref, a: xref*x/a, [191, 33.23], 'end']})
-#     equalMap[iRun].update({"CaloFwd5" : [lambda x, xref, a: xref*x/a, [191, 42.8], 'end']})
-#     equalMap[iRun].update({"CaloFwd6" : [lambda x, xref, a: xref*x/a, [191, 107.6], 'end']})
-#     equalMap[iRun].update({"CaloFwd7" : [lambda x, xref, a: xref*x/a, [191, 191], 'end']})
-#     equalMap[iRun].update({"CaloFwd8" : [lambda x, xref, a: xref*x/a, [191, 65.4], 'end']})
+for iRun in nRun0:
+    equalMap.update({iRun: {}})
+    equalMap[iRun].update({"CaloFwd0" : [lambda x, a: a*x, [0.94143814], 'end']})
+    equalMap[iRun].update({"CaloFwd1" : [lambda x, a: a*x, [1.9040481], 'end']})
+    equalMap[iRun].update({"CaloFwd2" : [lambda x, a: a*x, [1.4871194], 'end']})
+    equalMap[iRun].update({"CaloFwd3" : [lambda x, a: a*x, [1.3655914], 'end']})
+    equalMap[iRun].update({"CaloFwd4" : [lambda x, a: a*x, [3.5277777], 'end']})
+    equalMap[iRun].update({"CaloFwd5" : [lambda x, a: a*x, [2.8863637], 'end']})
+    equalMap[iRun].update({"CaloFwd6" : [lambda x, a: a*x, [1.1179577], 'end']})
+    equalMap[iRun].update({"CaloFwd7" : [lambda x, a: a*x, [1], 'end']})
+    equalMap[iRun].update({"CaloFwd8" : [lambda x, a: a*x, [0.62254900], 'end']})
+    equalMap[iRun].update({"CaloLat0" : [lambda x, a: x/a, [1], 'end']})
+    equalMap[iRun].update({"CaloLat1" : [lambda x, a: x/a, [0.582], 'end']})  
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -347,8 +353,5 @@ equalMap = {}
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
-# for iRun in nRun0:
-#     if ("WThin" in nRun0[iRun]):
-#         calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [58.45, 177.87], 'end']})
-#     else:
-#         calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [63, 48.8], 'end']})
+for iRun in nRun0:
+    calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [-102.007, 107.61], 'end']})
