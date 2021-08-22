@@ -48,20 +48,20 @@ for i in range(4): asciiMap.append("digiBaseSiPM"+str(i))
 asciiMap.append("digiBaseEmpty2")
 asciiMap.append("digiBaseCounterOut")
 for i in range(2): asciiMap.append("digiBaseMCP"+str(i))  
-asciiMap.append("digiPhRawEmpty0")
-asciiMap.append("digiPhRawVeto")
-for i in range(2): asciiMap.append("digiPhRawCaloLat%d" % (2+i))
-asciiMap.append("digiPhRawVetoSmall")
-asciiMap.append("digiPhRawCounterOutSmall")
-asciiMap.append("digiPhRawCounterBeforeMagnet")  # MCP0 in some old runs (e.g. 500619)
-asciiMap.append("digiPhRawEmpty1")  # MCP1 in some old runs (e.g. 500619)
-for i in range(9): asciiMap.append("digiPhRawCaloFwd"+str(i))
-for i in range(2): asciiMap.append("digiPhRawCaloLat"+str(i))
-for i in range(5): asciiMap.append("digiPhRawCaloLat%d" % (4+i))
-for i in range(4): asciiMap.append("digiPhRawSiPM"+str(i))
-asciiMap.append("digiPhRawEmpty2")
-asciiMap.append("digiPhRawCounterOut")
-for i in range(2): asciiMap.append("digiPhRawMCP"+str(i))
+asciiMap.append("digiPHRawEmpty0")
+asciiMap.append("digiPHRawVeto")
+for i in range(2): asciiMap.append("digiPHRawCaloLat%d" % (2+i))
+asciiMap.append("digiPHRawVetoSmall")
+asciiMap.append("digiPHRawCounterOutSmall")
+asciiMap.append("digiPHRawCounterBeforeMagnet")  # MCP0 in some old runs (e.g. 500619)
+asciiMap.append("digiPHRawEmpty1")  # MCP1 in some old runs (e.g. 500619)
+for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
+for i in range(2): asciiMap.append("digiPHRawCaloLat"+str(i))
+for i in range(5): asciiMap.append("digiPHRawCaloLat%d" % (4+i))
+for i in range(4): asciiMap.append("digiPHRawSiPM"+str(i))
+asciiMap.append("digiPHRawEmpty2")
+asciiMap.append("digiPHRawCounterOut")
+for i in range(2): asciiMap.append("digiPHRawMCP"+str(i))
 asciiMap.append("digiTimeEmpty0")
 asciiMap.append("digiTimeVeto")
 for i in range(2): asciiMap.append("digiTimeCaloLat%d" % (2+i))
@@ -113,20 +113,20 @@ for i in range(4): treeMap.update({"digiBaseSiPM%d" % i : "digiBase%d" % (24+i)}
 treeMap.update({"digiBaseEmpty2" : "digiBase28"})
 treeMap.update({"digiBaseCounterOut" : "digiBase29"})
 for i in range(2): treeMap.update({"digiBaseMCP%d" % i : "digiBase%d" % (30+i)})                        
-treeMap.update({"digiPhRawEmpty0" : "digiPh0"})
-treeMap.update({"digiPhRawVeto" : "digiPh1"})
-for i in range(2): treeMap.update({"digiPhRawCaloLat%d" % (2+i) : "digiPh%d" % (2+i)})
-treeMap.update({"digiPhRawVetoSmall" : "digiPh4"})
-treeMap.update({"digiPhRawCounterOutSmall" : "digiPh5"})
-treeMap.update({"digiPhRawCounterBeforeMagnet" : "digiPh6"})  # MCP0 in some old runs (e.g. 500619)
-treeMap.update({"digiPhRawEmpty1" : "digiPh7"})  # MCP1 in some old runs (e.g. 500619)
-for i in range(9): treeMap.update({"digiPhRawCaloFwd%d" % i : "digiPh%d" % (8+i)})
-for i in range(2): treeMap.update({"digiPhRawCaloLat%d" % i : "digiPh%d" % (17+i)})
-for i in range(5): treeMap.update({"digiPhRawCaloLat%d" % (4+i) : "digiPh%d" % (19+i)})
-for i in range(4): treeMap.update({"digiPhRawSiPM%d" % i : "digiPh%d" % (24+i)})
-treeMap.update({"digiPhRawEmpty2" : "digiPh28"})
-treeMap.update({"digiPhRawCounterOut" : "digiPh29"})
-for i in range(2): treeMap.update({"digiPhRawMCP%d" % i : "digiPh%d" % (30+i)})                        
+treeMap.update({"digiPHRawEmpty0" : "digiPh0"})
+treeMap.update({"digiPHRawVeto" : "digiPh1"})
+for i in range(2): treeMap.update({"digiPHRawCaloLat%d" % (2+i) : "digiPh%d" % (2+i)})
+treeMap.update({"digiPHRawVetoSmall" : "digiPh4"})
+treeMap.update({"digiPHRawCounterOutSmall" : "digiPh5"})
+treeMap.update({"digiPHRawCounterBeforeMagnet" : "digiPh6"})  # MCP0 in some old runs (e.g. 500619)
+treeMap.update({"digiPHRawEmpty1" : "digiPh7"})  # MCP1 in some old runs (e.g. 500619)
+for i in range(9): treeMap.update({"digiPHRawCaloFwd%d" % i : "digiPh%d" % (8+i)})
+for i in range(2): treeMap.update({"digiPHRawCaloLat%d" % i : "digiPh%d" % (17+i)})
+for i in range(5): treeMap.update({"digiPHRawCaloLat%d" % (4+i) : "digiPh%d" % (19+i)})
+for i in range(4): treeMap.update({"digiPHRawSiPM%d" % i : "digiPh%d" % (24+i)})
+treeMap.update({"digiPHRawEmpty2" : "digiPh28"})
+treeMap.update({"digiPHRawCounterOut" : "digiPh29"})
+for i in range(2): treeMap.update({"digiPHRawMCP%d" % i : "digiPh%d" % (30+i)})                        
 treeMap.update({"digiTimeEmpty0" : "digiTime0"})
 treeMap.update({"digiTimeVeto" : "digiTime1"})
 for i in range(2): treeMap.update({"digiTimeCaloLat%d" % (2+i) : "digiTime%d" % (2+i)})
@@ -201,8 +201,10 @@ for iVar in nRun0:
         "3": 1365,
         "4": 1365+525+4.5,
         "5": 1365+525+4.5,
-        "gonio": 1365+50,
-        "caloFwd": 1365+525+4.5+1211+4.5+42,
+        "6": 1365+525+4.5+9.767+349.1+5+7,
+        "7": 1365+525+4.5+9.767+349.1+5+7,
+        "gonio": 1365+525+4.5+9.767,
+        "caloFwd": 0,  # TBC
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -221,7 +223,7 @@ thInCentres = {}
 for iRun in nRun0:
     thInCentres.update({iRun: [0, 0]})
     if ("PbF2" in nRun0[iRun]):
-        thInCentres.update({iRun: [-3.284821e-05, 1.410627e-04]})
+        thInCentres.update({iRun: [-3.284821e-05-1.222887e-05, 1.410627e-04+5.150415e-06]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -244,31 +246,15 @@ for iRun in nRun0:
 thInCut = {}
 for iRun in nRun0:
     thInCut.update({iRun: [0.01, 0.01]})  # large cut for random (any crystal) and no-crystal runs
-#     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
-#         if nRun0[iRun] in [s for s in sorted(nRun0.values()) if (("WThin" in s) | ("WThick" in s))]:
-#             thInCut.update({iRun: [0.00015, 0.00015]}) 
-#         else:
-#             thInCut.update({iRun: [0.0001, 0.0001]})
-#     elif nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisToRandom" in s]:  # slightly loose cut for transition runs close to the axis (any crystal)
-#         thInCut.update({iRun: [0.0002, 0.0002]})
-#         if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "8000urad" in s]:
-#             thInCut.update({iRun: [0.001, 0.001]})  # large cut for transition runs far from the axis
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
 # dictionary -- shape: {run (string): [xCut0, xCut1, yCut0, yCut1] (4 float)}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
-# for iRun in nRun0:
-#     if ("WThick" in nRun0[iRun]) | ("PWO1X0" in nRun0[iRun]):
-#         xCryCut.update({iRun: [0, 2, 0, 2]})
-#     elif ("PWO2X0" in nRun0[iRun]):
-#         xCryCut.update({iRun: [0.664, 1.365, 0, 2]})
-#     elif ("WThin" in nRun0[iRun]):
-#         if ("120GeV" in nRun0[iRun]):
-#             xCryCut.update({iRun: [1.285, 1.607, 0.626, 1.112]})
-#         else:
-#             xCryCut.update({iRun: [1.421, 1.752, 0.671, 1.226]})
+for iRun in nRun0:
+    if ("PbF2" in nRun0[iRun]):
+        xCryCut.update({iRun: [1.01, 1.63, -10, 10]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -314,15 +300,10 @@ digiPHCut = {}
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
-# for iRun in nRun0:
-#     digiTimeCut.update({iRun: {}})
-#     if (("WThin" in nRun0[iRun]) & (not ("120GeV" in nRun0[iRun]))):
-#         for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [75, 95]})
-#     else:
-#         for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [95, 115]})
-#     for i in range(3): digiTimeCut[iRun].update({"Ringo%d" % i : [130, 150]})
-#     for i in range(3): digiTimeCut[iRun].update({"John%d" % i : [130, 150]})
-#     for i in range(2): digiTimeCut[iRun].update({"Presh%d" % i : [55, 80]})
+for iRun in nRun0:
+    digiTimeCut.update({iRun: {}})
+    digiTimeCut[iRun].update({"CounterOut" : [650, 750]})
+    for i in range(4): digiTimeCut[iRun].update({"SiPM%d" % i : [530, 610]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
