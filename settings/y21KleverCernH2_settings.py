@@ -209,7 +209,7 @@ for iVar in nRun0:
 # list of lists of strings -- shape: [[xIn0, yIn0, xIn1, yIn1], [xOut, yOut]]
 # for all the fields, insert the part of the variable name following "xRaw"
 # mandatory
-baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
+baseTrackingMap = [["0", "1", "2", "3"], ["6", "7"]]
 
 # raw input angle distribution centres for modules alignment
 # has to be set run by run
@@ -219,17 +219,9 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-      thInCentres.update({iRun: [0, 0]})
-#     if ("WThick" in nRun0[iRun]):
-#         thInCentres.update({iRun: [2.301262e-06, 1.355881e-04]})
-#     elif ("PWO1X0" in nRun0[iRun]):
-#         thInCentres.update({iRun: [1.785500e-06, 1.772722e-04]})
-#     elif ("PWO2X0" in nRun0[iRun]):
-#         thInCentres.update({iRun: [0.349774e-06, 1.734844e-04]})
-#     elif (("WThin" in nRun0[iRun]) & (not ("120GeV" in nRun0[iRun]))):
-#         thInCentres.update({iRun: [0.349774e-06-1.034630e-04, 1.734844e-04-1.373516e-05]})
-#     else:
-#         thInCentres.update({iRun: [-3.504294e-08, 1.760424e-04]})
+    thInCentres.update({iRun: [0, 0]})
+    if ("PbF2" in nRun0[iRun]):
+        thInCentres.update({iRun: [-3.284821e-05, 1.410627e-04]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
