@@ -18,4 +18,6 @@ nRun0 = {
     "500827" : "PbF2_ScanRot1",
     "500829" : "PbF2_ScanCrad1",
     "500830" : "PbF2_ScanCrad1",
+    "500832" : "PbF2_Axial",
+    "500833" : "PbF2_Axial",
 }
