@@ -21,4 +21,5 @@ nRun0 = {
     "500832" : "PbF2_Axial",
     "500833" : "PbF2_Axial",
     "500834" : "PbF2_Random",
+    "500836" : "PbF2_AxisToRandom_1250urad",
 }
