@@ -22,4 +22,14 @@ nRun0 = {
     "500833" : "PbF2_Axial",
     "500834" : "PbF2_Random",
     "500836" : "PbF2_AxisToRandom_1250urad",
+    "500837" : "PbF2_Axial",
+    "500843" : "PbF2_AxisToRandom_mixed",  # 0th/1st/2nd scan step at 4100urad/5200urad/8300urad --> typeRun changed accordingly, iRun changed to 500843_0/1/2
+    "500846" : "PbF2_AxisToRandom_650urad",
+    
+    "500841" : "Bkg_MagnetOff",
+    "500842" : "Bkg_MagnetOn",
+    
+    "500843_0" : "PbF2_AxisToRandom_4100urad",  # don't touch this, needed for execution flow
+    "500843_1" : "PbF2_AxisToRandom_5200urad",  # don't touch this, needed for execution flow
+    "500843_2" : "PbF2_AxisToRandom_8300urad",  # don't touch this, needed for execution flow
 }

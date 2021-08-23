@@ -82,7 +82,7 @@ asciiMap.append("xGonioRawHorsa")
 asciiMap.append("xGonioRawHorsaBig")
 asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
-asciiMap.append("iStep")
+asciiMap.append("iStep")  # here iStep is important for position splitting in scan runs
 asciiMap.append("iAEv")
 # for i in range(1031): asciiMap.append("wfSiPM0_"+str(i))
 # for i in range(1031): asciiMap.append("wfSiPM1_"+str(i))
@@ -201,9 +201,9 @@ for iVar in nRun0:
         "3": 1365,
         "4": 1365+525+4.5,
         "5": 1365+525+4.5,
-        "6": 1365+525+4.5+9.767+349.1+5+7,
-        "7": 1365+525+4.5+9.767+349.1+5+7,
-        "gonio": 1365+525+4.5+9.767,
+        "6": 1365+525+4.5+976.7+394.1+5+7,
+        "7": 1365+525+4.5+976.7+394.1+5+7,
+        "gonio": 1365+525+4.5+976.7,
         "caloFwd": 0,  # TBC
     }})
     
@@ -256,7 +256,7 @@ for iRun in nRun0:
 xCryCut = {}
 for iRun in nRun0:
     if ("PbF2" in nRun0[iRun]):
-        xCryCut.update({iRun: [1.01, 1.63, -10, 10]})
+        xCryCut.update({iRun: [0.95, 1.72, -10, 10]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
