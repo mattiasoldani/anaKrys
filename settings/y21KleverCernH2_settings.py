@@ -224,6 +224,8 @@ for iRun in nRun0:
     thInCentres.update({iRun: [0, 0]})
     if ("PbF2" in nRun0[iRun]):
         thInCentres.update({iRun: [-3.284821e-05-1.222887e-05, 1.410627e-04+5.150415e-06]})
+    elif ("PWO1X0" in nRun0[iRun]):
+        thInCentres.update({iRun: [-4.515854e-05, 1.461665e-04]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
