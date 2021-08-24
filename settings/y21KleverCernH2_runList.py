@@ -47,6 +47,8 @@ nRun0 = {
     "500886" : "PWO1X0_ScanCrad1",
     "500887" : "PWO1X0_ScanCrad2",
     "500888" : "PWO1X0_ScanCrad3",
+    "500889" : "PWO1X0_AxisSearch2",
+    "500890" : "PWO1X0_AxisSearch3",
     
     "500841" : "Bkg_MagnetOff",
     "500842" : "Bkg_MagnetOn",
