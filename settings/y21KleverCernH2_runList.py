@@ -25,8 +25,10 @@ nRun0 = {
     "500837" : "PbF2_Axial",
     "500843" : "PbF2_AxisToRandom_mixed",  # 0th/1st/2nd scan step at 4100urad/5200urad/8300urad --> typeRun changed accordingly, iRun changed to 500843_0/1/2
     "500847" : "PbF2_AxisToRandom_650urad",
+    "500841" : "PbF2_Bkg_MagnetOff",
+    "500842" : "PbF2_Bkg_MagnetOn",
     
-    "500865" : "PWO1X0_AxisSearch0",
+    "500865" : "PWO1X0_AxisSearch0",  # used for input tracker alignment (coarse only) (TBC)
     "500866" : "PWO1X0_AxisSearch1",
     "500867" : "PWO1X0_ScanCrad0",
     "500869" : "PWO1X0_ScanCrad0",
@@ -49,9 +51,12 @@ nRun0 = {
     "500888" : "PWO1X0_ScanCrad3",
     "500889" : "PWO1X0_AxisSearch2",
     "500890" : "PWO1X0_AxisSearch3",
-    
-    "500841" : "Bkg_MagnetOff",
-    "500842" : "Bkg_MagnetOn",
+    "500893" : "PWO1X0_Axial",  # bad for SiPMs for spill>1860 (last ~150 spills)
+    "500896" : "PWO1X0_Random",
+    "500898" : "PWO1X0_AxisToRandom_1000urad",
+    "XXXXXX" : "PWO1X0_AxisToRandom_4000urad",
+    "XXXXXX" : "PWO1X0_Bkg_MagnetOff",
+    "XXXXXX" : "PWO1X0_MagnetOn",
     
     "500843_0" : "PbF2_AxisToRandom_4100urad",  # don't touch this, needed for execution flow
     "500843_1" : "PbF2_AxisToRandom_5200urad",  # don't touch this, needed for execution flow

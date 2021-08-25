@@ -83,7 +83,7 @@ asciiMap.append("xGonioRawHorsaBig")
 asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")  # here iStep is important for position splitting in scan runs
-asciiMap.append("iAEv")
+asciiMap.append("iAbsEv")
 # for i in range(1031): asciiMap.append("wfSiPM0_"+str(i))
 # for i in range(1031): asciiMap.append("wfSiPM1_"+str(i))
 # for i in range(1031): asciiMap.append("wfSiPM2_"+str(i))
@@ -281,8 +281,8 @@ for iRun in nRun0:
 gonioMap = { 
     "Rot": ["thIn0", False, -10**6],
     "Crad": ["thIn1", False, 10**6],
-    "Horsa": ["xCry0", True, -10],
-    "HorsaBig": ["xCry0", True, -2*10],
+    "Horsa": ["xCry0", True, 10],
+    "HorsaBig": ["xCry0", True, 2*10],
     "Versa": ["xCry1", True, -10],
 }
 
