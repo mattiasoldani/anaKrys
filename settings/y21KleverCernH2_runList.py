@@ -54,9 +54,10 @@ nRun0 = {
     "500893" : "PWO1X0_Axial",  # bad for SiPMs for spill>1860 (last ~150 spills)
     "500896" : "PWO1X0_Random",
     "500898" : "PWO1X0_AxisToRandom_1000urad",
-    "XXXXXX" : "PWO1X0_AxisToRandom_4000urad",
-    "XXXXXX" : "PWO1X0_Bkg_MagnetOff",
-    "XXXXXX" : "PWO1X0_MagnetOn",
+    "500902" : "PWO1X0_AxisToRandom_4000urad",
+    "500900" : "PWO1X0_Bkg_MagnetOff",
+    "500899" : "PWO1X0_Bkg_MagnetOn",
+    "500901" : "PWO1X0_Axial",
     
     "500843_0" : "PbF2_AxisToRandom_4100urad",  # don't touch this, needed for execution flow
     "500843_1" : "PbF2_AxisToRandom_5200urad",  # don't touch this, needed for execution flow
