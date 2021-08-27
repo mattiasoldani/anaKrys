@@ -16,6 +16,8 @@ Notes:
 - [ROOT](https://root.cern.ch/) itself is not required.
 - all the basic dependencies, as well as the required installation channels, are listed in the Anaconda environment.yml file &mdash; see the section on environment setup for further details on this and on the optional JupyterLab extensions.
 
+The software version may vary between different applied branches. A changelog is available [here](https://sites.google.com/d/1mzlnp2vxXOLypDxdAJ6UqO0TfliJQ3p9/p/1zzWY_sx7oLtgUqTA5qWWgFk8eatXrCpQ/edit).
+
 Note: anaKrys was developed and tested in an Ubuntu 16.04 system and in a Windows 10 system equipped with the [WSL](https://docs.microsoft.com/en-gb/windows/wsl/about) (Windows Subsystem for Linux &mdash; with Ubuntu 18.04) &mdash; check [here](https://docs.microsoft.com/en-gb/windows/wsl/install-win10) for details on the WSL installation. In both cases, this was done within [Anaconda](https://www.anaconda.com/) 3 &mdash; check [here](https://docs.anaconda.com/anaconda/install/) for details on the Anaconda installation.
 
 Found a bug? Or simply have any questions, comments or suggestions you'd like to talk about? Feel free to contact me at <mattiasoldani93@gmail.com>. And brace yourself, for the best is yet to come!
