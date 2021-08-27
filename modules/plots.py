@@ -50,8 +50,8 @@ def plot_runInfo(
     # plot boolean & corresponding title
     # also x, which is common to all the plots
     title = ""
+    dfBool = True
     if len(lsBool)>0:
-        dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
         x = df[dfBool]["epoch"] if (bEpoch & bUseEpoch) else df[dfBool].index
@@ -128,8 +128,8 @@ def plot_th(
     
     # plot boolean & corresponding title & variables to be plotted
     title = ""
+    dfBool = True
     if len(lsBool)>0:
-        dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
         xLs = [df[dfBool][var+"0"], df[dfBool][var+"1"]]
@@ -259,8 +259,8 @@ def plot_nHit(
     # plot boolean & corresponding title
     # also x for the 2d plots, which is common to all the latter
     title = ""
+    dfBool = True
     if len(lsBool)>0:
-        dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
         x = df[dfBool]["epoch"] if (bEpoch & bUseEpoch) else df[dfBool].index
@@ -401,8 +401,8 @@ def plot_proj(
     
     # plot boolean & corresponding title & x & y
     title = ""
+    dfBool = True
     if len(lsBool)>0:
-        dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
         x = df[dfBool][var+"0" if type(var)==str else var[0]]
@@ -465,8 +465,8 @@ def plot_gonioCorr(
     
     # plot boolean & corresponding title & x & y
     title = ""
+    dfBool = True
     if len(lsBool)>0:
-        dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
         x = df[dfBool]["xGonio"+lsVar[0]]
@@ -524,8 +524,8 @@ def plot_digi(
     title = ""
     x = {}
     y = {}
+    dfBool = True
     if len(lsBool)>0:
-        dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
         x = dict(zip(lsVar, [(df[dfBool]["digiTime"+s] if s in bDigiTime else None) for s in lsVar]))
@@ -621,8 +621,8 @@ def plot_energySingle(
         
         # plot boolean & title (corresponding to boolean if title0 is None, else title0) & variable
         title = "" if title0==None else title0
+        dfBool = True
         if len(lsBool)>0:
-            dfBool = True
             for iBool in [df[s] for s in lsBool]:
                 dfBool = dfBool & iBool
             x = df[dfBool]["E"+var]
@@ -715,6 +715,7 @@ def plot_energyRuns(
     # plot boolean & corresponding title
     # also x & y for the 2d plot -- 1d is dealt with in plot_energySingle()
     title = ""
+    dfBool = True
     if len(lsBool)>0:
         dfBool = True
         for iBool in [df[s] for s in lsBool]:
@@ -978,8 +979,8 @@ def plot_prof(
     
     # plot boolean & corresponding title & x & y
     title = ""
+    dfBool = True
     if len(lsBool)>0:
-        dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
         x = df[dfBool][var[0]]
