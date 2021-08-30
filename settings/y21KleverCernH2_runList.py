@@ -3,7 +3,6 @@
 # select the run numbers or types to be opened with nRunToOpen...
 nRun0 = {
     "500653" : "CRILIN_electrons60GeV",
-    "500657" : "CRILIN_electrons120GeV",
     
     "500813" : "PbF2_AxisSearch0",  # used for input tracker alignment (coarse)
     "500814" : "PbF2_AxisSearch1",
