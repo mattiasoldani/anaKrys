@@ -145,7 +145,7 @@ for iRun in nRun0:
     elif ("PWO1X0" in nRun0[iRun]):
         thInCentres.update({iRun: [1.785500e-06, 1.772722e-04]})
     elif ("PWO2X0" in nRun0[iRun]):
-        thInCentres.update({iRun: [0.349774e-06, 1.734844e-04]})
+        thInCentres.update({iRun: [0.349774e-06-4.459598e-07, 1.734844e-04+1.286425e-06]})
     elif (("WThin" in nRun0[iRun]) & (not ("120GeV" in nRun0[iRun]))):
         thInCentres.update({iRun: [0.349774e-06-1.034630e-04, 1.734844e-04-1.373516e-05]})
     else:
@@ -171,14 +171,11 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 thInCut = {}
 for iRun in nRun0:
-    thInCut.update({iRun: [0.01, 0.01]})  # large cut for random (any crystal) and no-crystal runs
+    thInCut.update({iRun: [0.0002, 0.0002]})  # large cut for random (any crystal) and no-crystal runs
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
-        if nRun0[iRun] in [s for s in sorted(nRun0.values()) if (("WThin" in s) | ("WThick" in s))]:
-            thInCut.update({iRun: [0.00015, 0.00015]}) 
-        else:
-            thInCut.update({iRun: [0.0001, 0.0001]})
-    elif nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisToRandom" in s]:  # slightly loose cut for transition runs close to the axis (any crystal)
         thInCut.update({iRun: [0.0002, 0.0002]})
+    elif nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisToRandom" in s]:  # slightly loose cut for transition runs close to the axis (any crystal)
+        thInCut.update({iRun: [0.0004, 0.0004]})
         if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "8000urad" in s]:
             thInCut.update({iRun: [0.001, 0.001]})  # large cut for transition runs far from the axis
 
@@ -273,16 +270,28 @@ for iRun in nRun0:
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
 equalMap = {}
 for iRun in nRun0:
-    equalMap.update({iRun: {}})
-    equalMap[iRun].update({"CaloFwd0" : [lambda x, xref, a: xref*x/a, [191, 131.9], 'end']})
-    equalMap[iRun].update({"CaloFwd1" : [lambda x, xref, a: xref*x/a, [191, 61.5], 'end']})
-    equalMap[iRun].update({"CaloFwd2" : [lambda x, xref, a: xref*x/a, [191, 87.8], 'end']})
-    equalMap[iRun].update({"CaloFwd3" : [lambda x, xref, a: xref*x/a, [191, 84.5], 'end']})
-    equalMap[iRun].update({"CaloFwd4" : [lambda x, xref, a: xref*x/a, [191, 33.23], 'end']})
-    equalMap[iRun].update({"CaloFwd5" : [lambda x, xref, a: xref*x/a, [191, 42.8], 'end']})
-    equalMap[iRun].update({"CaloFwd6" : [lambda x, xref, a: xref*x/a, [191, 107.6], 'end']})
-    equalMap[iRun].update({"CaloFwd7" : [lambda x, xref, a: xref*x/a, [191, 191], 'end']})
-    equalMap[iRun].update({"CaloFwd8" : [lambda x, xref, a: xref*x/a, [191, 65.4], 'end']})
+    if ("WThin" in nRun0[iRun]):  # TBC
+        equalMap.update({iRun: {}})
+        equalMap[iRun].update({"CaloFwd0" : [lambda x, xref, a: xref*x/a, [191, 131.9], 'end']})
+        equalMap[iRun].update({"CaloFwd1" : [lambda x, xref, a: xref*x/a, [191, 61.5], 'end']})
+        equalMap[iRun].update({"CaloFwd2" : [lambda x, xref, a: xref*x/a, [191, 87.8], 'end']})
+        equalMap[iRun].update({"CaloFwd3" : [lambda x, xref, a: xref*x/a, [191, 84.5], 'end']})
+        equalMap[iRun].update({"CaloFwd4" : [lambda x, xref, a: xref*x/a, [191, 33.23], 'end']})
+        equalMap[iRun].update({"CaloFwd5" : [lambda x, xref, a: xref*x/a, [191, 42.8], 'end']})
+        equalMap[iRun].update({"CaloFwd6" : [lambda x, xref, a: xref*x/a, [191, 107.6], 'end']})
+        equalMap[iRun].update({"CaloFwd7" : [lambda x, xref, a: xref*x/a, [191, 191], 'end']})
+        equalMap[iRun].update({"CaloFwd8" : [lambda x, xref, a: xref*x/a, [191, 65.4], 'end']})
+    else:
+        equalMap.update({iRun: {}})
+        equalMap[iRun].update({"CaloFwd0" : [lambda x, a: a*x, [1.436450], 'end']})
+        equalMap[iRun].update({"CaloFwd1" : [lambda x, a: a*x, [3.010804], 'end']})
+        equalMap[iRun].update({"CaloFwd2" : [lambda x, a: a*x, [2.090236], 'end']})
+        equalMap[iRun].update({"CaloFwd3" : [lambda x, a: a*x, [2.179108], 'end']})
+        equalMap[iRun].update({"CaloFwd4" : [lambda x, a: a*x, [5.878854], 'end']})
+        equalMap[iRun].update({"CaloFwd5" : [lambda x, a: a*x, [4.490485], 'end']})
+        equalMap[iRun].update({"CaloFwd6" : [lambda x, a: a*x, [1.792434], 'end']})
+        equalMap[iRun].update({"CaloFwd7" : [lambda x, a: a*x, [1.0], 'end']})
+        equalMap[iRun].update({"CaloFwd8" : [lambda x, a: a*x, [2.952854], 'end']})
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -295,7 +304,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
 for iRun in nRun0:
-    if ("WThin" in nRun0[iRun]):
+    if ("WThin" in nRun0[iRun]):  # TBC
         calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [58.45, 177.87], 'end']})
     else:
-        calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [63, 48.8], 'end']})
+        calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [0.02226, -1.747], 'end']})
