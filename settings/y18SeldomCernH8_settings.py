@@ -173,9 +173,9 @@ for iRun in nRun0:
 # scale can be negative to adjust relative verso
 # mandatory, but can be left empty --> no goniometer DOF pairing
 gonioMap = { 
-    "Rot": ["thIn0", False, -10**6],  # magnitude & sign TBC
-    "Crad": ["thIn1", False, 10**6],  # magnitude & sign TBC
-    "Horsa": ["xCry0", True, 20],  # magnitude & sign TBC
+    "Rot": ["thIn0", False, -10**6],
+    "Crad": ["thIn1", False, 10**6],
+    "Horsa": ["xCry0", True, 20],
 }
 
 ########################################################################################################################
