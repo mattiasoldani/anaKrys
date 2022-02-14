@@ -117,9 +117,8 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    # thInCentres.update({iRun: [-7.640931e-04, -2.425900e-04]})  # alignment w/ alignment run not perfect
     thInCentres.update({iRun: [None, None]})
-
+    
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
 # dictionary -- shape: {run (string): [thX, thY] (2 float or None)}
@@ -128,7 +127,6 @@ for iRun in nRun0:
 # mandatory for all the runs
 thOutCentres = {}
 for iRun in nRun0:
-    # thOutCentres.update({iRun: [4.535002e-02-3.861804e-03-1.754184e-05, 3.690271e-02-1.226760e-03-1.508983e-05]})  # alignment w/ alignment run not perfect
     thOutCentres.update({iRun: [None, None]})
 
 # aligned input angle range cut, centered around 0, boundaries excluded
