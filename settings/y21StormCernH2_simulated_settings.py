@@ -53,6 +53,7 @@ treeMap = {
     "nHit5" : "Tracker_NHit_Y_2",
     "nHit6" : "Tracker_NHit_X_3",
     "nHit7" : "Tracker_NHit_Y_3",
+    "digiPHRawCrys" : "Crystal_EDep",
 }
 import math
 for s in ("00", "01", "02", "10", "11", "12", "20", "21", "22"):
