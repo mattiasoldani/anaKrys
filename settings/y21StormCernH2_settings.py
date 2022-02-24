@@ -283,15 +283,15 @@ for iRun in nRun0:
         equalMap[iRun].update({"CaloFwd8" : [lambda x, xref, a: xref*x/a, [191, 65.4], 'end']})
     else:
         equalMap.update({iRun: {}})
-        equalMap[iRun].update({"CaloFwd0" : [lambda x, a: a*x, [1.436450], 'end']})
-        equalMap[iRun].update({"CaloFwd1" : [lambda x, a: a*x, [3.010804], 'end']})
-        equalMap[iRun].update({"CaloFwd2" : [lambda x, a: a*x, [2.090236], 'end']})
-        equalMap[iRun].update({"CaloFwd3" : [lambda x, a: a*x, [2.179108], 'end']})
-        equalMap[iRun].update({"CaloFwd4" : [lambda x, a: a*x, [5.878854], 'end']})
-        equalMap[iRun].update({"CaloFwd5" : [lambda x, a: a*x, [4.490485], 'end']})
-        equalMap[iRun].update({"CaloFwd6" : [lambda x, a: a*x, [1.792434], 'end']})
-        equalMap[iRun].update({"CaloFwd7" : [lambda x, a: a*x, [1.0], 'end']})
-        equalMap[iRun].update({"CaloFwd8" : [lambda x, a: a*x, [2.952854], 'end']})
+        equalMap[iRun].update({"CaloFwd0" : [lambda x, a: a*x, [0.243383], 'end']})
+        equalMap[iRun].update({"CaloFwd1" : [lambda x, a: a*x, [0.509823], 'end']})
+        equalMap[iRun].update({"CaloFwd2" : [lambda x, a: a*x, [0.352172], 'end']})
+        equalMap[iRun].update({"CaloFwd3" : [lambda x, a: a*x, [0.371667], 'end']})
+        equalMap[iRun].update({"CaloFwd4" : [lambda x, a: a*x, [1.0], 'end']})
+        equalMap[iRun].update({"CaloFwd5" : [lambda x, a: a*x, [0.764825], 'end']})
+        equalMap[iRun].update({"CaloFwd6" : [lambda x, a: a*x, [0.306905], 'end']})
+        equalMap[iRun].update({"CaloFwd7" : [lambda x, a: a*x, [0.169312], 'end']})
+        equalMap[iRun].update({"CaloFwd8" : [lambda x, a: a*x, [0.500015], 'end']})
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -307,4 +307,5 @@ for iRun in nRun0:
     if ("WThin" in nRun0[iRun]):  # TBC
         calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [58.45, 177.87], 'end']})
     else:
-        calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [0.02226, -1.747], 'end']})
+#         calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [0.1321, -1.864], 'end']})  # w/ nominal beam energies
+        calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [0.1181, -1.394], 'end']})  # w/ simulated direct beam runs
