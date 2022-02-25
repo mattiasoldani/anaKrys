@@ -6,6 +6,7 @@ nRun0 = {
     # PWO 1 X0
     "220215RandomOld" : "PWO1X0_Random_Old",
     "220216RandomOld" : "PWO1X0_Random_Old",
+    "220225Random" : "PWO1X0_Random",
     
     # PWO 2 X0
     
