@@ -17,5 +17,5 @@ nRun0 = {
     "220222Calib60GeV" : "directBeam_60GeV",
     "220223Calib40GeV" : "directBeam_40GeV",
     "220222Calib20GeV" : "directBeam_20GeV",
-    "220302DirectMagnOff" : "directBeam_MagnetOff",
+    "220302DirectMagnOff" : "directBeam_MagnetOn",
 }
