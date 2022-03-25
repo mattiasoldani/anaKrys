@@ -10,7 +10,7 @@ nRun0 = (importlib.import_module("."+os.path.basename(__file__).replace("setting
 
 # ROOT tree or NumPy array name, string
 # mandatory with ROOT/NPZ, useless with ASCII files
-treeName = "data"
+treeName = "t"
 
 # descaling fraction, i.e. fraction of events to be processed (uniformly distributed along the run)
 # the lower is this value, the smaller the loaded dataset
@@ -76,7 +76,9 @@ asciiMap.append("iAEv")
 # oldName format: look into the raw ROOT tree for the variable names
 # if oldName refers to a multivariable branch, each element must be inserted individually
 # mandatory, but can be left empty --> no variable mapping
-treeMap = {}
+treeMap = {}  # incomplete, just for anaCalo debug & use
+for i in range(9): treeMap.update({"digiPHRawCaloFwd%d" % i: "digiPh%d" % (8+i)})
+for i in range(9): treeMap.update({"digiTimeCaloFwd%d" % i: "digiTime%d" % (8+i)})
     
 # variables to mirror, i.e. var --> -var
 # has to be set run by run
@@ -122,6 +124,8 @@ for iVar in nRun0:
         "3": 1365,
         "4": 1365+525+4.5,
         "5": 1365+525+4.5,
+        "6": 1365+525+4.5+1211+4.5,
+        "7": 1365+525+4.5+1211+4.5,
         "gonio": 1365+50,
         "caloFwd": 1365+525+4.5+1211+4.5+42,
     }})
