@@ -143,13 +143,19 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 thInCut = {}
 for iRun in nRun0:
-    thInCut.update({iRun: [0.0002, 0.0002]})  # large cut for random (any crystal) and no-crystal runs
+    if (("Axial" in nRun0[iRun]) or ("Calib" in iRun)):
+        thInCut.update({iRun: [0.0002, 0.0002]})  # narrow cuts for runs with crystal physics & calibration runs
+    else:
+        thInCut.update({iRun: [0.01, 0.01]})  # large cuts otherwise
     
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
 # dictionary -- shape: {run (string): [xCut0, xCut1, yCut0, yCut1] (4 float)}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
+for iRun in nRun0:
+    if "2X0" in nRun0[iRun]:
+        xCryCut.update({iRun: [-0.4, 0.4, -1, 1]})  # large cut for random (any crystal) and no-crystal runs
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
