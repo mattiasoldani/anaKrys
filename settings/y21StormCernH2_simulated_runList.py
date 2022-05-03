@@ -8,8 +8,12 @@ nRun0 = {
     "220216RandomOld" : "PWO1X0_Random_Old",
     "220225Random" : "PWO1X0_Random",
     "220503Axial" : "PWO1X0_Axial",
+    "2205__AxialMagnOff" : "PWO1X0_Axial_MagnetOff",  # yet to be generated
     
     # PWO 2 X0
+    "2204292X0Random" : "PWO2X0_Random",
+    "2204262X0Axial" : "PWO2X0_Axial",
+    "2205__2X0AxialMagnOff" : "PWO2X0_Axial_MagnetOff",  # yet to be generated
     
     # other runs
     "220222Calib120GeV" : "directBeam_120GeV",
