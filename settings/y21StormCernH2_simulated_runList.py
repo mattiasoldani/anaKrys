@@ -7,6 +7,7 @@ nRun0 = {
     "220215RandomOld" : "PWO1X0_Random_Old",
     "220216RandomOld" : "PWO1X0_Random_Old",
     "220225Random" : "PWO1X0_Random",
+    "220503Axial" : "PWO1X0_Axial",
     
     # PWO 2 X0
     
@@ -17,5 +18,5 @@ nRun0 = {
     "220222Calib60GeV" : "directBeam_60GeV",
     "220223Calib40GeV" : "directBeam_40GeV",
     "220222Calib20GeV" : "directBeam_20GeV",
-    "220302DirectMagnOff" : "directBeam_MagnetOn",
+    "220302DirectMagnOn" : "directBeam_MagnetOn",
 }
