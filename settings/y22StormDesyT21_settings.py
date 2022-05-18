@@ -31,35 +31,19 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
-asciiMap.append("epoch")
-asciiMap.append("iEvent")
 for i in range(8): asciiMap.append("xRaw%d" % i)
 for i in range(8): asciiMap.append("nHit%d" % i)
-asciiMap.append("xGonioRawRot")
-asciiMap.append("xGonioRawCrad")
-asciiMap.append("xGonioRawHorsa")
-asciiMap.append("xGonioRawHorsaBig")
-asciiMap.append("xGonioRawVersa")
+for i in range(16): asciiMap.append("digiBase%d" % i)
+for i in range(16): asciiMap.append("digiPHRaw%d" % i)
+for i in range(16): asciiMap.append("digiTime%d" % i)
+asciiMap.append("xGonioRaw0")
+asciiMap.append("xGonioRaw1")
+asciiMap.append("xGonioRaw2")
+asciiMap.append("xGonioRaw3")
+asciiMap.append("xGonioRaw4")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
-for s in ["CaloFwd"+str(i) for i in range(9)]: asciiMap.append("digiBase%s" % s)  # GENNI ECal -- digi. channels 0-8
-asciiMap.append("digiBaseTrig")  # trigger scinti (between crystal & output tracking module) -- digi. channel 9
-asciiMap.append("digiBaseVeto")  # veto scinti -- digi. channel 10
-asciiMap.append("digiBasePresh0")  # preshower output scinti -- digi. channel 11
-asciiMap.append("digiBasePresh1")  # preshower output scinti -- digi. channel 12
-for i in [13, 14, 15]: asciiMap.append("digiBaseNone"+str(i))
-for s in ["CaloFwd"+str(i) for i in range(9)]: asciiMap.append("digiPHRaw%s" % s)
-asciiMap.append("digiPHRawTrig")
-asciiMap.append("digiPHRawVeto")
-asciiMap.append("digiPHRawPresh0")
-asciiMap.append("digiPHRawPresh1")
-for i in [13, 14, 15]: asciiMap.append("digiPHRawNone"+str(i))
-for s in ["CaloFwd"+str(i) for i in range(9)]: asciiMap.append("digiTime%s" % s)
-asciiMap.append("digiTimeTrig")
-asciiMap.append("digiTimeVeto")
-asciiMap.append("digiTimePresh0")
-asciiMap.append("digiTimePresh1")
-for i in [13, 14, 15]: asciiMap.append("digiTimeNone"+str(i))
+asciiMap.append("iEvent")
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -74,7 +58,6 @@ treeMap = {}
 # var format: the full dataframe variable name
 # mandatory, but can be skipped/filled with [] for some/all runs --> no variable mirroring for missing runs
 mirrorMap = {}
-for iRun in nRun0: mirrorMap.update({iRun: ["xRaw4", "xRaw7"]})  # planes 4 & 7 swapped
     
 # 1st level data filters
 # dictionary -- shape: 
@@ -108,15 +91,15 @@ for iRun in nRun0:
     z.update({iRun: {
         "0": 0,
         "1": 0,
-        "2": 41.0,
-        "3": 41.0,
-        "4": 41.0 + 22.75 + 45.3 - 2.4,
-        "5": 41.0 + 22.75 + 45.3 - 2.4,
-        "gonio": 41.0 + 22.75,
-        "caloFwd": 41.0 + 22.75 + 64.4 + 8 + 685.0 + 8.0 + 2.4 + 22.4 + 8.0,
+        "2": 78.9,
+        "3": 78.9,
+        "4": 78.9 + 100.15,
+        "5": 78.9 + 100.15,
+        "gonio": 78.9 + 26.25,
+        "caloFwd": 78.9 + 100.15 + 8.5 + 69.7,
         
-        "6": 41.0 + 22.75 + 45.3 - 2.4 + 690.6 + 29.5 + 4.8,
-        "7": 41.0 + 22.75 + 45.3 - 2.4 + 690.6 + 29.5 + 4.8,
+        "6": 78.9 + 100.15 + 587.6,
+        "7": 78.9 + 100.15 + 587.6,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -133,7 +116,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [-5.490719e-03, -4.515025e-03]})
+    thInCentres.update({iRun: [0, 0]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -167,7 +150,6 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
 for iRun in nRun0:
-    
     # W [100] "square"
     if "WSquare" in nRun0[iRun]:
         if (("Axial" in nRun0[iRun]) | ("AxisToRandom_D1" in nRun0[iRun]) | ("AxisToRandom_D2" in nRun0[iRun]) | ("AxisToRandom_D3" in nRun0[iRun])):
@@ -207,13 +189,7 @@ for iRun in nRun0:
 # pairedVar (shifted via its mean if bShift=True) is multiplied to scale and added to gonioVar
 # scale can be negative to adjust relative verso
 # mandatory, but can be left empty --> no goniometer DOF pairing
-gonioMap = { 
-    "Rot": ["thIn0", False, -10**6],
-    "Crad": ["thIn1", False, 10**6],
-    "Horsa": ["xCry0", True, 10],
-    "HorsaBig": ["xCry0", True, 20],
-    "Versa": ["xCry1", True, -10],
-}
+gonioMap = {}
 
 ########################################################################################################################
 # DIGITIZERS
@@ -227,9 +203,6 @@ gonioMap = {
 digiPHCut = {}
 for iRun in nRun0:
     digiPHCut.update({iRun: {}})
-    digiPHCut[iRun].update({"Veto": [-999999, 180]})
-    for s in ["CaloFwd"+str(i) for i in range(9)]:
-        digiPHCut[iRun].update({s: [20, 999999]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -240,13 +213,6 @@ for iRun in nRun0:
 digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
-    digiTimeCut[iRun].update({"Trig": [215, 227]})
-    digiTimeCut[iRun].update({"Veto": [163, 178]})
-    digiTimeCut[iRun].update({"Presh0": [160, 175]})
-    digiTimeCut[iRun].update({"Presh1": [165, 180]})
-    for s in ["CaloFwd"+str(i) for i in range(9)]:
-        digiTimeCut[iRun].update({s: [230, 260]})
-        if s == "CaloFwd8": digiTimeCut[iRun].update({s: [165, 195]})  # ECal channel 8 in 2nd digitizer
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -254,7 +220,7 @@ for iRun in nRun0:
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
+# for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
@@ -267,6 +233,7 @@ for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in rang
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
 equalMap = {}
+"""
 for iRun in nRun0:
     equalMap.update({iRun: {}})  # nonlinear equalisation -- reference channel is 4
     equalMap[iRun].update({"CaloFwd0": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [3625.58, 0.10505, 1818.46, 0.07281], 'end']})
@@ -278,6 +245,7 @@ for iRun in nRun0:
     equalMap[iRun].update({"CaloFwd6": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2676.66, 0.05874, 1818.46, 0.07281], 'end']})
     equalMap[iRun].update({"CaloFwd7": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2098.63, 0.37278, 1818.46, 0.07281], 'end']})
     equalMap[iRun].update({"CaloFwd8": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1532.67, 0.04095, 1818.46, 0.07281], 'end']})
+"""
             
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -291,7 +259,3 @@ for iRun in nRun0:
 calibMapFwd = {}
 for iRun in nRun0:
 #     calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [1, 0], 'end']})  # linear calibration -- ADC version (to get plain total PH -- equalised)
-#     calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [1/1892.03, -527.21/1892.03], 'end']})  # linear calibration
-#     calibMapFwd.update({iRun: [lambda x, a, b: x*a / (1 + x*b), [3.88927018e-04, -2.32945032e-05], 'end']})  # nonlinear calibration -- data from simulations, version 0, outdated
-#     calibMapFwd.update({iRun: [lambda x, a, b: x*a / (1 + x*b), [3.86684996e-04, -2.35628811e-05], 'end']})  # nonlinear calibration -- data from simulations, version 1, outdated
-    calibMapFwd.update({iRun: [lambda x, a, b: x*a / (1 + x*b), [3.86505394e-04, -2.36046499e-05], 'end']})  # nonlinear calibration -- data from simulations, final
