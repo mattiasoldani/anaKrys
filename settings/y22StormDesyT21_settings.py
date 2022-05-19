@@ -31,8 +31,15 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
-for i in range(8): asciiMap.append("xRaw%d" % i)
+for i in range(6): asciiMap.append("xRaw%d" % i)
+asciiMap.append("xRaw7")  # last SiBC: x & y swapped
+asciiMap.append("xRaw6")  # last SiBC: x & y swapped
+for i in range(6): asciiMap.append("nStripHit%d" % i)
+asciiMap.append("nStripHit7")  # last SiBC: x & y swapped
+asciiMap.append("nStripHit6")  # last SiBC: x & y swapped
 for i in range(8): asciiMap.append("nHit%d" % i)
+asciiMap.append("nHit7")  # last SiBC: x & y swapped
+asciiMap.append("nHit6")  # last SiBC: x & y swapped
 for i in range(16): asciiMap.append("digiBase%d" % i)
 for i in range(16): asciiMap.append("digiPHRaw%d" % i)
 for i in range(16): asciiMap.append("digiTime%d" % i)
@@ -44,6 +51,7 @@ asciiMap.append("xGonioRaw4")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iEvent")
+for i in range(4): asciiMap.append("meaningless%d" % i)
 # for j in range(8):
 #     for i in range(263): asciiMap.append("wf_"+str(j)+"_"+str(i))
 
@@ -60,7 +68,7 @@ treeMap = {}
 # var format: the full dataframe variable name
 # mandatory, but can be skipped/filled with [] for some/all runs --> no variable mirroring for missing runs
 mirrorMap = {}
-# for iRun in nRun0: mirrorMap.update({iRun: ["xRaw4", "xRaw7"]})
+for iRun in nRun0: mirrorMap.update({iRun: ["xRaw7"]})
     
 # 1st level data filters
 # dictionary -- shape: 
