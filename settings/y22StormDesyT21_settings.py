@@ -40,9 +40,15 @@ asciiMap.append("nStripHit6")  # last SiBC: x & y swapped
 for i in range(8): asciiMap.append("nHit%d" % i)
 asciiMap.append("nHit7")  # last SiBC: x & y swapped
 asciiMap.append("nHit6")  # last SiBC: x & y swapped
-for i in range(16): asciiMap.append("digiBase%d" % i)
-for i in range(16): asciiMap.append("digiPHRaw%d" % i)
-for i in range(16): asciiMap.append("digiTime%d" % i)
+for i in range(2): asciiMap.append("digiBaseAPC%d" % i)
+for i in range(9): asciiMap.append("digiBaseCaloFwd%d" % i)
+for i in range(5): asciiMap.append("digiBaseEmpty%d" % i)
+for i in range(2): asciiMap.append("digiPHRawAPC%d" % i)
+for i in range(9): asciiMap.append("digiPHRawCaloFwd%d" % i)
+for i in range(5): asciiMap.append("digiPHRawEmpty%d" % i)
+for i in range(2): asciiMap.append("digiTimeAPC%d" % i)
+for i in range(9): asciiMap.append("digiTimeCaloFwd%d" % i)
+for i in range(5): asciiMap.append("digiTimeEmpty%d" % i)
 asciiMap.append("xGonioRaw0")
 asciiMap.append("xGonioRaw1")
 asciiMap.append("xGonioRaw2")
@@ -51,7 +57,7 @@ asciiMap.append("xGonioRaw4")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iEvent")
-for i in range(4): asciiMap.append("meaningless%d" % i)
+for i in range(4): asciiMap.append("xCharge%d" % i)
 # for j in range(8):
 #     for i in range(263): asciiMap.append("wf_"+str(j)+"_"+str(i))
 
@@ -238,7 +244,7 @@ digiTimeCut = {}
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-# for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
+for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
