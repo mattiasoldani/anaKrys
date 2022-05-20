@@ -3,6 +3,6 @@
 # select the run numbers or types to be opened with nRunToOpen...
 nRun0 = {
     
-    "500776" : "test"
+    "500811" : "TrackerAlignment",  # used for alignment ()
     
 }

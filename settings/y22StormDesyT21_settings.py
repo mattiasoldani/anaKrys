@@ -37,7 +37,7 @@ asciiMap.append("xRaw6")  # last SiBC: x & y swapped
 for i in range(6): asciiMap.append("nStripHit%d" % i)
 asciiMap.append("nStripHit7")  # last SiBC: x & y swapped
 asciiMap.append("nStripHit6")  # last SiBC: x & y swapped
-for i in range(8): asciiMap.append("nHit%d" % i)
+for i in range(6): asciiMap.append("nHit%d" % i)
 asciiMap.append("nHit7")  # last SiBC: x & y swapped
 asciiMap.append("nHit6")  # last SiBC: x & y swapped
 for i in range(2): asciiMap.append("digiBaseAPC%d" % i)
