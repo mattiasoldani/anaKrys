@@ -113,10 +113,11 @@ for iRun in nRun0:
         "4": 78.9 + 100.15,
         "5": 78.9 + 100.15,
         "gonio": 78.9 + 26.25,
-        "caloFwd": 78.9 + 100.15 + 8.5 + 69.7,
+        "caloFwd": 78.9 + 100.15 + 587.6 + 8.5 + 69.7,
         
         "6": 78.9 + 100.15 + 587.6,
         "7": 78.9 + 100.15 + 587.6,
+        "APC" : 78.9 + 100.15 + 587.6 + 8.5,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -133,7 +134,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [0, 0]})
+    thInCentres.update({iRun: [-1.791140e-03, 5.749927e-03]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -225,8 +226,8 @@ gonioMap = {}
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiPHCut = {}
-# for iRun in nRun0:
-#     digiPHCut.update({iRun: {}})
+for iRun in nRun0:
+    digiPHCut.update({iRun: {}})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -235,8 +236,10 @@ digiPHCut = {}
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
-# for iRun in nRun0:
-#     digiTimeCut.update({iRun: {}})
+for iRun in nRun0:
+    digiTimeCut.update({iRun: {
+        "CaloFwd4" : (70, 105),
+    }})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -245,6 +248,7 @@ digiTimeCut = {}
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
 for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
+# for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd4"]})  # GENNI ECal -- central channel only
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
