@@ -42,18 +42,21 @@ asciiMap.append("nHit7")  # last SiBC: x & y swapped
 asciiMap.append("nHit6")  # last SiBC: x & y swapped
 for i in range(2): asciiMap.append("digiBaseAPC%d" % i)
 for i in range(9): asciiMap.append("digiBaseCaloFwd%d" % i)
-for i in range(5): asciiMap.append("digiBaseEmpty%d" % i)
+asciiMap.append("digiBaseAPC2")
+for i in range(4): asciiMap.append("digiBaseEmpty%d" % i)
 for i in range(2): asciiMap.append("digiPHRawAPC%d" % i)
 for i in range(9): asciiMap.append("digiPHRawCaloFwd%d" % i)
-for i in range(5): asciiMap.append("digiPHRawEmpty%d" % i)
+asciiMap.append("digiPHRawAPC2")
+for i in range(4): asciiMap.append("digiPHRawEmpty%d" % i)
 for i in range(2): asciiMap.append("digiTimeAPC%d" % i)
 for i in range(9): asciiMap.append("digiTimeCaloFwd%d" % i)
-for i in range(5): asciiMap.append("digiTimeEmpty%d" % i)
-asciiMap.append("xGonioRaw0")
-asciiMap.append("xGonioRaw1")
-asciiMap.append("xGonioRaw2")
-asciiMap.append("xGonioRaw3")
-asciiMap.append("xGonioRaw4")
+asciiMap.append("digiTimeAPC2")
+for i in range(4): asciiMap.append("digiTimeEmpty%d" % i)
+asciiMap.append("xGonioRawRot")
+asciiMap.append("xGonioRawCrad")
+asciiMap.append("xGonioRawHorsa")
+asciiMap.append("xGonioRawHorsaBig")
+asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iEvent")
@@ -135,6 +138,8 @@ baseTrackingMap = [["0", "1", "2", "3"], ["4", "5"]]
 thInCentres = {}
 for iRun in nRun0:
     thInCentres.update({iRun: [-1.791140e-03, 5.749927e-03]})
+    if (int(iRun) >= 500963):
+        thInCentres.update({iRun: [-1.791140e-03+4.818409e-04, 5.749927e-03+1.702944e-04]})  # beam moved a lot in horsa, then recentered
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -144,7 +149,7 @@ for iRun in nRun0:
 # mandatory for all the runs
 thOutCentres = {}
 for iRun in nRun0:
-    thOutCentres.update({iRun: [0, 0]})
+    thOutCentres.update({iRun: [5.079274e-02, 5.571645e-02]})        
 
 # aligned input angle range cut, centered around 0, boundaries excluded
 # has to be set run by run
@@ -156,46 +161,45 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 thInCut = {}
 for iRun in nRun0:
-    thInCut.update({iRun: [0.05, 0.05]})  # large cut for random (any crystal) and no-crystal runs
+    thInCut.update({iRun: [0.05]})  # large cut for random (any crystal) and no-crystal runs
+    if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisSearch" in s]:  # strict cut for axis search (any crystal)
+        thInCut.update({iRun: [0.002]})
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisToRandom" in s]:  # intermediate cut for axis-to-random runs (any crystal)
-        thInCut.update({iRun: [0.0015, 0.0015]})
+        thInCut.update({iRun: [0.0015]})
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
-        thInCut.update({iRun: [0.0009, 0.0009]})
+        thInCut.update({iRun: [0.001]})
+        if ("Diamond" in nRun0[iRun]):  # even stricter cuts for Diamond
+            thInCut.update({iRun: [0.0002]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
 # dictionary -- shape: {run (string): [xCut0, xCut1, yCut0, yCut1] (4 float)}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
-# for iRun in nRun0:
-#     # W [100] "square"
-#     if "WSquare" in nRun0[iRun]:
-#         if (("Axial" in nRun0[iRun]) | ("AxisToRandom_D1" in nRun0[iRun]) | ("AxisToRandom_D2" in nRun0[iRun]) | ("AxisToRandom_D3" in nRun0[iRun])):
-#             xCryCut.update({iRun: [0.5, 0.9, 1.1, 1.7]})  # axial & transition, close-to-axis runs
-#         elif (("AxisToRandom_D4" in nRun0[iRun]) | ("AxisToRandom_D5" in nRun0[iRun]) | ("AxisToRandom_D6" in nRun0[iRun])):
-#             xCryCut.update({iRun: [0.47, 0.87, 1.12, 1.72]})  # transition, far-from-axis runs
-#         elif ("Random" in nRun0[iRun]):
-#             xCryCut.update({iRun: [0.47, 0.87, 1.13, 1.73]})  # random (1st set) runs
-#         else:
-#             xCryCut.update({iRun: [0.65, 0.95, 1.25, 1.55]})  # all other runs runs (i.e. scans)
-#         if "Old" in nRun0[iRun]:
-#             xCryCut.update({iRun: [1.1, 1.5, 1.0, 1.4]})  # any run type with old tracking system positioning (before magnet accident)
-            
-#     # PWO [100] "thick"
-#     elif "PWOThick" in nRun0[iRun]:
-#         xCryCut.update({iRun: [0.3, 1.95, 0.25, 1.9]})
+for iRun in nRun0:
+    if ("PbF2" in nRun0[iRun]):
+        if ("500897" in iRun):  # PbF2 was a bit shifted in 1st random run, moved after that
+            xCryCut.update({iRun: [0.55, 10, -10, 10]})
+        else:
+            xCryCut.update({iRun: [0.22, 10, -10, 10]})
+            if (int(iRun) >= 500963):
+                xCryCut.update({iRun: [1.0, 1.5, 0.5, 10]})
         
-#     # PWO [100] "strip"
-#     elif "PWOStrip" in nRun0[iRun]:
-#         xCryCut.update({iRun: [0.95, 1.25, 0.45, 1.85]})
+    if ("Diamond" in nRun0[iRun]):
+        if ("500948" in iRun):  # diamond was a bit shifted in 1st random run & position check run, moved after that
+            xCryCut.update({iRun: [0.75, 1.3, -10, 0.95]})
+        elif ("500960" in iRun):  # still tweaking crystal position here
+            xCryCut.update({iRun: [1.35, 1.67, 0.59, 1.43]})
+        else:
+            xCryCut.update({iRun: [1.15, 1.67, 0.49, 1.43]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
 # dictionary -- shape: {run (string): [lowWindowCut, upWindowCut] (all float)}
 # mandatory, but can be skipped for some/all runs --> no cuts defined, i.e. booleans always True, in missing runs
 outMultCut = {}
-# for iRun in nRun0:
-#     outMultCut.update({iRun: [1, 2.5]})
+for iRun in nRun0:
+    outMultCut.update({iRun: [1, 4]})
     
 ########################################################################################################################
 # GONIOMETER
@@ -208,13 +212,10 @@ outMultCut = {}
 # scale can be negative to adjust relative verso
 # mandatory, but can be left empty --> no goniometer DOF pairing
 gonioMap = {}
-# gonioMap = { 
-#     "Rot": ["thIn0", False, -10**6],
-#     "Crad": ["thIn1", False, 10**6],
-#     "Horsa": ["xCry0", True, 10],
-#     "HorsaBig": ["xCry0", True, 20],
-#     "Versa": ["xCry1", True, -10],
-# }
+gonioMap = { 
+    "Rot": ["thIn0", False, -10**6],
+    "Crad": ["thIn1", False, -10**6],
+}
 
 ########################################################################################################################
 # DIGITIZERS
@@ -238,7 +239,16 @@ for iRun in nRun0:
 digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun: {
-        "CaloFwd4" : (70, 105),
+        "APC0" : [70, 105],
+        "APC1" : [70, 105],
+        "CaloFwd0" : [70, 105],
+        "CaloFwd1" : [70, 105],
+        "CaloFwd2" : [70, 105],
+        "CaloFwd3" : [70, 105],
+        "CaloFwd4" : [70, 105],
+        "CaloFwd5" : [70, 105],
+        "CaloFwd6" : [170, 190],
+        "CaloFwd7" : [170, 190],
     }})
 
 # set of channels that are forward calorimeter channels
@@ -247,7 +257,7 @@ for iRun in nRun0:
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
+for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(8)]})  # GENNI ECal -- channels 0-7 (8 broken!)
 # for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd4"]})  # GENNI ECal -- central channel only
 
 # equalisation functions and parameters for channels to be equalised
@@ -261,17 +271,16 @@ for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in rang
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
 equalMap = {}
-# for iRun in nRun0:
-#     equalMap.update({iRun: {}})  # nonlinear equalisation -- reference channel is 4
-#     equalMap[iRun].update({"CaloFwd0": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [3625.58, 0.10505, 1818.46, 0.07281], 'end']})
-#     equalMap[iRun].update({"CaloFwd1": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2039.81, 0.06787, 1818.46, 0.07281], 'end']})
-#     equalMap[iRun].update({"CaloFwd2": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2338.31, 0.04680, 1818.46, 0.07281], 'end']})
-#     equalMap[iRun].update({"CaloFwd3": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [3129.84, 0.08349, 1818.46, 0.07281], 'end']})
-#     equalMap[iRun].update({"CaloFwd4": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1818.46, 0.07281, 1818.46, 0.07281], 'end']})
-#     equalMap[iRun].update({"CaloFwd5": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1528.03, 0.04487, 1818.46, 0.07281], 'end']})
-#     equalMap[iRun].update({"CaloFwd6": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2676.66, 0.05874, 1818.46, 0.07281], 'end']})
-#     equalMap[iRun].update({"CaloFwd7": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [2098.63, 0.37278, 1818.46, 0.07281], 'end']})
-#     equalMap[iRun].update({"CaloFwd8": [lambda x, a, b, aRef, bRef: x*aRef / (x*bRef + a - x*b), [1532.67, 0.04095, 1818.46, 0.07281], 'end']})
+for iRun in nRun0:
+    equalMap.update({iRun: {}})  # nonlinear equalisation -- reference channel is 4
+    equalMap[iRun].update({"CaloFwd0": [lambda x, a: x*a, [0.461320], 'end']})
+    equalMap[iRun].update({"CaloFwd1": [lambda x, a: x*a, [0.618319], 'end']})
+    equalMap[iRun].update({"CaloFwd2": [lambda x, a: x*a, [0.580172], 'end']})
+    equalMap[iRun].update({"CaloFwd3": [lambda x, a: x*a, [0.559943], 'end']})
+    equalMap[iRun].update({"CaloFwd4": [lambda x, a: x*a, [1], 'end']})
+    equalMap[iRun].update({"CaloFwd5": [lambda x, a: x*a, [0.882152], 'end']})
+    equalMap[iRun].update({"CaloFwd6": [lambda x, a: x*a, [0.553153], 'end']})
+    equalMap[iRun].update({"CaloFwd7": [lambda x, a: x*a, [1.063839], 'end']})
             
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -283,5 +292,5 @@ equalMap = {}
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
-# for iRun in nRun0:
-#     calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [1, 0], 'end']})  # linear calibration -- ADC version (to get plain total PH -- equalised)
+for iRun in nRun0:
+    calibMapFwd.update({iRun: [lambda x, a, b, c: a*x*x+b*x+c, [3.49e-08, 0.0005343, 0.1489], 'end']})  # linear calibration -- ADC version (to get plain total PH -- equalised)

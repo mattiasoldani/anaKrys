@@ -202,7 +202,7 @@ def plot_th(
         if bSel:
             for iRun in thSel:
                 if len(thSel[iRun]) == 1:  # circular cut
-                    plot_selectionX(ax[i], xRangeTot, [-thSel[iRun], thSel[iRun]], lineC, lineW)
+                    plot_selectionX(ax[i], xRangeTot, [-thSel[iRun][0], thSel[iRun][0]], lineC, lineW)
                 elif len(thSel[iRun]) == 2:  # elliptical cut
                     plot_selectionX(ax[i], xRangeTot, [-thSel[iRun][i], thSel[iRun][i]], lineC, lineW)
                 elif len(thSel[iRun]) == 4:  # rectangular cut
