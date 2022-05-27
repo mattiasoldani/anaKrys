@@ -61,6 +61,8 @@ nRun0 = {
     "500940" : "PbF2_AxisToRandom_10mrad",
     "500942" : "PbF2_Random",
     "500988" : "PbF2_AxisToRandom_3mrad",
+    "500995" : "PbF2_AxisToRandom_1mrad",
+    "500997" : "PbF2_AxisToRandom_3mrad",
     
     "500948" : "Diamond_Random0",  # bad APC
     "500950" : "Diamond_CrystalSearch0",
@@ -83,5 +85,6 @@ nRun0 = {
     "500983" : "Diamond_AxisSearchCrad1",
     "500986" : "Diamond_Axial",
     "500992" : "Diamond_Random",
+    "500999" : "Diamond_AxisToRandom_650urad",
     
 }

@@ -183,7 +183,7 @@ for iRun in nRun0:
         else:
             xCryCut.update({iRun: [0.22, 10, -10, 10]})
             if (int(iRun) >= 500963):
-                xCryCut.update({iRun: [1.0, 1.5, 0.5, 10]})
+                xCryCut.update({iRun: [1.0, 1.6, 0.4, 10]})
         
     if ("Diamond" in nRun0[iRun]):
         if ("500948" in iRun):  # diamond was a bit shifted in 1st random run & position check run, moved after that
