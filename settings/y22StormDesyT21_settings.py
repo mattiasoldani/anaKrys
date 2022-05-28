@@ -166,6 +166,8 @@ for iRun in nRun0:
         thInCut.update({iRun: [0.002]})
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "AxisToRandom" in s]:  # intermediate cut for axis-to-random runs (any crystal)
         thInCut.update({iRun: [0.0015]})
+        if ("Diamond" in nRun0[iRun]):  # even stricter cuts for Diamond
+            thInCut.update({iRun: [0.0005]})
     if nRun0[iRun] in [s for s in sorted(nRun0.values()) if "Axial" in s]:  # strict cut for axial runs (any crystal)
         thInCut.update({iRun: [0.001]})
         if ("Diamond" in nRun0[iRun]):  # even stricter cuts for Diamond

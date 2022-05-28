@@ -86,5 +86,8 @@ nRun0 = {
     "500986" : "Diamond_Axial",
     "500992" : "Diamond_Random",
     "500999" : "Diamond_AxisToRandom_650urad",
+    "501014" : "Diamond_AxisToRandom_650urad",
+    "501017" : "Diamond_AxisToRandom_1300urad",
+    "501019" : "Diamond_Axial",
     
 }
