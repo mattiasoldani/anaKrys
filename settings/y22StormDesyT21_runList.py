@@ -19,6 +19,13 @@ nRun0 = {
     "500852" : "5GeV_APCAlignment",
     "500854" : "5GeV_APCAlignment",
     "500855" : "5GeV_APCAlignment",
+    "500884" : "2GeV_CystalAlignmentSpatial",
+    "500885" : "2GeV_CystalAlignmentSpatial",
+    "500886" : "2GeV_CystalAlignmentSpatial",
+    "500887" : "2GeV_CystalAlignmentSpatial",
+    "500889" : "2GeV_CystalAlignmentSpatial",
+    "501023" : "PlasticHolder_Bkg_MagnetOn",
+    "501029" : "PlasticHolder_Bkg_MagnetOff",
     
     "500870" : "Calib_Ch012_1000MeV",
     "500869" : "Calib_Ch012_2000MeV",
@@ -32,12 +39,6 @@ nRun0 = {
     "500868" : "Calib_Ch678_2000MeV",
     "500865" : "Calib_Ch678_4000MeV",
     "500874" : "Calib_Ch678_5600MeV",
-    
-    "500884" : "2GeV_CystalAlignmentSpatial",
-    "500885" : "2GeV_CystalAlignmentSpatial",
-    "500886" : "2GeV_CystalAlignmentSpatial",
-    "500887" : "2GeV_CystalAlignmentSpatial",
-    "500889" : "2GeV_CystalAlignmentSpatial",
     
     "500897" : "PbF2_AxisSearch00",
     "500898" : "PbF2_AxisSearch01",
