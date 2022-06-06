@@ -165,7 +165,6 @@ All the input data are stored into the `df` [pandas DataFrame](https://pandas.py
 |    `boolDigiPH...` | boolean(s) | True if the digitizer pulse heights are within the selected range &mdash; check `digiPHCut` setting                                 |
 |  `boolDigiTime...` | boolean(s) | True if the digitizer peaking times are within the selected range &mdash; check `digiTimeCut` setting                               |
 |  `boolTimeCaloFwd` |   boolean  | True if any of the forward calorimeter peaking times is within the selected range; check `lsDigiChCaloFwd` setting
-|
 
 All these variables either come directly from the raw data or are computed in the **physics analysis** section. Their availability and therefore the parts of the analysis that are actually executed depend on the input data structure. The single `df` variables are [pandas Series](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html) objects and can be accessed via e.g. `df.iRun` or `df["iRun"]`. New variables can be added to `df` anytime, e.g. in the **whiteboard** &mdash; see dedicated section.
 
