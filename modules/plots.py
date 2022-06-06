@@ -202,7 +202,7 @@ def plot_th(
         if bSel:
             for iRun in thSel:
                 if len(thSel[iRun]) == 1:  # circular cut
-                    plot_selectionX(ax[i], xRangeTot, [-thSel[iRun], thSel[iRun]], lineC, lineW)
+                    plot_selectionX(ax[i], xRangeTot, [-thSel[iRun][0], thSel[iRun][0]], lineC, lineW)
                 elif len(thSel[iRun]) == 2:  # elliptical cut
                     plot_selectionX(ax[i], xRangeTot, [-thSel[iRun][i], thSel[iRun][i]], lineC, lineW)
                 elif len(thSel[iRun]) == 4:  # rectangular cut
@@ -705,19 +705,11 @@ def plot_energyRuns(
     plt.close(figName)
     fig, ax = plt.subplots(nrows=2, ncols=1, figsize=[xSize, ySize], num=figName)
     
-#     # title is not defined here -- only the overall global boolean
-#     # lsBool is passed to the single-plot function anyway, to create the figure title
-#     if len(lsBool)>0:
-#         dfBool = True
-#         for iBool in [df[s] for s in lsBool]:
-#             dfBool = dfBool & iBool
-        # plot boolean & title (corresponding to boolean if title0 is None, else title0) & variable
     # plot boolean & corresponding title
     # also x & y for the 2d plot -- 1d is dealt with in plot_energySingle()
     title = ""
     dfBool = True
     if len(lsBool)>0:
-        dfBool = True
         for iBool in [df[s] for s in lsBool]:
             dfBool = dfBool & iBool
         x2d = df[dfBool]["epoch"] if (bEpoch & bUseEpoch) else df[dfBool].index

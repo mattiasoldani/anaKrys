@@ -116,8 +116,8 @@ def trackingAngleAlign(df, trackingMap, thCentres, thName, z, bThCut, thCut = {}
                     df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = (df[dfBool][thName+"0"].values / xCut)**2 + (df[dfBool][thName+"1"].values / yCut)**2 < 1
                     print("bool%sAligned: ellipse centered in 0 with hor. (ver.) half-axis %f (%f) (edge excluded)" % (thName.replace("th", ""), xCut, yCut))
                 elif len(thCut[iRun]) == 1:  # circular cut -- radius as only parameter
-                    df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = (df[dfBool][thName+"0"].values / thCut[iRun])**2 + (df[dfBool][thName+"1"].values / thCut[iRun])**2 < 1
-                    print("bool%sAligned: circle centered in 0 with radius %f (edge excluded)" % (thName.replace("th", ""), thCut[iRun]))
+                    df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = (df[dfBool][thName+"0"].values / thCut[iRun][0])**2 + (df[dfBool][thName+"1"].values / thCut[iRun][0])**2 < 1
+                    print("bool%sAligned: circle centered in 0 with radius %f (edge excluded)" % (thName.replace("th", ""), thCut[iRun][0]))
                 else:
                     df.loc[dfBool, "bool%sAligned" % thName.replace("th", "")] = True
                     print("no cut defined for %s angle (cut list size mismatch) --> bool%sAligned always True" % (thName, thName.replace("th", "")))
