@@ -30,7 +30,7 @@ Found a bug? Or simply have any questions, comments or suggestions you'd like to
 
 The anaKrys source code can be downloaded either as a ZIP archive, from the Code drop-down menu [here](https://github.com/mattiasoldani/anaKrys), or directly from the terminal (open in your project working directory) via
 ```shell
-git clone git://github.com/mattiasoldani/anaKrys.git
+git clone https://github.com/mattiasoldani/anaKrys.git
 ```
 Note: the latter requires  [Git](https://git-scm.com/) installed on your machine.
 
@@ -164,7 +164,7 @@ All the input data are stored into the `df` [pandas DataFrame](https://pandas.py
 |        `boolInCry` |   boolean  | True if the input trajectory falls within the fiducial box at the goniometer _z_ &mdash; check  `xCryCut` setting, 0 & 1 together   |
 |    `boolDigiPH...` | boolean(s) | True if the digitizer pulse heights are within the selected range &mdash; check `digiPHCut` setting                                 |
 |  `boolDigiTime...` | boolean(s) | True if the digitizer peaking times are within the selected range &mdash; check `digiTimeCut` setting                               |
-|  `boolTimeCaloFwd` |   boolean  | True if any of the forward calorimeter peaking times is within the selected range; check `lsDigiChCaloFwd` setting
+|  `boolTimeCaloFwd` |   boolean  | True if any of the forward calorimeter peaking times is within the selected range &mdash; check `lsDigiChCaloFwd` setting
 
 All these variables either come directly from the raw data or are computed in the **physics analysis** section. Their availability and therefore the parts of the analysis that are actually executed depend on the input data structure. The single `df` variables are [pandas Series](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html) objects and can be accessed via e.g. `df.iRun` or `df["iRun"]`. New variables can be added to `df` anytime, e.g. in the **whiteboard** &mdash; see dedicated section.
 
