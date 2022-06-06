@@ -3,7 +3,7 @@
 # select the run numbers or types to be opened with nRunToOpen...
 nRun0 = {
     
-    "500811" : "5GeV_TrackerAlignment",  # used for alignment ()
+    "500811" : "5GeV_TrackerAlignment",  # used for alignment
     "500831" : "5GeV_MagnetTest0",
     "500832" : "5GeV_MagnetTest100",
     "500833" : "5GeV_MagnetTest500",
