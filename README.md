@@ -193,6 +193,6 @@ inFile.close()
 
 ---
 
-### Add-on: anaCalo
+### Add-on: the anaCalo notebook
 
 anaCalo.ipynb is a tool for calorimeter linear equalisation (if multi-channel) and calibration. Most of the settings related to the experimental setup configuration are automatically taken from the anaKrys settings files; on the other hand, all the settings related to the I/O and to the equalisation/calibration procedures are set within the notebook.
