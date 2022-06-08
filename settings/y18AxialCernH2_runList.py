@@ -17,7 +17,7 @@ nRun0 = {
     "300330": "PWOStrip_Random_e-",
     "300329": "PWOStrip_Planar_e-",
     "300321": "PWOStrip_Axial_e-",
-    "300331": "PWOStrip_Axial_e-",
+    "300331": "PWOStrip_Axial_e-_2",
     
     # W [111] by Uggerhoj
     "300204": "WUggerhoj_AxisSearch0_e-_0",
@@ -42,5 +42,11 @@ nRun0 = {
     "300246": "Direct_MagnetOff_e-",
     "300324": "Direct_MagnetOff_e-",
     "300327": "Direct_MagnetOff_e-",
+    
+    "300281": "Calib_120GeV",
+    "300298": "Calib_100GeV",
+    "300297": "Calib_080GeV",
+    "300292": "Calib_060GeV",
+    "300291": "Calib_040GeV",
     
 }

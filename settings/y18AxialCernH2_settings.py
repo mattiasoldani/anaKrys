@@ -10,7 +10,7 @@ nRun0 = (importlib.import_module("."+os.path.basename(__file__).replace("setting
 
 # ROOT tree or NumPy array name, string
 # mandatory with ROOT/NPZ, useless with ASCII files
-treeName = ""
+treeName = "t"
 
 # descaling fraction, i.e. fraction of events to be processed (uniformly distributed along the run)
 # the lower is this value, the smaller the loaded dataset
@@ -23,7 +23,7 @@ descFrac = {}
 # number of lines per event in the ASCII/NPZ files -- integer >0
 # see asciiMap for the variable list format
 # mandatory with ASCII/NPZ, useless with ROOT files
-nLinesEv = 0
+nLinesEv = 1
 
 # map of the ASCII/NPZ file variables
 # list of strings -- the names must be entered in the list in the same order as the ASCII/NumPy table (left-to-right)
@@ -31,6 +31,30 @@ nLinesEv = 0
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
+for i in range(6): asciiMap.append("xRaw"+str(i))
+for i in range(6): asciiMap.append("nStripHit"+str(i))
+for i in range(6): asciiMap.append("nHit"+str(i))
+for i in range(8): asciiMap.append("digiBase"+str(i))
+asciiMap.append("digiPHRawTig")
+asciiMap.append("digiPHRawCrys")
+asciiMap.append("digiPHRawCaloFwdBad")
+asciiMap.append("digiPHRawCaloFwd")
+asciiMap.append("digiPHRawCaloLatBad")
+for i in range(3): asciiMap.append("digiPHRawLat"+str(i))
+asciiMap.append("digiTimeTig")
+asciiMap.append("digiTimeCrys")
+asciiMap.append("digiTimeCaloFwdBad")
+asciiMap.append("digiTimeCaloFwd")
+asciiMap.append("digiTimeCaloLatBad")
+for i in range(3): asciiMap.append("digiTimeLat"+str(i))
+asciiMap.append("xGonioRawRot")
+asciiMap.append("xGonioRawCrad")
+asciiMap.append("xGonioRawHorsa")
+asciiMap.append("xGonioRawHorsaBig")
+asciiMap.append("xGonioRawVersa")
+asciiMap.append("iSpill")
+asciiMap.append("iStep")
+asciiMap.append("iAEv")
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -238,7 +262,7 @@ for iRun in nRun0:
 # param format: the list of the N parameters values for channel var, in the same order as in func arguments 1-to-N
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
-equalMap = {}  # not used, since the photon energy computed by Luca & Valerio is being used
+equalMap = {}  # not used, since there was only 1 forward calo. channel
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -249,4 +273,6 @@ equalMap = {}  # not used, since the photon energy computed by Luca & Valerio is
 # param format: the list of the N parameters values, in the same order as in func arguments 1-to-N
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
-calibMapFwd = {}  # not used, since the photon energy computed by Luca & Valerio is being used
+calibMapFwd = {}  # not used with ROOT files, since the photon energy computed by Luca & Valerio is being used
+for iRun in nRun0:
+    calibMapFwd.update({iRun: [lambda x, m, q : m*x+q, [0.01166, 1.311], 'end']})
