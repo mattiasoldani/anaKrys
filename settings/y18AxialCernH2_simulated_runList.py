@@ -9,4 +9,8 @@ nRun0 = {
     "220622Axial" : "PWOStrip_Axial",
     "220623Axial" : "PWOStrip_Axial",
     
+    # other runs
+    "220623DirectMagnOff" : "PWOStrip_Direct_MagnetOff",
+    "220623DirectMagnOn" : "PWOStrip_Direct_MagnetOn",
+    
 }
