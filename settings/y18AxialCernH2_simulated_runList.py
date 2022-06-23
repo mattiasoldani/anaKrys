@@ -5,6 +5,8 @@ nRun0 = {
     
     # PWO strip
     "220621Random" : "PWOStrip_Random",
+    "220623Random" : "PWOStrip_Random",
     "220622Axial" : "PWOStrip_Axial",
+    "220623Axial" : "PWOStrip_Axial",
     
 }
