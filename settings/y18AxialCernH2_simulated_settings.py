@@ -95,7 +95,7 @@ for i in range(4):
 z = {}
 for iVar in nRun0:
     z.update({iVar: {
-        "0": 1,
+        "0": 0,
         "1": 0,
         "2": 1190,
         "3": 1190,
