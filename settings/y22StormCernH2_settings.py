@@ -31,6 +31,46 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
+'''
+for i in range(8): asciiMap.append("xRaw"+str(i))
+for i in range(8): asciiMap.append("nStripHit"+str(i))
+for i in range(8): asciiMap.append("nHit"+str(i))
+asciiMap.append("digiBaseCounterOut")
+for i in range(3): asciiMap.append("digiBaseRingo"+str(i))
+for i in range(3): asciiMap.append("digiBaseJohn"+str(i))
+asciiMap.append("digiBaseEmpty0")
+for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))
+for i in range(2): asciiMap.append("digiBaseCaloLat"+str(i))
+for i in range(2): asciiMap.append("digiBasePresh"+str(i))
+for i in range(3): asciiMap.append("digiBaseEmpty"+str(i+1))
+asciiMap.append("digiPHRawCounterOut")
+for i in range(3): asciiMap.append("digiPHRawRingo"+str(i))
+for i in range(3): asciiMap.append("digiPHRawJohn"+str(i))
+asciiMap.append("digiPHRawEmpty0")
+for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
+for i in range(2): asciiMap.append("digiPHRawCaloLat"+str(i))
+for i in range(2): asciiMap.append("digiPHRawPresh"+str(i))
+for i in range(3): asciiMap.append("digiPHRawEmpty"+str(i+1))
+asciiMap.append("digiTimeCounterOut")
+for i in range(3): asciiMap.append("digiTimeRingo"+str(i))
+for i in range(3): asciiMap.append("digiTimeJohn"+str(i))
+asciiMap.append("digiTimeEmpty0")
+for i in range(9): asciiMap.append("digiTimeCaloFwd"+str(i))
+for i in range(2): asciiMap.append("digiTimeCaloLat"+str(i))
+for i in range(2): asciiMap.append("digiTimePresh"+str(i))
+for i in range(3): asciiMap.append("digiTimeEmpty"+str(i+1))
+asciiMap.append("xGonioRawRot")
+asciiMap.append("xGonioRawCrad")
+asciiMap.append("xGonioRawHorsa")
+asciiMap.append("xGonioRawHorsaBig")
+asciiMap.append("xGonioRawVersa")
+asciiMap.append("iSpill")
+asciiMap.append("iStep")
+asciiMap.append("iAEv")
+for i in range(263): asciiMap.append("wfSiPM0_"+str(i))
+for i in range(263): asciiMap.append("wfSiPM1_"+str(i))
+for i in range(263): asciiMap.append("wfSiPM2_"+str(i))
+''';
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -60,6 +100,8 @@ mirrorMap = {}
 #     and/or of all the out-of-range/in-range values for all the (lowX, upX) ranges for which bInclX=False/True
 # mandatory, but can be left empty --> no filtering
 filterMap = {}
+for i in range(4):
+    filterMap.update({"xRaw"+str(i): [[True, [-20, 20]]]})  # senseful data from input tracking layers
 
 ########################################################################################################################
 # SETUP GEOMETRY & TRACKING
@@ -73,12 +115,27 @@ filterMap = {}
 #     for tracking modules, use the part of the variable name following "xRaw" (base: 4/2 input/output layers)
 # mandatory, but can be skipped/filled partially for some/all runs --> all missing base positions set to 0
 z = {}
+'''
+for iVar in nRun0:
+    z.update({iVar: {
+        "0": 0,
+        "1": 0,
+        "2": 1365,
+        "3": 1365,
+        "4": 1365+525+4.5,
+        "5": 1365+525+4.5,
+        "6": 1365+525+4.5+1211+4.5,
+        "7": 1365+525+4.5+1211+4.5,
+        "gonio": 1365+50,
+        "caloFwd": 1365+525+4.5+1211+4.5+42,
+    }})
+''';
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
 # list of lists of strings -- shape: [[xIn0, yIn0, xIn1, yIn1], [xOut, yOut]]
 # for all the fields, insert the part of the variable name following "xRaw"
 # mandatory
-baseTrackingMap = [["", "", "", ""], ["", ""]]
+baseTrackingMap = [["0", "1", "2", "3"], ["2", "3"]]
 
 # raw input angle distribution centres for modules alignment
 # has to be set run by run
@@ -133,6 +190,15 @@ outMultCut = {}
 # scale can be negative to adjust relative verso
 # mandatory, but can be left empty --> no goniometer DOF pairing
 gonioMap = {}
+'''
+gonioMap = { 
+    "Rot": ["thIn0", False, -10**6],
+    "Crad": ["thIn1", False, 10**6],
+    "Horsa": ["xCry0", True, -10],
+    "HorsaBig": ["xCry0", True, -2*10],
+    "Versa": ["xCry1", True, -10],
+}
+''';
 
 ########################################################################################################################
 # DIGITIZERS
@@ -152,6 +218,17 @@ digiPHCut = {}
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
+'''
+for iRun in nRun0:
+    digiTimeCut.update({iRun: {}})
+    if (("WThin" in nRun0[iRun]) & (not ("120GeV" in nRun0[iRun]))):
+        for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [75, 95]})
+    else:
+        for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [95, 115]})
+    for i in range(3): digiTimeCut[iRun].update({"Ringo%d" % i : [130, 150]})
+    for i in range(3): digiTimeCut[iRun].update({"John%d" % i : [130, 150]})
+    for i in range(2): digiTimeCut[iRun].update({"Presh%d" % i : [55, 80]})
+''';
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -159,6 +236,10 @@ digiTimeCut = {}
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
+'''
+for iRun in nRun0:
+    lsDigiChCaloFwd.update({iRun: ["CaloFwd%d" % i for i in range(9)]})
+''';
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
@@ -171,6 +252,19 @@ lsDigiChCaloFwd = {}
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
 equalMap = {}
+'''
+for iRun in nRun0:
+    equalMap.update({iRun: {}})
+    equalMap[iRun].update({"CaloFwd0" : [lambda x, a: a*x, [0.243383], 'end']})
+    equalMap[iRun].update({"CaloFwd1" : [lambda x, a: a*x, [0.509823], 'end']})
+    equalMap[iRun].update({"CaloFwd2" : [lambda x, a: a*x, [0.352172], 'end']})
+    equalMap[iRun].update({"CaloFwd3" : [lambda x, a: a*x, [0.371667], 'end']})
+    equalMap[iRun].update({"CaloFwd4" : [lambda x, a: a*x, [1.0], 'end']})
+    equalMap[iRun].update({"CaloFwd5" : [lambda x, a: a*x, [0.764825], 'end']})
+    equalMap[iRun].update({"CaloFwd6" : [lambda x, a: a*x, [0.306905], 'end']})
+    equalMap[iRun].update({"CaloFwd7" : [lambda x, a: a*x, [0.169312], 'end']})
+    equalMap[iRun].update({"CaloFwd8" : [lambda x, a: a*x, [0.500015], 'end']})
+''';
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -182,3 +276,7 @@ equalMap = {}
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
+'''
+for iRun in nRun0:
+    calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [58.45, 177.87], 'end']})
+''';
