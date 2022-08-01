@@ -31,34 +31,36 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
-'''
-for i in range(8): asciiMap.append("xRaw"+str(i))
-for i in range(8): asciiMap.append("nStripHit"+str(i))
-for i in range(8): asciiMap.append("nHit"+str(i))
-asciiMap.append("digiBaseCounterOut")
-for i in range(3): asciiMap.append("digiBaseRingo"+str(i))
-for i in range(3): asciiMap.append("digiBaseJohn"+str(i))
-asciiMap.append("digiBaseEmpty0")
-for i in range(9): asciiMap.append("digiBaseCaloFwd"+str(i))
-for i in range(2): asciiMap.append("digiBaseCaloLat"+str(i))
-for i in range(2): asciiMap.append("digiBasePresh"+str(i))
-for i in range(3): asciiMap.append("digiBaseEmpty"+str(i+1))
-asciiMap.append("digiPHRawCounterOut")
-for i in range(3): asciiMap.append("digiPHRawRingo"+str(i))
-for i in range(3): asciiMap.append("digiPHRawJohn"+str(i))
-asciiMap.append("digiPHRawEmpty0")
-for i in range(9): asciiMap.append("digiPHRawCaloFwd"+str(i))
-for i in range(2): asciiMap.append("digiPHRawCaloLat"+str(i))
-for i in range(2): asciiMap.append("digiPHRawPresh"+str(i))
-for i in range(3): asciiMap.append("digiPHRawEmpty"+str(i+1))
-asciiMap.append("digiTimeCounterOut")
-for i in range(3): asciiMap.append("digiTimeRingo"+str(i))
-for i in range(3): asciiMap.append("digiTimeJohn"+str(i))
-asciiMap.append("digiTimeEmpty0")
-for i in range(9): asciiMap.append("digiTimeCaloFwd"+str(i))
-for i in range(2): asciiMap.append("digiTimeCaloLat"+str(i))
-for i in range(2): asciiMap.append("digiTimePresh"+str(i))
-for i in range(3): asciiMap.append("digiTimeEmpty"+str(i+1))
+for i in range(4): asciiMap.append("xRaw"+str(i))
+for i in range(4): asciiMap.append("nStripHit"+str(i))
+for i in range(4): asciiMap.append("nHit"+str(i))
+for i in range(16): asciiMap.append("digiBaseAll"+str(i))
+asciiMap.append("digiPHRawUaglio0")
+asciiMap.append("digiPHRawPinin0")
+asciiMap.append("digiPHRawPinin1")
+asciiMap.append("digiPHRawUaglio1")
+for i in range(4): asciiMap.append("digiPHRawEmpty"+str(i))
+asciiMap.append("digiPHRawCaloFwdBL")
+asciiMap.append("digiPHRawCaloFwdBR")
+asciiMap.append("digiPHRawCaloFwdCL")
+asciiMap.append("digiPHRawCaloFwdCC")
+asciiMap.append("digiPHRawCaloFwdCR")
+asciiMap.append("digiPHRawCaloFwdTL")
+asciiMap.append("digiPHRawCaloFwdTR")
+asciiMap.append("digiPHRawEmpty4")
+asciiMap.append("digiTimeUaglio0")
+asciiMap.append("digiTimePinin0")
+asciiMap.append("digiTimePinin1")
+asciiMap.append("digiTimeUaglio1")
+for i in range(4): asciiMap.append("digiTimeEmpty"+str(i))
+asciiMap.append("digiTimeCaloFwdBL")
+asciiMap.append("digiTimeCaloFwdBR")
+asciiMap.append("digiTimeCaloFwdCL")
+asciiMap.append("digiTimeCaloFwdCC")
+asciiMap.append("digiTimeCaloFwdCR")
+asciiMap.append("digiTimeCaloFwdTL")
+asciiMap.append("digiTimeCaloFwdTR")
+asciiMap.append("digiTimeEmpty4")
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
 asciiMap.append("xGonioRawHorsa")
@@ -67,10 +69,6 @@ asciiMap.append("xGonioRawVersa")
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iAEv")
-for i in range(263): asciiMap.append("wfSiPM0_"+str(i))
-for i in range(263): asciiMap.append("wfSiPM1_"+str(i))
-for i in range(263): asciiMap.append("wfSiPM2_"+str(i))
-''';
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -115,21 +113,15 @@ for i in range(4):
 #     for tracking modules, use the part of the variable name following "xRaw" (base: 4/2 input/output layers)
 # mandatory, but can be skipped/filled partially for some/all runs --> all missing base positions set to 0
 z = {}
-'''
 for iVar in nRun0:
     z.update({iVar: {
         "0": 0,
         "1": 0,
-        "2": 1365,
-        "3": 1365,
-        "4": 1365+525+4.5,
-        "5": 1365+525+4.5,
-        "6": 1365+525+4.5+1211+4.5,
-        "7": 1365+525+4.5+1211+4.5,
-        "gonio": 1365+50,
-        "caloFwd": 1365+525+4.5+1211+4.5+42,
+        "2": 1590,
+        "3": 1590,
+        "gonio": 1590+157+2,
+        "caloFwd": 1590+157+2+29,
     }})
-''';
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
 # list of lists of strings -- shape: [[xIn0, yIn0, xIn1, yIn1], [xOut, yOut]]
@@ -166,6 +158,8 @@ for iRun in nRun0:
 #     if length=4, the 4 values [xCutL, xCutR, yCutL, yCutR] are the boundaries of a rectangular cut
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 thInCut = {}
+#for iRun in nRun0:
+#    thOutCentres.update({iRun: [0, 0]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
@@ -189,16 +183,13 @@ outMultCut = {}
 # pairedVar (shifted via its mean if bShift=True) is multiplied to scale and added to gonioVar
 # scale can be negative to adjust relative verso
 # mandatory, but can be left empty --> no goniometer DOF pairing
-gonioMap = {}
-'''
 gonioMap = { 
     "Rot": ["thIn0", False, -10**6],
     "Crad": ["thIn1", False, 10**6],
-    "Horsa": ["xCry0", True, -10],
-    "HorsaBig": ["xCry0", True, -2*10],
-    "Versa": ["xCry1", True, -10],
+#    "Horsa": ["xCry0", True, -10],
+#    "HorsaBig": ["xCry0", True, -2*10],
+#    "Versa": ["xCry1", True, -10],
 }
-''';
 
 ########################################################################################################################
 # DIGITIZERS
@@ -218,17 +209,11 @@ digiPHCut = {}
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
-'''
 for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
-    if (("WThin" in nRun0[iRun]) & (not ("120GeV" in nRun0[iRun]))):
-        for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [75, 95]})
-    else:
-        for i in range(9): digiTimeCut[iRun].update({"CaloFwd%d" % i : [95, 115]})
-    for i in range(3): digiTimeCut[iRun].update({"Ringo%d" % i : [130, 150]})
-    for i in range(3): digiTimeCut[iRun].update({"John%d" % i : [130, 150]})
-    for i in range(2): digiTimeCut[iRun].update({"Presh%d" % i : [55, 80]})
-''';
+    for i in range(2): digiTimeCut[iRun].update({"Uaglio%d" % i : [0, 20000]})
+    for i in range(2): digiTimeCut[iRun].update({"Pinin%d" % i : [0, 20000]})
+    for i in range(7): digiTimeCut[iRun].update({"FwdCalo%d" % i : [0, 20000]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -236,10 +221,8 @@ for iRun in nRun0:
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
-'''
 for iRun in nRun0:
-    lsDigiChCaloFwd.update({iRun: ["CaloFwd%d" % i for i in range(9)]})
-''';
+    lsDigiChCaloFwd.update({iRun: ["CaloFwdCC"]})
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
