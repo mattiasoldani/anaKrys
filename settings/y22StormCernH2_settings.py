@@ -186,9 +186,8 @@ outMultCut = {}
 gonioMap = { 
     "Rot": ["thIn0", False, -10**6],
     "Crad": ["thIn1", False, 10**6],
-#    "Horsa": ["xCry0", True, -10],
-#    "HorsaBig": ["xCry0", True, -2*10],
-#    "Versa": ["xCry1", True, -10],
+    "Horsa": ["xCry0", True, -10],
+    "HorsaBig": ["xCry0", True, 2*10],
 }
 
 ########################################################################################################################
