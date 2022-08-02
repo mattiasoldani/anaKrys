@@ -119,8 +119,8 @@ for iVar in nRun0:
         "1": 0,
         "2": 1590,
         "3": 1590,
-        "gonio": 1590+157+2,
-        "caloFwd": 1590+157+2+29,
+        "gonio": 1590+157,
+        "caloFwd": 1590+157+29,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
