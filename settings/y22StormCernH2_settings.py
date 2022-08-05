@@ -235,19 +235,15 @@ for iRun in nRun0:
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped/filled partially for some/all runs --> raw values are kept for missing channels
 equalMap = {}
-'''
 for iRun in nRun0:
     equalMap.update({iRun: {}})
-    equalMap[iRun].update({"CaloFwd0" : [lambda x, a: a*x, [0.243383], 'end']})
-    equalMap[iRun].update({"CaloFwd1" : [lambda x, a: a*x, [0.509823], 'end']})
-    equalMap[iRun].update({"CaloFwd2" : [lambda x, a: a*x, [0.352172], 'end']})
-    equalMap[iRun].update({"CaloFwd3" : [lambda x, a: a*x, [0.371667], 'end']})
-    equalMap[iRun].update({"CaloFwd4" : [lambda x, a: a*x, [1.0], 'end']})
-    equalMap[iRun].update({"CaloFwd5" : [lambda x, a: a*x, [0.764825], 'end']})
-    equalMap[iRun].update({"CaloFwd6" : [lambda x, a: a*x, [0.306905], 'end']})
-    equalMap[iRun].update({"CaloFwd7" : [lambda x, a: a*x, [0.169312], 'end']})
-    equalMap[iRun].update({"CaloFwd8" : [lambda x, a: a*x, [0.500015], 'end']})
-''';
+    equalMap[iRun].update({"CaloFwdBL" : [lambda x, m, q: (x-q)/m, [59.8, -18.6], 'end']})
+    equalMap[iRun].update({"CaloFwdBR" : [lambda x, m, q: (x-q)/m, [111.8, 153.9], 'end']})
+    equalMap[iRun].update({"CaloFwdCL" : [lambda x, m, q: (x-q)/m, [160.0, 124.9], 'end']})
+    equalMap[iRun].update({"CaloFwdCC" : [lambda x, m, q: (x-q)/m, [94.212, 90.313], 'end']})
+    equalMap[iRun].update({"CaloFwdCR" : [lambda x, m, q: (x-q)/m, [101.1, -73.3], 'end']})
+    equalMap[iRun].update({"CaloFwdTL" : [lambda x, m, q: (x-q)/m, [127.4, 207.9], 'end']})
+    equalMap[iRun].update({"CaloFwdTR" : [lambda x, m, q: (x-q)/m, [101.5, 21.9], 'end']})
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -259,7 +255,5 @@ for iRun in nRun0:
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
-'''
 for iRun in nRun0:
-    calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [58.45, 177.87], 'end']})
-''';
+    calibMapFwd.update({iRun: [lambda x, a: x, [1], 'end']})
