@@ -22,6 +22,12 @@ nRun0 = {
     "520164" : "PWOUaglio_Random",
     "520167" : "PWOUaglio_ScanRot4",
     "520168" : "PWOUaglio_Planar001",
+    "520171" : "PWOUaglio_ScanRot5",
+    "520172" : "PWOUaglio_ScanRot5",
+    "520173" : "PWOUaglio_ScanRot5",
+    "520174" : "PWOUaglio_ScanCrad2",
+    
+    "520170" : "PWOPinin_Check",
     
     # others
     "520124" : "DirectBeam_120GeV",
