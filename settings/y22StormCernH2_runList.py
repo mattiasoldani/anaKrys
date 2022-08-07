@@ -22,11 +22,20 @@ nRun0 = {
     "520164" : "PWOUaglio_Random",
     "520167" : "PWOUaglio_ScanRot4",
     "520168" : "PWOUaglio_Planar001",
-    "520171" : "PWOUaglio_ScanRot5",
-    "520172" : "PWOUaglio_ScanRot5",
-    "520173" : "PWOUaglio_ScanRot5",
-    "520174" : "PWOUaglio_ScanCrad2",
+    "520171" : "PWOUaglio_Shifted12mrad_ScanRot0",
+    "520172" : "PWOUaglio_Shifted12mrad_ScanRot0",
+    "520173" : "PWOUaglio_Shifted12mrad_ScanRot0",
+    "520174" : "PWOUaglio_Shifted12mrad_ScanCrad0",
+    "520176" : "PWOUaglio_Shifted12mrad_Axial",
+    "520177" : "PWOUaglio_Shifted12mrad_Random",
+    "520180" : "PWOUaglio_Shifted8mrad_ScanRot0",
+    "520182" : "PWOUaglio_Shifted8mrad_ScanCrad0",
+    "520183" : "PWOUaglio_Shifted4mrad_ScanRot0",
+    "520184" : "PWOUaglio_Shifted4mrad_ScanCrad0",
+    "520186" : "PWOUaglio_Shifted4mrad_Axial",
+    "520189" : "PWOUaglio_Shifted8mrad_Axial",
     
+    # PWO 100 Pinin/nord/sample2
     "520170" : "PWOPinin_Check",
     
     # others
