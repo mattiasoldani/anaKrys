@@ -77,7 +77,10 @@ nRun0 = {
     "520276" : "PWOPinin_Axial",
     
     # others
-    "520124" : "DirectBeam_120GeV",
-    "520151" : "DirectBeam_100GeV",
     "520144" : "DirectBeam_20GeV",
+    "520132" : "DirectBeam_40GeV",
+    "520126" : "DirectBeam_60GeV",
+    "520151" : "DirectBeam_80GeV",
+    "520151" : "DirectBeam_100GeV",
+    "520124" : "DirectBeam_120GeV",
 }

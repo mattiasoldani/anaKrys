@@ -247,6 +247,11 @@ for iRun in nRun0:
     equalMap[iRun].update({"CaloFwdCR" : [lambda x, m, q: (x-q)/m, [101.1, -73.3], 'end']})
     equalMap[iRun].update({"CaloFwdTL" : [lambda x, m, q: (x-q)/m, [127.4, 207.9], 'end']})
     equalMap[iRun].update({"CaloFwdTR" : [lambda x, m, q: (x-q)/m, [101.5, 21.9], 'end']})
+    if int(iRun)>=520262:
+        equalMap[iRun].update({"Pinin0" : [lambda x, a: a*x, [0.39232], 'end']})
+        equalMap[iRun].update({"Pinin1" : [lambda x, a: a*x, [0.39232], 'end']})
+        equalMap[iRun].update({"Uaglio0" : [lambda x, a: a*x, [0.39232], 'end']})
+        equalMap[iRun].update({"Uaglio1" : [lambda x, a: a*x, [0.39232], 'end']})
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
