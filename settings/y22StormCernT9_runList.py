@@ -3,6 +3,7 @@
 # select the run numbers or types to be opened with nRunToOpen...
 nRun0 = {
     
-
+    # direct
+    "550213" : "direct_Check"
     
 }

@@ -44,15 +44,15 @@ asciiMap.append("digiPHRawEmpty2")
 asciiMap.append("digiPHRawCherenkov1")
 asciiMap.append("digiPHRawCherenkov0")
 for i in range(8): asciiMap.append("digiPHRawEmpty"+str(i+3))
-asciiMap.append("digiTimeEmpty0")
-asciiMap.append("digiTimeCaloFwd")
-asciiMap.append("digiTimeEmpty1")
-asciiMap.append("digiTimeAPC1")
-asciiMap.append("digiTimeAPC0")
-asciiMap.append("digiTimeEmpty2")
-asciiMap.append("digiTimeCherenkov1")
-asciiMap.append("digiTimeCherenkov0")
-for i in range(8): asciiMap.append("digiTimeEmpty"+str(i+3))
+asciiMap.append("digiTime00Empty0")
+asciiMap.append("digiTime00CaloFwd")
+asciiMap.append("digiTime00Empty1")
+asciiMap.append("digiTime00APC1")
+asciiMap.append("digiTime00APC0")
+asciiMap.append("digiTime00Empty2")
+asciiMap.append("digiTime00Cherenkov0")
+asciiMap.append("digiTime00Cherenkov1")
+for i in range(8): asciiMap.append("digiTime00Empty"+str(i+3))
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
 asciiMap.append("xGonioRawHorsa")
@@ -176,10 +176,10 @@ outMultCut = {}
 # mandatory, but can be left empty --> no goniometer DOF pairing
 gonioMap = {}
 gonioMap = { 
-    "Rot": ["thIn0", False, -10**6],  # TBC
-    "Crad": ["thIn1", False, 10**6],  # TBC
-    "Horsa": ["xCry0", True, -10],  # TBC
-    "HorsaBig": ["xCry0", True, 2*10],  # TBC
+    "Rot": ["thIn0", False, -10**6],
+    "Crad": ["thIn1", False, 10**6],
+    "Horsa": ["xCry0", True, -10],
+    "HorsaBig": ["xCry0", True, -2*10],
 }
 
 ########################################################################################################################
@@ -202,6 +202,10 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
+for iRun in nRun0:
+    digiPHCut.update({iRun: {"CaloFwd" : [-110, -80]}})
+    digiPHCut.update({iRun: {"APC0" : [-140, -90]}})
+    digiPHCut.update({iRun: {"APC1" : [-140, -90]}})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
