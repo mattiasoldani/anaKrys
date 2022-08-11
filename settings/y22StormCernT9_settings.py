@@ -31,9 +31,9 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
-for i in range(4): asciiMap.append("xRaw"+str(i))
-for i in range(4): asciiMap.append("nStripHit"+str(i))
-for i in range(4): asciiMap.append("nHit"+str(i))
+for i in [1, 0, 3, 2]: asciiMap.append("xRaw"+str(i))
+for i in [1, 0, 3, 2]: asciiMap.append("nStripHit"+str(i))
+for i in [1, 0, 3, 2]: asciiMap.append("nHit"+str(i))
 for i in range(16): asciiMap.append("digiBaseAll"+str(i))
 asciiMap.append("digiPHRawEmpty0")
 asciiMap.append("digiPHRawCaloFwd")
@@ -128,7 +128,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["2", "3"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [None, None]})
+    thInCentres.update({iRun: [-1.353265e-03-1.534532e-08, 6.528126e-04-1.171999e-08]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -155,8 +155,8 @@ thInCut = {}
 # dictionary -- shape: {run (string): [xCut0, xCut1, yCut0, yCut1] (4 float)}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
-#for iRun in nRun0:
-#    xCryCut.update({iRun: [0.22, 10, -10, 10]})
+for iRun in nRun0:
+    xCryCut.update({iRun: [5.25, 5.95, 2.55, 3.30]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -203,9 +203,9 @@ for iRun in nRun0:
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
 for iRun in nRun0:
-    digiPHCut.update({iRun: {"CaloFwd" : [-110, -80]}})
-    digiPHCut.update({iRun: {"APC0" : [-140, -90]}})
-    digiPHCut.update({iRun: {"APC1" : [-140, -90]}})
+    digiPHCut.update({iRun: {"CaloFwd" : [80, 110]}})
+    digiPHCut.update({iRun: {"APC0" : [90, 140]}})
+    digiPHCut.update({iRun: {"APC1" : [90, 140]}})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -237,3 +237,5 @@ equalMap = {}
 # the 'end' string (within apostrophes & the precise form ", 'end'") is just a flag needed for some printing
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
+for iRun in nRun0:
+    calibMapFwd.update({iRun: [lambda x, a: x, [1], 'end']})
