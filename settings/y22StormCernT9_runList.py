@@ -11,8 +11,15 @@ nRun0 = {
     # Ir
     "550237" : "Ir_ScanRot0",
     "550238" : "Ir_ScanRot1",
-    "550239" : "Ir_CheckRandom0",
     "550241" : "Ir_ScanCrad0",
     "550243" : "Ir_ScanCrad0",
+    "550245" : "Ir_ScanCrad0",
+    "550252" : "Ir_ScanCrad1",
+
+    "550239" : "Ir_Random",
+    "550255" : "Ir_Random",
+    "550246" : "Ir_Axial",
+    "550248" : "Ir_Axial",
+    "550256" : "Ir_AxisToandom_15mrad",
     
 }
