@@ -149,6 +149,13 @@ for iRun in nRun0:
 #     if length=4, the 4 values [xCutL, xCutR, yCutL, yCutR] are the boundaries of a rectangular cut
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 thInCut = {}
+for iRun in nRun0:
+    if "Axial" in nRun0[iRun]:
+        thInCut.update({iRun: [0.5e-3]})
+    elif "AxisToRandom" in nRun0[iRun]:
+        thInCut.update({iRun: [1.0e-3]})
+    else:
+        thInCut.update({iRun: [10.0e-3]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
