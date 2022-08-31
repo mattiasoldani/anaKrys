@@ -162,7 +162,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cuts defined, i.e. booleans always True, in missing runs
 outMultCut = {}
 for iRun in nRun0:
-    outMultCut.update({iRun: [1, 4]})
+    outMultCut.update({iRun: [1, 8]})
     
 ########################################################################################################################
 # GONIOMETER
