@@ -182,7 +182,7 @@ for iRun in nRun0:
 xCryCut = {}
 for iRun in nRun0:
     if "PWOStrip" in nRun0[iRun]:
-        xCryCut.update({iRun: [1.25, 1.41, 0.33, 1.43]})
+        xCryCut.update({iRun: [1.26, 1.40, 0.33, 1.43]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -275,4 +275,15 @@ equalMap = {}  # not used, since there was only 1 forward calo. channel
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}  # not used with ROOT files, since the photon energy computed by Luca & Valerio is being used
 for iRun in nRun0:
-    calibMapFwd.update({iRun: [lambda x, m, q : m*x+q, [0.01166, 1.311], 'end']})
+    if (int(iRun)>=300276) & (int(iRun)<300281):  # some rough time stabilisation...
+        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1], 'end']})
+    elif (int(iRun)>=300281) & (int(iRun)<300320):
+        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1], 'end']})
+    elif (int(iRun)>=300320) & (int(iRun)<300324):
+        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1.0355005342740207], 'end']})
+    elif (int(iRun)>=300324) & (int(iRun)<300327):
+        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1.043039381054248], 'end']})
+    elif (int(iRun)>=300327) & (int(iRun)<300332):
+        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1.064474644754476], 'end']})
+    else:
+        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1], 'end']})

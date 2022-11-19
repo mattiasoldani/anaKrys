@@ -18,6 +18,7 @@ nRun0 = {
     "300329": "PWOStrip_Planar_e-",
     "300321": "PWOStrip_Axial_e-",
     "300331": "PWOStrip_Axial_e-_2",
+    "300326": "PWOStrip_Random_MagnetOff_e-",
     
     # W [111] by Uggerhoj
     "300204": "WUggerhoj_AxisSearch0_e-_0",
@@ -36,10 +37,10 @@ nRun0 = {
     
     "300224": "Direct_MagnetOn_e-",
     "300244": "Direct_MagnetOn_e-",
-    "300320": "Direct_MagnetOn_e-",  # alignment run
     "300328": "Direct_MagnetOn_e-",  # alignment run
     
     "300246": "Direct_MagnetOff_e-",
+    "300320": "Direct_MagnetOff_e-",
     "300324": "Direct_MagnetOff_e-",
     "300327": "Direct_MagnetOff_e-",
     
