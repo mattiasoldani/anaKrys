@@ -151,3 +151,7 @@ out_plots/*
 !.keep
 anaKrys.py
 temp_settings
+
+# other garbage
+.sys.*
+*.sys.*
