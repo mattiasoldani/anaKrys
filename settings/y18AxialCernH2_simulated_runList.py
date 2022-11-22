@@ -10,6 +10,7 @@ nRun0 = {
     "220623Random" : "PWOStrip_Random",
     "221121RandomMagnOff" : "PWOStrip_Random_MagnetOff",
     
+    "221122RandomSmeared" : "PWOStrip_Random_Smeared",
     "221122RandomMagnOffSmeared" : "PWOStrip_Random_MagnetOff_Smeared",
     
     # other runs
