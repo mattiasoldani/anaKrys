@@ -19,5 +19,6 @@ nRun0 = {
     "220623DirectMagnOn" : "PWOStrip_Direct_MagnetOn",
     
     "221123DirectMagnOffSmeared" : "PWOStrip_Direct_MagnetOff_Smeared",
+    "221123DirectMagnOnSmeared" : "PWOStrip_Direct_MagnetOff_Smeared",
     
 }
