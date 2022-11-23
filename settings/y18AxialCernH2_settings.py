@@ -276,14 +276,14 @@ equalMap = {}  # not used, since there was only 1 forward calo. channel
 calibMapFwd = {}  # not used with ROOT files, since the photon energy computed by Luca & Valerio is being used
 for iRun in nRun0:
     if (int(iRun)>=300276) & (int(iRun)<300281):  # some rough time stabilisation...
-        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1], 'end']})
+        calibMapFwd.update({iRun: [lambda x, m, q, S, m2, q2 : m2*((m*x+q)*S)+q2, [0.01166, 1.311, 1, 0.9509454666666666, -0.008570999999989226], 'end']})
     elif (int(iRun)>=300281) & (int(iRun)<300320):
-        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1], 'end']})
+        calibMapFwd.update({iRun: [lambda x, m, q, S, m2, q2 : m2*((m*x+q)*S)+q2, [0.01166, 1.311, 1, 0.9509454666666666, -0.008570999999989226], 'end']})
     elif (int(iRun)>=300320) & (int(iRun)<300324):
-        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1.0355005342740207], 'end']})
+        calibMapFwd.update({iRun: [lambda x, m, q, S, m2, q2 : m2*((m*x+q)*S)+q2, [0.01166, 1.311, 1.0355005342740207, 0.9509454666666666, -0.008570999999989226], 'end']})
     elif (int(iRun)>=300324) & (int(iRun)<300327):
-        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1.043039381054248], 'end']})
+        calibMapFwd.update({iRun: [lambda x, m, q, S, m2, q2 : m2*((m*x+q)*S)+q2, [0.01166, 1.311, 1.043039381054248, 0.9509454666666666, -0.008570999999989226], 'end']})
     elif (int(iRun)>=300327) & (int(iRun)<300332):
-        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1.064474644754476], 'end']})
+        calibMapFwd.update({iRun: [lambda x, m, q, S, m2, q2 : m2*((m*x+q)*S)+q2, [0.01166, 1.311, 1.064474644754476, 0.9509454666666666, -0.008570999999989226], 'end']})
     else:
-        calibMapFwd.update({iRun: [lambda x, m, q, S : (m*x+q)*S, [0.01166, 1.311, 1], 'end']})
+        calibMapFwd.update({iRun: [lambda x, m, q, S, m2, q2 : m2*((m*x+q)*S)+q2, [0.01166, 1.311, 1, 0.9509454666666666, -0.008570999999989226], 'end']})
