@@ -10,15 +10,19 @@ nRun0 = {
     "220623Random" : "PWOStrip_Random",
     "221121RandomMagnOff" : "PWOStrip_Random_MagnetOff",
     
-    "221122AxialSmeared" : "PWOStrip_Axial_Smeared",
-    "221122RandomSmeared" : "PWOStrip_Random_Smeared",
-    "221122RandomMagnOffSmeared" : "PWOStrip_Random_MagnetOff_Smeared",
+    "221122AxialSmeared002" : "PWOStrip_Axial_Smeared02",
+    "221122RandomSmeared002" : "PWOStrip_Random_Smeared02",
+    "221122RandomMagnOffSmeared002" : "PWOStrip_Random_MagnetOff_Smeared02",
     
     # other runs
     "220623DirectMagnOff" : "PWOStrip_Direct_MagnetOff",
     "220623DirectMagnOn" : "PWOStrip_Direct_MagnetOn",
     
-    "221123DirectMagnOffSmeared" : "PWOStrip_Direct_MagnetOff_Smeared",
-    "221123DirectMagnOnSmeared" : "PWOStrip_Direct_MagnetOn_Smeared",
+    "221123DirectMagnOffSmeared002" : "PWOStrip_Direct_MagnetOff_Smeared02",
+    "221123DirectMagnOnSmeared002" : "PWOStrip_Direct_MagnetOn_Smeared02",
+    
+    "221123DirectMagnOffSmeared005" : "PWOStrip_Direct_MagnetOff_Smeared05",
+    
+    "221124Direct60MagnOffSmeared005" : "PWOStrip_Calib60_MagnetOff_Smeared05",
     
 }
