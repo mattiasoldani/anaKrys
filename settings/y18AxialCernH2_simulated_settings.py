@@ -153,7 +153,7 @@ for iRun in nRun0:
 xCryCut = {}
 for iRun in nRun0:
     if "Strip" in nRun0[iRun]:
-        xCryCut.update({iRun: [-0.09, 0.09, -1, 1]})  # large cut for random (any crystal) and no-crystal runs
+        xCryCut.update({iRun: [-0.1, 0.1, -1, 1]})  # large cut for random (any crystal) and no-crystal runs
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
