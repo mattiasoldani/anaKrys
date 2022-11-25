@@ -241,7 +241,7 @@ for iRun in nRun0:
 digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun: {
-        "APC0" : [100, 135],
+        "APC0" : [70, 105],
         "APC1" : [70, 105],
         "CaloFwd0" : [70, 105],
         "CaloFwd1" : [70, 105],
