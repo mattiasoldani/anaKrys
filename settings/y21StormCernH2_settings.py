@@ -312,5 +312,5 @@ for iRun in nRun0:
         calibMapFwd.update({iRun: [lambda x, a, b: (x+a)/b, [58.45, 177.87], 'end']})
     else:
 #        calibMapFwd.update({iRun: [lambda x, a, b: (x-b)/a, [7.85, -2.66], 'end']})  # w/ nominal beam energies (by Ale)
-#        calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [0.1321, -1.864], 'end']})  # w/ nominal beam energies
-        calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [0.1181, -1.394], 'end']})  # w/ simulated direct beam runs
+        calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [0.1321, -1.864], 'end']})  # w/ nominal beam energies
+#        calibMapFwd.update({iRun: [lambda x, a, b: a*x+b, [0.1181, -1.394], 'end']})  # w/ simulated direct beam runs
