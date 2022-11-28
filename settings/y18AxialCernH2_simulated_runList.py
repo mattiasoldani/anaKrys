@@ -18,6 +18,7 @@ nRun0 = {
     "221126RandomSmeared0035INSTEADAXIAL" : "PWOStrip_Axial_Smeared035",
     "221124RandomSmeared0035" : "PWOStrip_Random_Smeared035",
     "221124AxialSmeared0035INSTEADRANDOM" : "PWOStrip_Random_Smeared035",
+    "221126RandomMagnOff" : "PWOStrip_Random_MagnetOff_Smeared035",
 
     # other runs
     "220623DirectMagnOff" : "PWOStrip_Direct_MagnetOff",
@@ -30,5 +31,7 @@ nRun0 = {
     "221124Direct60MagnOffSmeared005" : "PWOStrip_Calib60_MagnetOff_Smeared05",  # used to correct experimental calibration, also wrong smearing @ 60 GeV
     
     "221124DirectMagnOffSmeared0035" : "PWOStrip_Direct_MagnetOff_Smeared035",
+    "221127DirectMagnOffSmeared0035" : "PWOStrip_Direct_MagnetOff_Smeared035",
+    "221127DirectMagnOnSmeared0035" : "PWOStrip_Direct_MagnetOn_Smeared035",
     
 }
