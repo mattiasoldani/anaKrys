@@ -8,7 +8,7 @@ nRun0 = {
     "520102" : "PWOUaglio_ScanRot0",
     "520110" : "PWOUaglio_ScanRot0",
     "520111" : "PWOUaglio_ScanRot1",
-    "520112" : "PWOUaglio_ScanRot2",  # cool scan around here
+    "520112" : "PWOUaglio_ScanRot2",
     "520113" : "PWOUaglio_ScanCrad0",
     "520114" : "PWOUaglio_ScanCrad0",
     "520115" : "PWOUaglio_ScanRot3",
@@ -80,7 +80,7 @@ nRun0 = {
     "520144" : "DirectBeam_20GeV",
     "520132" : "DirectBeam_40GeV",
     "520126" : "DirectBeam_60GeV",
-    "520150" : "DirectBeam_80GeV",
+    "520151" : "DirectBeam_80GeV",
     "520151" : "DirectBeam_100GeV",
     "520124" : "DirectBeam_120GeV",
 }

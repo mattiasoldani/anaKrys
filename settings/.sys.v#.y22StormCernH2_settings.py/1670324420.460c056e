@@ -214,13 +214,7 @@ for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
     for i in range(2): digiTimeCut[iRun].update({"Uaglio%d" % i : [0, 20000]})
     for i in range(2): digiTimeCut[iRun].update({"Pinin%d" % i : [0, 20000]})
-    digiTimeCut[iRun].update({"CaloFwdBL" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdBR" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdCL" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdCC" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdCR" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdTL" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdTR" : [155, 175]})
+    for i in range(7): digiTimeCut[iRun].update({"FwdCalo%d" % i : [0, 20000]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
