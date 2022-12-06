@@ -247,8 +247,7 @@ for iRun in nRun0:
 equalMap = {}
 for iRun in nRun0:
     equalMap.update({iRun: {}})
-    '''
-    # online channel-by-channel calibration
+    ''' # online channel-by-channel calibration
     equalMap[iRun].update({"CaloFwdBL" : [lambda x, m, q: (x-q)/m, [59.8, -18.6], 'end']})
     equalMap[iRun].update({"CaloFwdBR" : [lambda x, m, q: (x-q)/m, [111.8, 153.9], 'end']})
     equalMap[iRun].update({"CaloFwdCL" : [lambda x, m, q: (x-q)/m, [160.0, 124.9], 'end']})
@@ -257,14 +256,6 @@ for iRun in nRun0:
     equalMap[iRun].update({"CaloFwdTL" : [lambda x, m, q: (x-q)/m, [127.4, 207.9], 'end']})
     equalMap[iRun].update({"CaloFwdTR" : [lambda x, m, q: (x-q)/m, [101.5, 21.9], 'end']})
     ''';
-    # my equalisation+calibration
-    equalMap[iRun].update({"CaloFwdBL" : [lambda x, a: x*a, [1.613842], 'end']})
-    equalMap[iRun].update({"CaloFwdBR" : [lambda x, a: x*a, [0.839792], 'end']})
-    equalMap[iRun].update({"CaloFwdCL" : [lambda x, a: x*a, [0.603472], 'end']})
-    equalMap[iRun].update({"CaloFwdCC" : [lambda x, a: x*a, [1.000000], 'end']})
-    equalMap[iRun].update({"CaloFwdCR" : [lambda x, a: x*a, [0.949666], 'end']})
-    equalMap[iRun].update({"CaloFwdTL" : [lambda x, a: x*a, [0.739055], 'end']})
-    equalMap[iRun].update({"CaloFwdTR" : [lambda x, a: x*a, [0.938749], 'end']})
     if int(iRun)>=520262:
         equalMap[iRun].update({"Pinin0" : [lambda x, a: a*x, [0.39232], 'end']})
         equalMap[iRun].update({"Pinin1" : [lambda x, a: a*x, [0.39232], 'end']})
@@ -282,5 +273,4 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
 for iRun in nRun0:
-    # calibMapFwd.update({iRun: [lambda x, a: x, [1], 'end']})  # use this for online channel-by-channel calibration
-    calibMapFwd.update({iRun: [lambda x, m, q: x*m+q, [0.009903, -0.4257], 'end']})  # my equalisation+calibration
+    calibMapFwd.update({iRun: [lambda x, a: x, [1], 'end']})

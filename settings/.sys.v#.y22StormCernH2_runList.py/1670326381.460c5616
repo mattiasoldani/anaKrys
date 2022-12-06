@@ -83,11 +83,4 @@ nRun0 = {
     "520150" : "DirectBeam_80GeV",
     "520151" : "DirectBeam_100GeV",
     "520124" : "DirectBeam_120GeV",
-    
-    "520140" : "DirectBeam_60GeV_BL",
-    "520139" : "DirectBeam_60GeV_BR",
-    "520142" : "DirectBeam_60GeV_CL",
-    "520127" : "DirectBeam_60GeV_CR",
-    "520141" : "DirectBeam_60GeV_TL",
-    "520138" : "DirectBeam_60GeV_TR",
 }
