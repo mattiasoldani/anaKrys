@@ -255,6 +255,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
 for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in range(9)]})  # GENNI ECal -- channels 0-8
+#for iRun in nRun0: lsDigiChCaloFwd.update({iRun: ["CaloFwd"+str(i) for i in [4]]})  # GENNI ECal -- central ch. only
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
