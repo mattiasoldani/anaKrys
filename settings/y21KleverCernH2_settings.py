@@ -18,10 +18,7 @@ treeName = "t"
 # dictionary -- shape: {runNumber (string): value (float)}
 # value range: any -- automatically set to 1e-12 (1) if <=0 (>1) (see succolib functions)
 # mandatory, but can be left empty --> value set to 1
-descFrac = {
-    "500653" : 0.001,
-    "500657" : 0.001,
-}
+descFrac = {}
 
 
 # number of lines per event in the ASCII/NPZ files -- integer >0
