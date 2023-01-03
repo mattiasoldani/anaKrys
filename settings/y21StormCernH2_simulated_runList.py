@@ -10,7 +10,7 @@ nRun0 = {
     "220503Axial" : "PWO1X0_Axial",
     "220504AxialMagnOff" : "PWO1X0_Axial_MagnetOff",
     
-    "221207WrongAxisSmeared0035" : "PWO1X0_Axial_Smeared035",  # TBC
+    "221209WrongAxisSmeared0035" : "PWO1X0_Axial_Smeared035",
     "221208RandomSmeared0035" : "PWO1X0_Random_Smeared035",
     "221203RandomMagnOffSmeared0035" : "PWO1X0_Random_MagnetOff_Smeared035",
     
