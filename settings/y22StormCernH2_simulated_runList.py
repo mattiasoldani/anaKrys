@@ -3,11 +3,11 @@
 # select the run numbers or types to be opened with nRunToOpen...
 nRun0 = {
     
-    # PWO 1 X0
-    "2201204NoCrysSmeared0035" : "NoCrys_Smeared035",
-    "2201204NoCrysSmeared0035" : "PWO1X0_Random_Old",
+    # PWO Uagliò
+    "221204RandomSmeared0035" : "PWOUaglio_Random_Smeared035",
+    "221206WrongAxisSmeared0035" : "PWOUaglio_Axial_Smeared035",
     
     # other runs
-    "2201204NoCrysSmeared0035" : "PWO1X0_Random_Old",
+    "221204NoCrysSmeared0035" : "NoCrys_Smeared035",
     
 }
