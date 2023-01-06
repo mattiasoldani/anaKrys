@@ -8,6 +8,7 @@ nRun0 = {
     "221206WrongAxisSmeared0035" : "PWOUaglio_Axial_Smeared035",
     
     # other runs
-    "221204NoCrysSmeared0035" : "NoCrys_Smeared035",
+    "221204NoCrysSmeared0035" : "NoCrys_Combo",
+    "230106NoCrysCorrFlat" : "NoCrys_Combo",
     
 }
