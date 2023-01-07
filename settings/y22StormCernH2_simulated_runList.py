@@ -14,7 +14,7 @@ nRun0 = {
     #"221206WrongAxisSmeared0035_NOEINIT" : "PWOUaglio_Axial_Smeared035_OLD",
     
     # other runs
-    "2301xxNoCrysCorrFlat" : "NoCrys_Flat",
+    "230107NoCrysCorrFlat" : "NoCrys_Flat",
     "2301xxNoCrysSmeared0025" : "NoCrys_Smeared025",
     
     #"221204NoCrysSmeared0035_NOEINIT" : "NoCrys_Smeared035_OLD",
