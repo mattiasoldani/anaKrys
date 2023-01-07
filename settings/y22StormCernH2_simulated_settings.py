@@ -17,7 +17,10 @@ treeName = "outData"
 # dictionary -- shape: {runNumber (string): value (float)}
 # value range: any -- automatically set to 1e-12 (1) if <=0 (>1) (see succolib functions)
 # mandatory, but can be left empty --> value set to 1
-descFrac = {}
+descFrac = {
+    "230106RandomCorrFlat" : 0.5,
+    "230106NoCrysCorrFlat" : 0.5,
+}
 
 # number of lines per event in the ASCII/NPZ files -- integer >0
 # see asciiMap for the variable list format
