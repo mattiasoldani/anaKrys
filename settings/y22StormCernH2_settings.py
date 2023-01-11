@@ -256,8 +256,24 @@ for iRun in nRun0:
     equalMap[iRun].update({"CaloFwdCR" : [lambda x, m, q: (x-q)/m, [101.1, -73.3], 'end']})
     equalMap[iRun].update({"CaloFwdTL" : [lambda x, m, q: (x-q)/m, [127.4, 207.9], 'end']})
     equalMap[iRun].update({"CaloFwdTR" : [lambda x, m, q: (x-q)/m, [101.5, 21.9], 'end']})
+    # my equalisation+calibration (60 GeV only)
+    equalMap[iRun].update({"CaloFwdBL" : [lambda x, a: x*a, [1.613842], 'end']})
+    equalMap[iRun].update({"CaloFwdBR" : [lambda x, a: x*a, [0.839792], 'end']})
+    equalMap[iRun].update({"CaloFwdCL" : [lambda x, a: x*a, [0.603472], 'end']})
+    equalMap[iRun].update({"CaloFwdCC" : [lambda x, a: x*a, [1.000000], 'end']})
+    equalMap[iRun].update({"CaloFwdCR" : [lambda x, a: x*a, [0.949666], 'end']})
+    equalMap[iRun].update({"CaloFwdTL" : [lambda x, a: x*a, [0.739055], 'end']})
+    equalMap[iRun].update({"CaloFwdTR" : [lambda x, a: x*a, [0.938749], 'end']})
+    # my equalisation+calibration (20 GeV & 60 GeV)
+    equalMap[iRun].update({"CaloFwdBL" : [lambda x, m, q: m*x+1, [1.6193147521391222, -18.813627577689658], 'end']})
+    equalMap[iRun].update({"CaloFwdBR" : [lambda x, m, q: m*x+1, [0.8465298983405021, -44.51354880038252], 'end']})
+    equalMap[iRun].update({"CaloFwdCL" : [lambda x, m, q: m*x+1, [0.6084177137684034, -45.475254458359814], 'end']})
+    equalMap[iRun].update({"CaloFwdCC" : [lambda x, m, q: m*x+1, [1.0, 0.0], 'end']})
+    equalMap[iRun].update({"CaloFwdCR" : [lambda x, m, q: m*x+1, [0.9465568944576876, 18.165599561368253], 'end']})
+    equalMap[iRun].update({"CaloFwdTL" : [lambda x, m, q: m*x+1, [0.7520822102737467, -97.79724343192629], 'end']})
+    equalMap[iRun].update({"CaloFwdTR" : [lambda x, m, q: m*x+1, [0.9452244271115705, -38.271598882681246], 'end']})
     ''';
-    # my equalisation+calibration
+    # my equalisation+calibration (60 GeV only)
     equalMap[iRun].update({"CaloFwdBL" : [lambda x, a: x*a, [1.613842], 'end']})
     equalMap[iRun].update({"CaloFwdBR" : [lambda x, a: x*a, [0.839792], 'end']})
     equalMap[iRun].update({"CaloFwdCL" : [lambda x, a: x*a, [0.603472], 'end']})
@@ -282,5 +298,5 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
 for iRun in nRun0:
-    # calibMapFwd.update({iRun: [lambda x, a: x, [1], 'end']})  # use this for online channel-by-channel calibration
+    #calibMapFwd.update({iRun: [lambda x, a: x, [1], 'end']})  # use this for online channel-by-channel calibration
     calibMapFwd.update({iRun: [lambda x, m, q: x*m+q, [0.009903, -0.4257], 'end']})  # my equalisation+calibration
