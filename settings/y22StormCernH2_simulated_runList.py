@@ -4,18 +4,21 @@
 nRun0 = {
     
     # PWO Uagliò
-    "2301xxRandomCorrFlat" : "PWOUaglio_Random_Flat",
-    "2301xxRandomSmeared0025" : "PWOUaglio_Random_Smeared025",
-    "2301xxAxialCorrFlat" : "PWOUaglio_Axial_Flat",
-    "2301xxAxialSmeared0025" : "PWOUaglio_Axial_Smeared025",
+    "230108RandomCorrFlat" : "PWOUaglio_Random_Flat",
+    "230110RandomSmeared0025" : "PWOUaglio_Random_Smeared025_ComboEPi",
+    "230111PIONSRandomCorrFlat" : "PWOUaglio_Random_Smeared025_ComboEPi",
+    "230109AxialCorrFlat" : "PWOUaglio_Axial_Flat",
+    "230109AxialSmeared0025" : "PWOUaglio_Axial_Smeared025_ComboEPi",
+    "230111PIONSAxialCorrFlat" : "PWOUaglio_Axial_Smeared025_ComboEPi",
     
     #"221204RandomSmeared0035_NOEINIT" : "PWOUaglio_Random_Smeared035_OLD",
     #"230106RandomCorrFlat_NOEINIT" : "PWOUaglio_Random_Flat_OLD",
     #"221206WrongAxisSmeared0035_NOEINIT" : "PWOUaglio_Axial_Smeared035_OLD",
     
     # other runs
-    "230107NoCrysCorrFlat" : "NoCrys_Combo",
-    "230108NoCrysSmeared0025" : "NoCrys_Combo",
+    "230107NoCrysCorrFlat" : "NoCrys_Flat",
+    "230108NoCrysSmeared0025" : "NoCrys_Smeared025_ComboEPi",
+    "230111PIONSNoCrysSmeared0025" : "NoCrys_Smeared025_ComboEPi",
     
     #"221204NoCrysSmeared0035_NOEINIT" : "NoCrys_Smeared035_OLD",
     #"230106NoCrysCorrFlat_NOEINIT" : "NoCrys_Flat_OLD",
