@@ -10,6 +10,7 @@ nRun0 = {
     "230109AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam",  # "PWOUaglio_Axial_Flat",
     "230109AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",  # "PWOUaglio_Axial_Smeared025_E",
     "230111PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",  # "PWOUaglio_Axial_Smeared025_Pi",
+    "230112PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",  # "PWOUaglio_Axial_Smeared025_Pi",
     
     #"221204RandomSmeared0035_NOEINIT" : "PWOUaglio_Random_Smeared035_OLD",
     #"230106RandomCorrFlat_NOEINIT" : "PWOUaglio_Random_Flat_OLD",
