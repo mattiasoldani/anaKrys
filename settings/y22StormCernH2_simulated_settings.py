@@ -17,10 +17,7 @@ treeName = "outData"
 # dictionary -- shape: {runNumber (string): value (float)}
 # value range: any -- automatically set to 1e-12 (1) if <=0 (>1) (see succolib functions)
 # mandatory, but can be left empty --> value set to 1
-descFrac = {
-    "230106RandomCorrFlat" : 0.5,
-    "230106NoCrysCorrFlat" : 0.5,
-}
+descFrac = {}
 
 # number of lines per event in the ASCII/NPZ files -- integer >0
 # see asciiMap for the variable list format
@@ -193,7 +190,7 @@ digiTimeCut = {}
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
 for iRun in nRun0:
-    lsDigiChCaloFwd.update({iRun: ["BL", "BR", "CL", "CC", "CR", "TL", "TR"]})
+    lsDigiChCaloFwd.update({iRun: ["CC"]})  # ["BL", "BR", "CL", "CC", "CR", "TL", "TR"]
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
