@@ -44,7 +44,8 @@ nRun0 = {
     "520211" : "PWOUaglio_Shifted4mrad_NoAxisCorrection_Axial",
     "520194" : "PWOUaglio_Shifted4mrad_Random",
     
-    "520195" : "PWOUaglio_180deg_ScanHorsaBig0",
+    # "520195" : "PWOUaglio_180deg_ScanHorsaBig0",
+    "520195" : "DirectBeam_120GeV_INTRUTHITS_180deg_ScanHorsaBig0",
     "520204" : "PWOUaglio_180deg_Random",
     "520206" : "PWOUaglio_180deg_Axial",
     
