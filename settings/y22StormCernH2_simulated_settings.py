@@ -190,7 +190,7 @@ digiTimeCut = {}
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
 for iRun in nRun0:
-    lsDigiChCaloFwd.update({iRun: ["CC"]})  # ["BL", "BR", "CL", "CC", "CR", "TL", "TR"]
+    lsDigiChCaloFwd.update({iRun: ["BL", "BR", "CL", "CC", "CR", "TL", "TR"]})  # ["BL", "BR", "CL", "CC", "CR", "TL", "TR"]
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
