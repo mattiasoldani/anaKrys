@@ -5,7 +5,7 @@ nRun0 = {
     
     # PWO Uagliò
     "2301XXRandomCorrFlat" : "PWOUaglio_Random_ComboBeam_114GeV",  
-    "2301XXRandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",  
+    "230129RandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",  
     "2301XXPIONSRandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",
     "2301XXAxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_114GeV",  
     "2301XXAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV",  
@@ -30,7 +30,7 @@ nRun0 = {
     
     # other runs
     "2301XXNoCrysCorrFlat" : "NoCrys_ComboBeam_114GeV",
-    "2301XXNoCrysSmeared0025" : "NoCrys_ComboBeam_114GeV",
+    "230130NoCrysSmeared0025CHECK" : "NoCrys_ComboBeam_114GeV",  # probably done with axial physics, but it shouldn't matter
     "2301XXPIONSNoCrysSmeared0025" : "NoCrys_ComboBeam_114GeV",
   
     "230107NoCrysCorrFlat" : "NoCrys_ComboBeam",  # "NoCrys_Flat",
