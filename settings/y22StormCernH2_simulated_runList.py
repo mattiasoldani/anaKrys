@@ -4,13 +4,20 @@
 nRun0 = {
     
     # PWO Uagliò
-    "2301XXRandomCorrFlat" : "PWOUaglio_Random_ComboBeam_114GeV",  
-    "230129RandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",  
-    "2301XXPIONSRandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",
-    "2301XXAxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_114GeV",  
-    "2301XXAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV",  
-    "2301XXPIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV", 
+    "230130RandomCorrFlat" : "PWOUaglio_Random_ComboBeam_114GeV",  
+    "230130RandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",  
+    "230xxxPIONSRandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",
     
+    "230xxxAxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_114GeV",  
+    "230130AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV",  
+    "230xxxPIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV", 
+    
+    # other runs
+    "230xxxNoCrysCorrFlat" : "NoCrys_ComboBeam_114GeV",
+    "230129RandomSmeared0025" : "NoCrys_ComboBeam_114GeV", 
+    "230xxxPIONSNoCrysSmeared0025" : "NoCrys_ComboBeam_114GeV",
+    
+    # PWO Uagliò - old    
     "230128RandomSmeared0025OLD" : "PWOUaglio_Random_ComboBeam_115GeV",  
     "230129AxialSmeared0025OLD" : "PWOUaglio_Axial_ComboBeam_115GeV", 
     
@@ -28,11 +35,9 @@ nRun0 = {
     #"230106RandomCorrFlat_NOEINIT" : "PWOUaglio_Random_Flat_OLD",
     #"221206WrongAxisSmeared0035_NOEINIT" : "PWOUaglio_Axial_Smeared035_OLD",
     
-    # other runs
-    "2301XXNoCrysCorrFlat" : "NoCrys_ComboBeam_114GeV",
-    "230130NoCrysSmeared0025CHECK" : "NoCrys_ComboBeam_114GeV",  # probably done with axial physics, but it shouldn't matter
-    "2301XXPIONSNoCrysSmeared0025" : "NoCrys_ComboBeam_114GeV",
-  
+    # other runs - old
+    "230130NoCrysSmeared0025CHECK" : "NoCrys_ComboBeam_114GeV_ANOTHER",
+    
     "230107NoCrysCorrFlat" : "NoCrys_ComboBeam",  # "NoCrys_Flat",
     "230108NoCrysSmeared0025" : "NoCrys_ComboBeam",  # "NoCrys_Smeared025_E",
     "230111PIONSNoCrysSmeared0025" : "NoCrys_ComboBeam",  # "NoCrys_Smeared025_Pi",
