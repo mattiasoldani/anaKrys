@@ -229,9 +229,9 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
 for iRun in nRun0:
-    lsDigiChCaloFwd.update({iRun: [ #"CaloFwdCC"
-        "CaloFwdBL", "CaloFwdBR", "CaloFwdTL", "CaloFwdTR",
-        "CaloFwdCL", "CaloFwdCC", "CaloFwdCR",
+    lsDigiChCaloFwd.update({iRun: [ "CaloFwdCC"
+        #"CaloFwdBL", "CaloFwdBR", "CaloFwdTL", "CaloFwdTR",
+        #"CaloFwdCL", "CaloFwdCC", "CaloFwdCR",
     ]})
 
 # equalisation functions and parameters for channels to be equalised
