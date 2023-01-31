@@ -299,4 +299,8 @@ for iRun in nRun0:
 calibMapFwd = {}
 for iRun in nRun0:
     #calibMapFwd.update({iRun: [lambda x, a: x, [1], 'end']})  # use this for online channel-by-channel calibration
-    calibMapFwd.update({iRun: [lambda x, m, q: x*m+q, [0.009903, -0.4257], 'end']})  # my equalisation+calibration
+    #calibMapFwd.update({iRun: [lambda x, m, q: x*m+q, [0.009903, -0.4257], 'end']})  # my equalisation+calibration
+    if int(iRun)>520152:  # my equalisation+calibration+rescaling (after potential drift)
+        calibMapFwd.update({iRun: [lambda x, m, q: (x*m+q)*120/114, [0.009903, -0.4257], 'end']})
+    else:
+        calibMapFwd.update({iRun: [lambda x, m, q: x*m+q, [0.009903, -0.4257], 'end']})
