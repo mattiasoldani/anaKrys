@@ -6,21 +6,20 @@ nRun0 = {
     # PWO Uagliò
     "230130RandomCorrFlat" : "PWOUaglio_Random_ComboBeam_114GeV",  
     "230130RandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",  
-    "230xxxPIONSRandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",
-    
+    "230131PIONSRandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",
     "230131AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_114GeV",  
     "230130AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV",  
     "230xxxPIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV", 
     
-    # other runs
-    "230xxxNoCrysCorrFlat" : "NoCrys_ComboBeam_114GeV",
-    "230129RandomSmeared0025" : "NoCrys_ComboBeam_114GeV", 
-    "230xxxPIONSNoCrysSmeared0025" : "NoCrys_ComboBeam_114GeV",
-    
-    # PWO Uagliò - old    
     "230128RandomSmeared0025OLD" : "PWOUaglio_Random_ComboBeam_115GeV",  
     "230129AxialSmeared0025OLD" : "PWOUaglio_Axial_ComboBeam_115GeV", 
     
+    # other runs
+    "230131NoCrysCorrFlat" : "NoCrys_ComboBeam_114GeV",
+    "230129RandomSmeared0025" : "NoCrys_ComboBeam_114GeV", 
+    "230131PIONSNoCrysSmeared0025" : "NoCrys_ComboBeam_114GeV",
+    
+    # PWO Uagliò - old        
     "230129RandomSmeared0025NOPE" : "PWOUaglio_Random_ComboBeam_116p1GeV",
     
     "230108RandomCorrFlat" : "PWOUaglio_Random_ComboBeam",  # "PWOUaglio_Random_Flat",
