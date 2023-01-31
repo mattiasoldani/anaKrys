@@ -9,7 +9,7 @@ nRun0 = {
     "230131PIONSRandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",
     "230131AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_114GeV",  
     "230130AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV",  
-    "230xxxPIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV", 
+    "230131PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_114GeV", 
     
     "230128RandomSmeared0025OLD" : "PWOUaglio_Random_ComboBeam_115GeV",  
     "230129AxialSmeared0025OLD" : "PWOUaglio_Axial_ComboBeam_115GeV", 
