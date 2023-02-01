@@ -19,6 +19,8 @@ nRun0 = {
     "221124RandomSmeared0035" : "PWOStrip_Random_Smeared035",
     "221124AxialSmeared0035INSTEADRANDOM" : "PWOStrip_Random_Smeared035",
     "221126RandomMagnOffSmeared0035" : "PWOStrip_Random_MagnetOff_Smeared035",
+    
+    "230201AxialNEWCOEFFS" : "PWOStrip_Axial_NEWAXIS_Smeared035",
 
     # other runs
     "220623DirectMagnOff" : "PWOStrip_Direct_MagnetOff",
