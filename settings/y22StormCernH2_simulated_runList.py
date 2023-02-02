@@ -10,7 +10,7 @@ nRun0 = {
     "230112PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",  # "PWOUaglio_Axial_Smeared025_Pi",
     "230202AxialCorrFlat_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",  
     "230131AxialSmeared0025_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",  
-    #"230xxxPIONSAxialSmeared0025_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",
+    "230202PIONSAxialSmeared0025_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",
     "230202AxialCorrFlatLonger" : "PWOUaglio_Axial_ComboBeam_TOBEADDED", # this should be PWOUaglio_Axial_ComboBeam when creating flat120INTRUTHISLONGERFLATANDPIONSANDLESSSMEARED
     
     "230201AxialNEWAPPARENTLY001CorrFlat" : "PWOUaglio_Axial_ComboBeam_NEWAXIS0", 
