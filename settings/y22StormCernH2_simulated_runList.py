@@ -28,7 +28,7 @@ nRun0 = {
     "230111PIONSRandomSmeared0025" : "PWOUaglio_Random_ComboBeam",  # "PWOUaglio_Random_Smeared025_Pi",
     "230201RandomCorrFlat_80GeV" : "PWOUaglio_Random_ComboBeam_80GeV",  
     "230131RandomSmeared0025_80GeV" : "PWOUaglio_Random_ComboBeam_80GeV",  
-    "230201PIONSRandomSmeared0025_80GeV" : "PWOUaglio_Random_ComboBeam_80GeV",
+    "230202PIONSRandomSmeared0025_80GeV" : "PWOUaglio_Random_ComboBeam_80GeV",
     
     "230130RandomCorrFlat" : "PWOUaglio_Random_ComboBeam_114GeV",  
     "230130RandomSmeared0025" : "PWOUaglio_Random_ComboBeam_114GeV",  
