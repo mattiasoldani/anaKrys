@@ -4,10 +4,10 @@
 nRun0 = {
     
     # PWO Uagliò - axial
-    "230109AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam",  # "PWOUaglio_Axial_Flat",
-    "230109AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",  # "PWOUaglio_Axial_Smeared025_E",
-    "230111PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",  # "PWOUaglio_Axial_Smeared025_Pi",
-    "230112PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",  # "PWOUaglio_Axial_Smeared025_Pi",
+    "230109AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam",
+    "230109AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",
+    "230111PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",
+    "230112PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",
     "230202AxialCorrFlat_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",  
     "230131AxialSmeared0025_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",  
     "230202PIONSAxialSmeared0025_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",
@@ -23,9 +23,12 @@ nRun0 = {
     #"221206WrongAxisSmeared0035_NOEINIT" : "PWOUaglio_Axial_Smeared035_OLD",
     
     # PWO Uagliò - random
-    "230108RandomCorrFlat" : "PWOUaglio_Random_ComboBeam",  # "PWOUaglio_Random_Flat",
-    "230110RandomSmeared0025" : "PWOUaglio_Random_ComboBeam",  # "PWOUaglio_Random_Smeared025_E",
-    "230111PIONSRandomSmeared0025" : "PWOUaglio_Random_ComboBeam",  # "PWOUaglio_Random_Smeared025_Pi",
+    "230108RandomCorrFlat" : "PWOUaglio_Random_ComboBeam",
+    "230110RandomSmeared0025" : "PWOUaglio_Random_ComboBeam",
+    "230111PIONSRandomSmeared0025" : "PWOUaglio_Random_ComboBeam",
+    "230202RandomCorrFlat_100GeV" : "PWOUaglio_Random_ComboBeam_100GeV",  
+    "230202RandomSmeared0025_100GeV" : "PWOUaglio_Random_ComboBeam_100GeV",  
+    "230202PIONSRandomSmeared0025_100GeV" : "PWOUaglio_Random_ComboBeam_100GeV",
     "230201RandomCorrFlat_80GeV" : "PWOUaglio_Random_ComboBeam_80GeV",  
     "230131RandomSmeared0025_80GeV" : "PWOUaglio_Random_ComboBeam_80GeV",  
     "230202PIONSRandomSmeared0025_80GeV" : "PWOUaglio_Random_ComboBeam_80GeV",
