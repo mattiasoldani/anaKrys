@@ -4,18 +4,22 @@
 nRun0 = {
     
     # PWO Uagliò - axial
-    "230109AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam",
-    "230109AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",
+    "230206AxialCorrFlatNOPE" : "PWOUaglio_Axial_ComboBeam",
+    "230206AxialSmeared0025NOPE" : "PWOUaglio_Axial_ComboBeam",
     "230111PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",
     "230112PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",
-    "230203AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_100GeV",  
-    "230203AxialSmeared0025_100Gev" : "PWOUaglio_Axial_ComboBeam_100GeV",  
-    "230203PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_100GeV",
-    "230203AxialCorrFlat_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",  
-    "230131AxialSmeared0025_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",  
-    "230202PIONSAxialSmeared0025_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV",
-    "230202AxialCorrFlatLonger" : "PWOUaglio_Axial_ComboBeam_TOBEADDED", # this should be PWOUaglio_Axial_ComboBeam when creating flat120INTRUTHISLONGERFLATANDPIONSANDLESSSMEARED
+    "230109AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",
+    "230109AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",
+    #"230111PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",  # uncomment to use w/ old axis data
+    #"230112PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",  # uncomment to use w/ old axis data
+    "230203AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_100GeV_OLDAXIS",  
+    "230203AxialSmeared0025_100Gev" : "PWOUaglio_Axial_ComboBeam_100GeV_OLDAXIS",  
+    "230203PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_100GeV_OLDAXIS",
+    "230203AxialCorrFlat_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV_OLDAXIS",  
+    "230131AxialSmeared0025_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV_OLDAXIS",  
+    "230202PIONSAxialSmeared0025_80GeV" : "PWOUaglio_Axial_ComboBeam_80GeV_OLDAXIS",
     
+    "230202AxialCorrFlatLonger" : "PWOUaglio_Axial_ComboBeam_TOBEADDED", # this should be PWOUaglio_Axial_ComboBeam when creating flat120INTRUTHISLONGERFLATANDPIONSANDLESSSMEARED
     "230201AxialNEWAPPARENTLY001CorrFlat" : "PWOUaglio_Axial_ComboBeam_NEWAXIS0", 
     "230201AxialNEWAPPARENTLY100CorrFlat" : "PWOUaglio_Axial_ComboBeam_NEWAXIS1", 
     #"2302xxAxialNEWAPPARENTLY100Smeared0025" : "PWOUaglio_Axial_ComboBeam_NEWAXIS",  
