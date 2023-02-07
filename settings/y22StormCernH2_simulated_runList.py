@@ -4,14 +4,18 @@
 nRun0 = {
     
     # PWO Uagliò - axial
-    "230206AxialCorrFlatNOPE" : "PWOUaglio_Axial_ComboBeam",
+    "230207LAST100AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_NEWAXIS2", 
+    "230207APPARENTLY100AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_NEWAXIS1", 
+    "230207APPARENTLY100NOPEAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_NEWAXIS1NOPE", 
+    "230206AxialSmeared0025OLDSAME" : "PWOUaglio_Axial_ComboBeamOLDSAME",
+    "230206AxialSmeared0025NEWWW" : "PWOUaglio_Axial_ComboBeamNEWWW",    
+    "230206AxialCorrFlatNOPE" : "PWOUaglio_Axial_ComboBeamNOPE",
     "230206AxialSmeared0025NOPE" : "PWOUaglio_Axial_ComboBeam",
-    "230111PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",
-    "230112PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam",
+    
     "230109AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",
     "230109AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",
-    #"230111PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",  # uncomment to use w/ old axis data
-    #"230112PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",  # uncomment to use w/ old axis data
+    "230111PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",  # uncomment to use w/ old axis data
+    "230112PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",  # uncomment to use w/ old axis data
     "230203AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_100GeV_OLDAXIS",  
     "230203AxialSmeared0025_100Gev" : "PWOUaglio_Axial_ComboBeam_100GeV_OLDAXIS",  
     "230203PIONSAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_100GeV_OLDAXIS",
