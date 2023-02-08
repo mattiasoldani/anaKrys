@@ -4,13 +4,7 @@
 nRun0 = {
     
     # PWO Uagliò - axial
-    "230207LAST100AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_NEWAXIS2", 
-    "230207APPARENTLY100AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_NEWAXIS1", 
-    "230207APPARENTLY100NOPEAxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_NEWAXIS1NOPE", 
-    "230206AxialSmeared0025OLDSAME" : "PWOUaglio_Axial_ComboBeamOLDSAME",
-    "230206AxialSmeared0025NEWWW" : "PWOUaglio_Axial_ComboBeamNEWWW",    
-    "230206AxialCorrFlatNOPE" : "PWOUaglio_Axial_ComboBeamNOPE",
-    "230206AxialSmeared0025NOPE" : "PWOUaglio_Axial_ComboBeam",
+    "230207AxialSmeared0025AXIS100" : "PWOUaglio_Axial_ComboBeam",
     
     "230109AxialCorrFlat" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",
     "230109AxialSmeared0025" : "PWOUaglio_Axial_ComboBeam_OLDAXIS",
