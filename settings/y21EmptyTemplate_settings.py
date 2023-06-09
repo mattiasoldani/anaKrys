@@ -31,6 +31,15 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
+for i in [0, 1, 2, 3]: asciiMap.append("xRaw"+str(i))
+for i in [0, 1, 2, 3]: asciiMap.append("nStripHit"+str(i))
+for i in [0, 1, 2, 3]: asciiMap.append("nHit"+str(i))
+for i in range(64): asciiMap.append("digiBase"+str(i))
+for i in range(64): asciiMap.append("digiPHRaw"+str(i))
+for i in range(64): asciiMap.append("digiTime"+str(i))
+asciiMap.append("iSpill")
+asciiMap.append("iStep")
+asciiMap.append("iAEv")
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -60,6 +69,7 @@ mirrorMap = {}
 #     and/or of all the out-of-range/in-range values for all the (lowX, upX) ranges for which bInclX=False/True
 # mandatory, but can be left empty --> no filtering
 filterMap = {}
+for i in range(4): filterMap.update({"xRaw"+str(i): [[True, [-20, 20]]]})  # senseful data from input tracking layers
 
 ########################################################################################################################
 # SETUP GEOMETRY & TRACKING
@@ -73,12 +83,20 @@ filterMap = {}
 #     for tracking modules, use the part of the variable name following "xRaw" (base: 4/2 input/output layers)
 # mandatory, but can be skipped/filled partially for some/all runs --> all missing base positions set to 0
 z = {}
+for iRun in nRun0:
+    z.update({iRun: {
+        "0": 0,
+        "1": 0,
+        "2": 100,
+        "3": 100,
+        "caloFwd": 200,
+    }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
 # list of lists of strings -- shape: [[xIn0, yIn0, xIn1, yIn1], [xOut, yOut]]
 # for all the fields, insert the part of the variable name following "xRaw"
 # mandatory
-baseTrackingMap = [["", "", "", ""], ["", ""]]
+baseTrackingMap = [["0", "1", "2", "3"], ["2", "3"]]
 
 # raw input angle distribution centres for modules alignment
 # has to be set run by run
