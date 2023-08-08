@@ -35,24 +35,24 @@ for i in [1, 0, 3, 2]: asciiMap.append("xRaw"+str(i))
 for i in [1, 0, 3, 2]: asciiMap.append("nStripHit"+str(i))
 for i in [1, 0, 3, 2]: asciiMap.append("nHit"+str(i))
 for i in range(16): asciiMap.append("digiBaseAll"+str(i))
-asciiMap.append("digiPHRawEmpty0")
-asciiMap.append("digiPHRawCaloFwd")
-asciiMap.append("digiPHRawEmpty1")
-asciiMap.append("digiPHRawAPC1")
-asciiMap.append("digiPHRawAPC0")
-asciiMap.append("digiPHRawEmpty2")
 asciiMap.append("digiPHRawCherenkov1")
 asciiMap.append("digiPHRawCherenkov0")
+asciiMap.append("digiPHRawCaloFwd")
+asciiMap.append("digiPHRawAPC1")
+asciiMap.append("digiPHRawAPC0")
+asciiMap.append("digiPHRawEmpty0")
+asciiMap.append("digiPHRawEmpty1")
+asciiMap.append("digiPHRawEmpty2")
 for i in range(8): asciiMap.append("digiPHRawEmpty"+str(i+3))
-asciiMap.append("digiTime00Empty0")
-asciiMap.append("digiTime00CaloFwd")
-asciiMap.append("digiTime00Empty1")
-asciiMap.append("digiTime00APC1")
-asciiMap.append("digiTime00APC0")
-asciiMap.append("digiTime00Empty2")
-asciiMap.append("digiTime00Cherenkov0")
-asciiMap.append("digiTime00Cherenkov1")
-for i in range(8): asciiMap.append("digiTime00Empty"+str(i+3))
+asciiMap.append("digiTimeCherenkov1")
+asciiMap.append("digiTimeCherenkov0")
+asciiMap.append("digiTimeCaloFwd")
+asciiMap.append("digiTimeAPC1")
+asciiMap.append("digiTimeAPC0")
+asciiMap.append("digiTimeEmpty0")
+asciiMap.append("digiTimeEmpty1")
+asciiMap.append("digiTimeEmpty2")
+for i in range(8): asciiMap.append("digiTimeEmpty"+str(i+3))
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
 asciiMap.append("xGonioRawHorsa")
@@ -128,7 +128,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["2", "3"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [-1.353265e-03-1.534532e-08, 6.528126e-04-1.171999e-08]})
+    thInCentres.update({iRun: [None, None]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -163,7 +163,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
 for iRun in nRun0:
-    xCryCut.update({iRun: [5.25, 5.95, 2.55, 3.30]})
+    xCryCut.update({iRun: [-10, 10, -10, 10]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -210,9 +210,9 @@ for iRun in nRun0:
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
 for iRun in nRun0:
-    digiPHCut.update({iRun: {"CaloFwd" : [80, 110]}})
-    digiPHCut.update({iRun: {"APC0" : [90, 140]}})
-    digiPHCut.update({iRun: {"APC1" : [90, 140]}})
+    digiPHCut.update({iRun: {"CaloFwd" : [0, 1000]}})
+    digiPHCut.update({iRun: {"APC0" : [0, 1000]}})
+    digiPHCut.update({iRun: {"APC1" : [0, 1000]}})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
