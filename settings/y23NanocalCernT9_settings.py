@@ -32,14 +32,76 @@ nLinesEv = 1
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
 for i in [0, 1, 2, 3]: asciiMap.append("xRaw"+str(i))
-for i in [0, 1, 2, 3]: asciiMap.append("nStripHit"+str(i))
-for i in [0, 1, 2, 3]: asciiMap.append("nHit"+str(i))
-for i in range(64): asciiMap.append("digiBase"+str(i))
-for i in range(64): asciiMap.append("digiPHRaw"+str(i))
-for i in range(64): asciiMap.append("digiTime"+str(i))
-asciiMap.append("iSpill")
-asciiMap.append("iStep")
+    
+for i in range(8): asciiMap.append("digiBase720"+str(i))
+asciiMap.append("digiPHRawTrigA")  # digital
+asciiMap.append("digiPHRawCher0")
+asciiMap.append("digiPHRawCher1")
+for i in range(5): asciiMap.append("digiPHEmpty"+str(100+i))
+asciiMap.append("digiTimeTrigA")
+asciiMap.append("digiTimeCher0")
+asciiMap.append("digiTimeCher1")
+for i in range(5): asciiMap.append("digiTimeEmpty"+str(100+i))
+
+for i in range(64): asciiMap.append("digiBase742"+str(i))
+asciiMap.append("digiTimeTrigB")  # digital
+asciiMap.append("digiTimeNano")
+asciiMap.append("digiTimeEmpty200")
+asciiMap.append("digiTimeTrigC")  # canadese
+asciiMap.append("digiTimeTrigD")  # APC
+asciiMap.append("digiTimeTrigE")  # APC
+asciiMap.append("digiTimeLucite0")
+asciiMap.append("digiTimeLucite1")
+k=0
+for i in range(21):
+    if (i%8!=0):
+        asciiMap.append("digiTimeCrilin"+str(k))
+        k=k+1
+    else:
+        asciiMap.append("digiTimeEmpty"+str(900+i))
+asciiMap.append("digiTimeEmpty205")
+asciiMap.append("digiTimeEmpty206")
+asciiMap.append("digiTimeEmpty207")
+k=0
+for i in range(21):
+    if (i%8!=0):
+        asciiMap.append("digiTimeCrilin"+str(18+k))
+        k=k+1
+    else:
+        asciiMap.append("digiTimeEmpty"+str(800+i))
+for i in range(11): asciiMap.append("digiTimeEmpty"+str(700+i))
+for i in range(64): asciiMap.append("digiHalfTime742"+str(i))
+asciiMap.append("digiPHRawTrigB")
+asciiMap.append("digiPHRawNano")
+asciiMap.append("digiPHRawEmpty200")
+asciiMap.append("digiPHRawTrigC")
+asciiMap.append("digiPHRawTrigD")
+asciiMap.append("digiPHRawTrigE")
+asciiMap.append("digiPHRawLucite0")
+asciiMap.append("digiPHRawLucite1")
+k=0
+for i in range(21):
+    if (i%8!=0):
+        asciiMap.append("digiPHRawCrilin"+str(k))
+        k=k+1
+    else:
+        asciiMap.append("digiPHRawEmpty"+str(900+i))
+asciiMap.append("digiPHRawEmpty205")
+asciiMap.append("digiPHRawEmpty206")
+asciiMap.append("digiPHRawEmpty207")
+k=0
+for i in range(21):
+    if (i%8!=0):
+        asciiMap.append("digiPHRawCrilin"+str(18+k))
+        k=k+1
+    else:
+        asciiMap.append("digiPHRawEmpty"+str(800+i))
+for i in range(11): asciiMap.append("digiPHRawEmpty"+str(700+i))
+    
 asciiMap.append("iAEv")
+asciiMap.append("iTime")
+asciiMap.append("iATime")
+asciiMap.append("iEvNt")
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -87,9 +149,9 @@ for iRun in nRun0:
     z.update({iRun: {
         "0": 0,
         "1": 0,
-        "2": 100,
-        "3": 100,
-        "caloFwd": 200,
+        "2": 72.6,
+        "3": 72.6,
+        "caloFwd": 72.6+89.9+8.5,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -106,7 +168,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["2", "3"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [0, 0]})
+    thInCentres.update({iRun: [None, None]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -116,7 +178,7 @@ for iRun in nRun0:
 # mandatory for all the runs
 thOutCentres = {}
 for iRun in nRun0:
-    thOutCentres.update({iRun: [0, 0]})
+    thOutCentres.update({iRun: [None, None]})
 
 # aligned input angle range cut, centered around 0, boundaries excluded
 # has to be set run by run
@@ -127,6 +189,8 @@ for iRun in nRun0:
 #     if length=4, the 4 values [xCutL, xCutR, yCutL, yCutR] are the boundaries of a rectangular cut
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 thInCut = {}
+for iRun in nRun0:
+    thInCut.update({iRun: [0.005]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
@@ -162,6 +226,11 @@ gonioMap = {}
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiPHCut = {}
+for iRun in nRun0:
+    digiPHCut.update({iRun: {}})
+    digiPHCut[iRun].update({"Nano" : [0, 9999]})
+    if ("muons" in nRun0[iRun]):
+        digiPHCut[iRun].update({"Nano" : [300, 1000]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -170,6 +239,12 @@ digiPHCut = {}
 # mandatory, but can be skipped for some/all runs or for some/all channels within a single run
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
+for iRun in nRun0:
+    digiTimeCut.update({iRun: {}})
+    if ("elecal" in nRun0[iRun]):
+        digiTimeCut[iRun].update({"Nano" : [250, 320]})
+    else:
+        digiTimeCut[iRun].update({"Nano" : [180, 280]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -177,6 +252,8 @@ digiTimeCut = {}
 # varX format: insert the part of the variable name following "digiPHRaw"
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
+for iRun in nRun0:
+    lsDigiChCaloFwd.update({iRun: ["Nano"]})
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
