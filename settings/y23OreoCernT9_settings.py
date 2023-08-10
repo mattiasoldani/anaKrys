@@ -35,24 +35,24 @@ for i in [1, 0, 3, 2]: asciiMap.append("xRaw"+str(i))
 for i in [1, 0, 3, 2]: asciiMap.append("nStripHit"+str(i))
 for i in [1, 0, 3, 2]: asciiMap.append("nHit"+str(i))
 for i in range(16): asciiMap.append("digiBaseAll"+str(i))
-asciiMap.append("digiPHRawCherenkov1")
-asciiMap.append("digiPHRawCherenkov0")
+asciiMap.append("digiPHRawCherenkov")
 asciiMap.append("digiPHRawCaloFwd")
 asciiMap.append("digiPHRawAPC1")
 asciiMap.append("digiPHRawAPC0")
 asciiMap.append("digiPHRawEmpty0")
 asciiMap.append("digiPHRawEmpty1")
 asciiMap.append("digiPHRawEmpty2")
-for i in range(8): asciiMap.append("digiPHRawEmpty"+str(i+3))
-asciiMap.append("digiTimeCherenkov1")
-asciiMap.append("digiTimeCherenkov0")
+asciiMap.append("digiPHRawEmpty3")
+for i in range(8): asciiMap.append("digiPHRawEmpty"+str(i+4))
+asciiMap.append("digiTimeCherenkov")
 asciiMap.append("digiTimeCaloFwd")
 asciiMap.append("digiTimeAPC1")
 asciiMap.append("digiTimeAPC0")
 asciiMap.append("digiTimeEmpty0")
 asciiMap.append("digiTimeEmpty1")
 asciiMap.append("digiTimeEmpty2")
-for i in range(8): asciiMap.append("digiTimeEmpty"+str(i+3))
+asciiMap.append("digiTimeEmpty3")
+for i in range(8): asciiMap.append("digiTimeEmpty"+str(i+4))
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
 asciiMap.append("xGonioRawHorsa")
@@ -108,10 +108,10 @@ for iRun in nRun0:
     z.update({iRun: {
         "0": 0,
         "1": 0,
-        "2": 320,
-        "3": 320,
-        "gonio": 381,
-        "caloFwd": 381 + 95 + 40 + 615,
+        "2": 268,
+        "3": 268,
+        "gonio": 268 + 90,
+        "caloFwd": 268 + 90 + 85 + 666,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage

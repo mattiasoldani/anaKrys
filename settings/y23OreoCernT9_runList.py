@@ -3,7 +3,10 @@
 # select the run numbers or types to be opened with nRunToOpen...
 nRun0 = {
     
-    # XXX
-    "XXXXXX" : "xxx_xxx",
+    # preliminary
+    "680467" : "test",
+    "680468" : "test",
+    "680470" : "test",
+    "680471" : "test",
     
 }
