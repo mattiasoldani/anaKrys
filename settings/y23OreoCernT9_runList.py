@@ -9,4 +9,11 @@ nRun0 = {
     "680470" : "test",
     "680471" : "test",
     
+    # W 1.5mm
+    "680516" : "W1p5mm_AxisSearch_0",
+    "680517" : "W1p5mm_AxisSearch_0",
+    "680518" : "W1p5mm_AxisSearch_0",
+    "680519" : "W1p5mm_AxisSearch_1",
+    "680520" : "W1p5mm_AxisSearch_1",
+    
 }

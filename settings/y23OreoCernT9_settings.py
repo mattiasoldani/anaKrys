@@ -155,7 +155,7 @@ for iRun in nRun0:
     elif "AxisToRandom" in nRun0[iRun]:
         thInCut.update({iRun: [1.0e-3]})
     else:
-        thInCut.update({iRun: [10.0e-3]})
+        thInCut.update({iRun: [2.0e-3]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
@@ -163,7 +163,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
 for iRun in nRun0:
-    xCryCut.update({iRun: [-10, 10, -10, 10]})
+    xCryCut.update({iRun: [3.9, 4.7, 3.8, 4.6]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
