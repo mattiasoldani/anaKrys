@@ -163,7 +163,15 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
 for iRun in nRun0:
-    xCryCut.update({iRun: [3.9, 4.7, 3.8, 4.6]})
+    if ("W1p5mm" in nRun0[iRun]):
+        xCryCut.update({iRun: [3.9, 4.7, 3.8, 4.6]})
+    elif ("W2p5mm" in nRun0[iRun]):
+        if (int(iRun)<680570):
+            xCryCut.update({iRun: [3.9, 4.7, 7.4, 8.1]})
+        else:
+            xCryCut.update({iRun: [3.9, 4.7, 5.4, 6.2]})
+    else:
+        xCryCut.update({iRun: [-10, 10, -10, 10]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -183,10 +191,10 @@ outMultCut = {}
 # mandatory, but can be left empty --> no goniometer DOF pairing
 gonioMap = {}
 gonioMap = { 
-    "Rot": ["thIn0", False, -10**6],
-    "Crad": ["thIn1", False, 10**6],
-    "Horsa": ["xCry0", True, -10],
-    "HorsaBig": ["xCry0", True, -2*10],
+    "Rot": ["thIn1", False, -10**6],
+    "Crad": ["thIn0", False, 10**6],
+    "Horsa": ["xCry1", True, -10],
+    "HorsaBig": ["xCry1", True, -2*10],
 }
 
 ########################################################################################################################
