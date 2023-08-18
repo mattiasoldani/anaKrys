@@ -34,40 +34,33 @@ asciiMap = list()
 for i in range(4): asciiMap.append("xRaw"+str(i))
 for i in range(4): asciiMap.append("nStripHit"+str(i))
 for i in range(4): asciiMap.append("nHit"+str(i))
-for i in range(16): asciiMap.append("digiBaseAll"+str(i))  
-asciiMap.append("digiPHRawEmpty0")
-asciiMap.append("digiPHRawUaglio0")
-asciiMap.append("digiPHRawUaglio1")
-asciiMap.append("digiPHRawPinin1")
-asciiMap.append("digiPHRawPinin0")
-for i in range(3): asciiMap.append("digiPHRawEmpty"+str(i+1))
-asciiMap.append("digiPHRawCaloFwdBL")
-asciiMap.append("digiPHRawCaloFwdBR")
-asciiMap.append("digiPHRawCaloFwdCL")
-asciiMap.append("digiPHRawCaloFwdCC")
-asciiMap.append("digiPHRawCaloFwdCR")
-asciiMap.append("digiPHRawCaloFwdTL")
-asciiMap.append("digiPHRawCaloFwdTR")
-asciiMap.append("digiPHRawEmpty4")
-asciiMap.append("digiTimeEmpty0")
-asciiMap.append("digiTimeUaglio0")
-asciiMap.append("digiTimeUaglio1")
-asciiMap.append("digiTimePinin1")
-asciiMap.append("digiTimePinin0")
-for i in range(3): asciiMap.append("digiTimeEmpty"+str(i+1))
-asciiMap.append("digiTimeCaloFwdBL")
-asciiMap.append("digiTimeCaloFwdBR")
-asciiMap.append("digiTimeCaloFwdCL")
-asciiMap.append("digiTimeCaloFwdCC")
-asciiMap.append("digiTimeCaloFwdCR")
-asciiMap.append("digiTimeCaloFwdTL")
-asciiMap.append("digiTimeCaloFwdTR")
-asciiMap.append("digiTimeEmpty4")
+    
+for i in range(8): asciiMap.append("digiBaseAll"+str(i))  
+
+asciiMap.append("digiPHRawTrig")
+asciiMap.append("digiPHRawCaloFwd")
+asciiMap.append("digiPHRawCrysC0")
+asciiMap.append("digiPHRawCrysC1")
+asciiMap.append("digiPHRawCrysL0")
+asciiMap.append("digiPHRawCrysL1")
+asciiMap.append("digiPHRawCrysR0")
+asciiMap.append("digiPHRawCrysR1")
+
+asciiMap.append("digiTimeTrig")
+asciiMap.append("digiTimeCaloFwd")
+asciiMap.append("digiTimeCrysC0")
+asciiMap.append("digiTimeCrysC1")
+asciiMap.append("digiTimeCrysL0")
+asciiMap.append("digiTimeCrysL1")
+asciiMap.append("digiTimeCrysR0")
+asciiMap.append("digiTimeCrysR1")
+
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
 asciiMap.append("xGonioRawHorsa")
 asciiMap.append("xGonioRawHorsaBig")
 asciiMap.append("xGonioRawVersa")
+
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iAEv")
@@ -119,10 +112,10 @@ for iVar in nRun0:
     z.update({iVar: {
         "0": 0,
         "1": 0,
-        "2": 1590,
-        "3": 1590,
-        "gonio": 1590+157,
-        "caloFwd": 1590+157+29,
+        "2": 1548,
+        "3": 1548,
+        "gonio": 1548+90,
+        "caloFwd": 1548+90+999,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -139,7 +132,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["2", "3"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [-2.367236e-04, 1.050870e-04]})
+    thInCentres.update({iRun: [0, 0]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -212,15 +205,6 @@ digiPHCut = {}
 digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun: {}})
-    for i in range(2): digiTimeCut[iRun].update({"Uaglio%d" % i : [0, 20000]})
-    for i in range(2): digiTimeCut[iRun].update({"Pinin%d" % i : [0, 20000]})
-    digiTimeCut[iRun].update({"CaloFwdBL" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdBR" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdCL" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdCC" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdCR" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdTL" : [155, 175]})
-    digiTimeCut[iRun].update({"CaloFwdTR" : [155, 175]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
@@ -229,10 +213,7 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> forward calo. total PH and energy are set to NaN for those runs
 lsDigiChCaloFwd = {}
 for iRun in nRun0:
-    lsDigiChCaloFwd.update({iRun: [ #"CaloFwdCC"
-        "CaloFwdBL", "CaloFwdBR", "CaloFwdTL", "CaloFwdTR",
-        "CaloFwdCL", "CaloFwdCC", "CaloFwdCR",
-    ]})
+    lsDigiChCaloFwd.update({iRun: ["CaloFwd"]})
 
 # equalisation functions and parameters for channels to be equalised
 # has to be set run by run
@@ -247,50 +228,6 @@ for iRun in nRun0:
 equalMap = {}
 for iRun in nRun0:
     equalMap.update({iRun: {}})
-    '''
-    # online channel-by-channel calibration
-    equalMap[iRun].update({"CaloFwdBL" : [lambda x, m, q: (x-q)/m, [59.8, -18.6], 'end']})
-    equalMap[iRun].update({"CaloFwdBR" : [lambda x, m, q: (x-q)/m, [111.8, 153.9], 'end']})
-    equalMap[iRun].update({"CaloFwdCL" : [lambda x, m, q: (x-q)/m, [160.0, 124.9], 'end']})
-    equalMap[iRun].update({"CaloFwdCC" : [lambda x, m, q: (x-q)/m, [94.212, 90.313], 'end']})
-    equalMap[iRun].update({"CaloFwdCR" : [lambda x, m, q: (x-q)/m, [101.1, -73.3], 'end']})
-    equalMap[iRun].update({"CaloFwdTL" : [lambda x, m, q: (x-q)/m, [127.4, 207.9], 'end']})
-    equalMap[iRun].update({"CaloFwdTR" : [lambda x, m, q: (x-q)/m, [101.5, 21.9], 'end']})
-    # my equalisation+calibration (60 GeV only)
-    equalMap[iRun].update({"CaloFwdBL" : [lambda x, a: x*a, [1.613842], 'end']})
-    equalMap[iRun].update({"CaloFwdBR" : [lambda x, a: x*a, [0.839792], 'end']})
-    equalMap[iRun].update({"CaloFwdCL" : [lambda x, a: x*a, [0.603472], 'end']})
-    equalMap[iRun].update({"CaloFwdCC" : [lambda x, a: x*a, [1.000000], 'end']})
-    equalMap[iRun].update({"CaloFwdCR" : [lambda x, a: x*a, [0.949666], 'end']})
-    equalMap[iRun].update({"CaloFwdTL" : [lambda x, a: x*a, [0.739055], 'end']})
-    equalMap[iRun].update({"CaloFwdTR" : [lambda x, a: x*a, [0.938749], 'end']})
-    # my equalisation+calibration (20 GeV & 60 GeV)
-    equalMap[iRun].update({"CaloFwdBL" : [lambda x, m, q: m*x+1, [1.6193147521391222, -18.813627577689658], 'end']})
-    equalMap[iRun].update({"CaloFwdBR" : [lambda x, m, q: m*x+1, [0.8465298983405021, -44.51354880038252], 'end']})
-    equalMap[iRun].update({"CaloFwdCL" : [lambda x, m, q: m*x+1, [0.6084177137684034, -45.475254458359814], 'end']})
-    equalMap[iRun].update({"CaloFwdCC" : [lambda x, m, q: m*x+1, [1.0, 0.0], 'end']})
-    equalMap[iRun].update({"CaloFwdCR" : [lambda x, m, q: m*x+1, [0.9465568944576876, 18.165599561368253], 'end']})
-    equalMap[iRun].update({"CaloFwdTL" : [lambda x, m, q: m*x+1, [0.7520822102737467, -97.79724343192629], 'end']})
-    equalMap[iRun].update({"CaloFwdTR" : [lambda x, m, q: m*x+1, [0.9452244271115705, -38.271598882681246], 'end']})
-    ''';
-    # my equalisation+calibration (60 GeV only)
-    equalMap[iRun].update({"CaloFwdBL" : [lambda x, a: x*a, [1.613842], 'end']})
-    equalMap[iRun].update({"CaloFwdBR" : [lambda x, a: x*a, [0.839792], 'end']})
-    equalMap[iRun].update({"CaloFwdCL" : [lambda x, a: x*a, [0.603472], 'end']})
-    equalMap[iRun].update({"CaloFwdCC" : [lambda x, a: x*a, [1.000000], 'end']})
-    equalMap[iRun].update({"CaloFwdCR" : [lambda x, a: x*a, [0.949666], 'end']})
-    equalMap[iRun].update({"CaloFwdTL" : [lambda x, a: x*a, [0.739055], 'end']})
-    equalMap[iRun].update({"CaloFwdTR" : [lambda x, a: x*a, [0.938749], 'end']})
-    if int(iRun)>=520262:
-        equalMap[iRun].update({"Pinin0" : [lambda x, a: a*x, [0.39232], 'end']})
-        equalMap[iRun].update({"Pinin1" : [lambda x, a: a*x, [0.39232], 'end']})
-        equalMap[iRun].update({"Uaglio0" : [lambda x, a: a*x, [0.39232], 'end']})
-        equalMap[iRun].update({"Uaglio1" : [lambda x, a: a*x, [0.39232], 'end']})
-    #if int(iRun)>520152:
-    #    equalMap[iRun].update({"CaloFwdBL" : [lambda x, a: x*a, [1.613842*120/115], 'end']})
-    #    equalMap[iRun].update({"CaloFwdCL" : [lambda x, a: x*a, [0.603472*120/115], 'end']})
-    #    equalMap[iRun].update({"CaloFwdCC" : [lambda x, a: x*a, [1.000000*120/115], 'end']})
-    #    equalMap[iRun].update({"CaloFwdTL" : [lambda x, a: x*a, [0.739055*120/115], 'end']})
 
 # (total) forward calorimeter calibration function and parameters
 # has to be set run by run
@@ -303,9 +240,4 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> forward calo. energy is set to NaN for those runs
 calibMapFwd = {}
 for iRun in nRun0:
-    #calibMapFwd.update({iRun: [lambda x, a: x, [1], 'end']})  # use this for online channel-by-channel calibration
-    #calibMapFwd.update({iRun: [lambda x, m, q: x*m+q, [0.009903, -0.4257], 'end']})  # my equalisation+calibration
-    if int(iRun)>520152:  # my equalisation+calibration+rescaling (after potential drift)
-        calibMapFwd.update({iRun: [lambda x, m, q: (x*m+q)*120/114, [0.009903, -0.4257], 'end']})
-    else:
-        calibMapFwd.update({iRun: [lambda x, m, q: x*m+q, [0.009903, -0.4257], 'end']})
+    calibMapFwd.update({iRun: [lambda x, a: x, [1], 'end']})  # use this for online channel-by-channel calibration
