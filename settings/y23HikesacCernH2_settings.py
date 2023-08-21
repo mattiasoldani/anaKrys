@@ -35,25 +35,27 @@ for i in range(4): asciiMap.append("xRaw"+str(i))
 for i in range(4): asciiMap.append("nStripHit"+str(i))
 for i in range(4): asciiMap.append("nHit"+str(i))
     
-for i in range(8): asciiMap.append("digiBaseAll"+str(i))  
+for i in range(16): asciiMap.append("digiBaseAll"+str(i))  
 
-asciiMap.append("digiPHRawTrig")
+asciiMap.append("digiPHRawCaloFwdLow")
 asciiMap.append("digiPHRawCaloFwd")
-asciiMap.append("digiPHRawCrysC0")
-asciiMap.append("digiPHRawCrysC1")
 asciiMap.append("digiPHRawCrysL0")
 asciiMap.append("digiPHRawCrysL1")
+asciiMap.append("digiPHRawCrysC0")
+asciiMap.append("digiPHRawCrysC1")
 asciiMap.append("digiPHRawCrysR0")
 asciiMap.append("digiPHRawCrysR1")
+for i in range(8): asciiMap.append("digiPHRawOther"+str(8+i))  
 
-asciiMap.append("digiTimeTrig")
+asciiMap.append("digiTimeCaloFwdLow")
 asciiMap.append("digiTimeCaloFwd")
-asciiMap.append("digiTimeCrysC0")
-asciiMap.append("digiTimeCrysC1")
 asciiMap.append("digiTimeCrysL0")
 asciiMap.append("digiTimeCrysL1")
+asciiMap.append("digiTimeCrysC0")
+asciiMap.append("digiTimeCrysC1")
 asciiMap.append("digiTimeCrysR0")
 asciiMap.append("digiTimeCrysR1")
+for i in range(8): asciiMap.append("digiTimeOther"+str(8+i))  
 
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
@@ -114,8 +116,8 @@ for iVar in nRun0:
         "1": 0,
         "2": 1548,
         "3": 1548,
-        "gonio": 1548+90,
-        "caloFwd": 1548+90+999,
+        "gonio": 1548+12+61,
+        "caloFwd": 1548+12+61+13,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -132,7 +134,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["2", "3"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [0, 0]})
+    thInCentres.update({iRun: [None, None]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -161,6 +163,8 @@ thInCut = {}
 # dictionary -- shape: {run (string): [xCut0, xCut1, yCut0, yCut1] (4 float)}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
+for iRun in nRun0: 
+    xCryCut.update({iRun: [5.0, 6.5, 3.2, 4.5]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
@@ -183,7 +187,7 @@ gonioMap = {
     "Crad": ["thIn1", False, 10**6],
     "Horsa": ["xCry0", True, -10],
     "HorsaBig": ["xCry0", True, 2*10],
-}  # careful, since run 195 Crad & HorsaBig are inverted wrt. this configuration
+}
 
 ########################################################################################################################
 # DIGITIZERS
