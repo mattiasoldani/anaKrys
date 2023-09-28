@@ -144,7 +144,7 @@ for iRun in nRun0:
 # mandatory for all the runs
 thOutCentres = {}
 for iRun in nRun0:
-    thOutCentres.update({iRun: [0, 0]})
+    thOutCentres.update({iRun: [None, None]})
 
 # aligned input angle range cut, centered around 0, boundaries excluded
 # has to be set run by run
@@ -155,8 +155,8 @@ for iRun in nRun0:
 #     if length=4, the 4 values [xCutL, xCutR, yCutL, yCutR] are the boundaries of a rectangular cut
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 thInCut = {}
-#for iRun in nRun0:
-#    thOutCentres.update({iRun: [0, 0]})
+for iRun in nRun0:
+    thInCut.update({iRun: [-1e-3, 1e-3]})
 
 # crystal fiducial rectangle applied at the crystal longitudinal position z -- boundaries excluded
 # has to be set run by run
@@ -164,7 +164,9 @@ thInCut = {}
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
 for iRun in nRun0: 
-    xCryCut.update({iRun: [5.0, 6.5, 3.2, 4.5]})
+    xCryCut.update({iRun: [5.2, 6.2, 3.3, 4.3]})
+    if ("Small" in nRun0[iRun]):
+        xCryCut.update({iRun: [3.3, 4.2, 3.1, 4.0]})
 
 # upper/lower limit for low/high output multiplicity selection (included)
 # has to be set run by run
