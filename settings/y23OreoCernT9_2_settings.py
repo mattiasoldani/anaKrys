@@ -31,10 +31,12 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
-for i in [1, 0, 3, 2]: asciiMap.append("xRaw"+str(i))
-for i in [1, 0, 3, 2]: asciiMap.append("nStripHit"+str(i))
-for i in [1, 0, 3, 2]: asciiMap.append("nHit"+str(i))
+for i in [0, 1, 2, 3]: asciiMap.append("xRaw"+str(i))
+for i in [0, 1, 2, 3]: asciiMap.append("nStripHit"+str(i))
+for i in [0, 1, 2, 3]: asciiMap.append("nHit"+str(i))
+    
 for i in range(16): asciiMap.append("digiBaseAll"+str(i))
+
 asciiMap.append("digiPHRawCherenkov")
 asciiMap.append("digiPHRawCaloFwd")
 asciiMap.append("digiPHRawAPC1")
@@ -44,6 +46,7 @@ asciiMap.append("digiPHRawEmpty1")
 asciiMap.append("digiPHRawEmpty2")
 asciiMap.append("digiPHRawEmpty3")
 for i in range(8): asciiMap.append("digiPHRawEmpty"+str(i+4))
+    
 asciiMap.append("digiTimeCherenkov")
 asciiMap.append("digiTimeCaloFwd")
 asciiMap.append("digiTimeAPC1")
@@ -53,11 +56,13 @@ asciiMap.append("digiTimeEmpty1")
 asciiMap.append("digiTimeEmpty2")
 asciiMap.append("digiTimeEmpty3")
 for i in range(8): asciiMap.append("digiTimeEmpty"+str(i+4))
+
 asciiMap.append("xGonioRawRot")
 asciiMap.append("xGonioRawCrad")
 asciiMap.append("xGonioRawHorsa")
 asciiMap.append("xGonioRawHorsaBig")
 asciiMap.append("xGonioRawVersa")
+
 asciiMap.append("iSpill")
 asciiMap.append("iStep")
 asciiMap.append("iAEv")
@@ -165,11 +170,6 @@ xCryCut = {}
 for iRun in nRun0:
     if ("W1p5mm" in nRun0[iRun]):
         xCryCut.update({iRun: [3.9, 4.7, 3.8, 4.6]})
-    elif ("W2p5mm" in nRun0[iRun]):
-        if (int(iRun)<680570):
-            xCryCut.update({iRun: [3.9, 4.7, 7.4, 8.1]})
-        else:
-            xCryCut.update({iRun: [3.9, 4.7, 5.4, 6.2]})
     else:
         xCryCut.update({iRun: [-10, 10, -10, 10]})
 
@@ -219,8 +219,6 @@ for iRun in nRun0:
 digiTimeCut = {}
 for iRun in nRun0:
     digiPHCut.update({iRun: {"CaloFwd" : [0, 1000]}})
-    digiPHCut.update({iRun: {"APC0" : [0, 1000]}})
-    digiPHCut.update({iRun: {"APC1" : [0, 1000]}})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
