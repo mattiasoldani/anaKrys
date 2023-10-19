@@ -10,7 +10,7 @@ nRun0 = (importlib.import_module("."+os.path.basename(__file__).replace("setting
 
 # ROOT tree or NumPy array name, string
 # mandatory with ROOT/NPZ, useless with ASCII files
-treeName = ""
+treeName = "t"
 
 # descaling fraction, i.e. fraction of events to be processed (uniformly distributed along the run)
 # the lower is this value, the smaller the loaded dataset
@@ -31,41 +31,41 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
-for i in [0, 1, 2, 3]: asciiMap.append("xRaw"+str(i))
-for i in [0, 1, 2, 3]: asciiMap.append("nStripHit"+str(i))
-for i in [0, 1, 2, 3]: asciiMap.append("nHit"+str(i))
-    
-for i in range(16): asciiMap.append("digiBaseAll"+str(i))
-
-asciiMap.append("digiPHRawCherenkov")
-asciiMap.append("digiPHRawCaloFwd")
-asciiMap.append("digiPHRawAPC1")
-asciiMap.append("digiPHRawAPC0")
-asciiMap.append("digiPHRawEmpty0")
-asciiMap.append("digiPHRawEmpty1")
-asciiMap.append("digiPHRawEmpty2")
-asciiMap.append("digiPHRawEmpty3")
-for i in range(8): asciiMap.append("digiPHRawEmpty"+str(i+4))
-    
-asciiMap.append("digiTimeCherenkov")
-asciiMap.append("digiTimeCaloFwd")
-asciiMap.append("digiTimeAPC1")
-asciiMap.append("digiTimeAPC0")
-asciiMap.append("digiTimeEmpty0")
-asciiMap.append("digiTimeEmpty1")
-asciiMap.append("digiTimeEmpty2")
-asciiMap.append("digiTimeEmpty3")
-for i in range(8): asciiMap.append("digiTimeEmpty"+str(i+4))
-
-asciiMap.append("xGonioRawRot")
-asciiMap.append("xGonioRawCrad")
-asciiMap.append("xGonioRawHorsa")
-asciiMap.append("xGonioRawHorsaBig")
-asciiMap.append("xGonioRawVersa")
-
-asciiMap.append("iSpill")
-asciiMap.append("iStep")
-asciiMap.append("iAEv")
+#for i in [0, 1, 2, 3]: asciiMap.append("xRaw"+str(i))
+#for i in [0, 1, 2, 3]: asciiMap.append("nStripHit"+str(i))
+#for i in [0, 1, 2, 3]: asciiMap.append("nHit"+str(i))
+#    
+#for i in range(16): asciiMap.append("digiBaseAll"+str(i))
+#
+#asciiMap.append("digiPHRawCherenkov")
+#asciiMap.append("digiPHRawCaloFwd")
+#asciiMap.append("digiPHRawAPC1")
+#asciiMap.append("digiPHRawAPC0")
+#asciiMap.append("digiPHRawEmpty0")
+#asciiMap.append("digiPHRawEmpty1")
+#asciiMap.append("digiPHRawEmpty2")
+#asciiMap.append("digiPHRawEmpty3")
+#for i in range(8): asciiMap.append("digiPHRawEmpty"+str(i+4))
+#    
+#asciiMap.append("digiTimeCherenkov")
+#asciiMap.append("digiTimeCaloFwd")
+#asciiMap.append("digiTimeAPC1")
+#asciiMap.append("digiTimeAPC0")
+#asciiMap.append("digiTimeEmpty0")
+#asciiMap.append("digiTimeEmpty1")
+#asciiMap.append("digiTimeEmpty2")
+#asciiMap.append("digiTimeEmpty3")
+#for i in range(8): asciiMap.append("digiTimeEmpty"+str(i+4))
+#
+#asciiMap.append("xGonioRawRot")
+#asciiMap.append("xGonioRawCrad")
+#asciiMap.append("xGonioRawHorsa")
+#asciiMap.append("xGonioRawHorsaBig")
+#asciiMap.append("xGonioRawVersa")
+#
+#asciiMap.append("iSpill")
+#asciiMap.append("iStep")
+#asciiMap.append("iAEv")
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -73,6 +73,29 @@ asciiMap.append("iAEv")
 # if oldName refers to a multivariable branch, each element must be inserted individually
 # mandatory, but can be left empty --> no variable mapping
 treeMap = {}
+for i in range(4): treeMap.update({"xRaw%d" % i: "xpos%d" % i})
+for i in range(4): treeMap.update({"nHit%d" % i: "nclu%d" % i})
+for i in range(4): treeMap.update({"nStripPerHit%d" % i: "nstrip%d" % i})
+treeMap.update({"digiPHRawCaloFwd": "digiPH0"})
+treeMap.update({"digiPHRawAPC": "digiPH1"})
+treeMap.update({"digiPHRawCher0": "digiPH2"})
+treeMap.update({"digiPHRawCher1": "digiPH3"})
+treeMap.update({"digiPHRawGeorge": "digiPH4"})
+treeMap.update({"digiPHRawJohn": "digiPH5"})
+treeMap.update({"digiPHRawPaul": "digiPH6"})
+treeMap.update({"digiPHRawRingo": "digiPH7"})
+treeMap.update({"digiTimeCaloFwd": "digiTime0"})
+treeMap.update({"digiTimeAPC": "digiTime1"})
+treeMap.update({"digiTimeCher0": "digiTime2"})
+treeMap.update({"digiTimeCher1": "digiTime3"})
+treeMap.update({"digiTimeGeorge": "digiTime4"})
+treeMap.update({"digiTimeJohn": "digiTime5"})
+treeMap.update({"digiTimePaul": "digiTime6"})
+treeMap.update({"digiTimeRingo": "digiTime7"})
+treeMap.update({"xGonioRawRot" : "xinfo0"})
+treeMap.update({"xGonioRawCrad" : "xinfo1"})
+treeMap.update({"xGonioRawHorsa" : "xinfo2"})
+treeMap.update({"xGonioRawHorsaBig" : "xinfo3"})
     
 # variables to mirror, i.e. var --> -var
 # has to be set run by run
@@ -113,10 +136,10 @@ for iRun in nRun0:
     z.update({iRun: {
         "0": 0,
         "1": 0,
-        "2": 268,
-        "3": 268,
-        "gonio": 268 + 90,
-        "caloFwd": 268 + 90 + 85 + 666,
+        "2": 500,
+        "3": 500,
+        "gonio": 549,
+        "caloFwd": 572,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -133,7 +156,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["2", "3"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [None, None]})
+    thInCentres.update({iRun: [-0.0013068250+1.316343e-04, 0.0013552250+1.552463e-04]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -168,8 +191,8 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
 for iRun in nRun0:
-    if ("W1p5mm" in nRun0[iRun]):
-        xCryCut.update({iRun: [3.9, 4.7, 3.8, 4.6]})
+    if ("PWO2times2" in nRun0[iRun]):
+        xCryCut.update({iRun: [2.5, 6, 2, 5.5]})
     else:
         xCryCut.update({iRun: [-10, 10, -10, 10]})
 
@@ -208,7 +231,8 @@ gonioMap = {
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiPHCut = {}
 for iRun in nRun0:
-    digiPHCut.update({iRun: {}})
+    digiPHCut.update({iRun : {}})
+    digiPHCut[iRun].update({iRun: {"CaloFwd" : [1000, 20000]}})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -218,7 +242,12 @@ for iRun in nRun0:
 #     --> no cuts defined, i.e. booleans always True, in missing runs/channels
 digiTimeCut = {}
 for iRun in nRun0:
-    digiPHCut.update({iRun: {"CaloFwd" : [0, 1000]}})
+    digiTimeCut.update({iRun : {}})
+    digiTimeCut[iRun].update({"CaloFwd" : [190, 235]})
+    digiTimeCut[iRun].update({"George" : [190, 235]})
+    digiTimeCut[iRun].update({"Ringo" : [190, 235]})
+    digiTimeCut[iRun].update({"Paul" : [190, 235]})
+    digiTimeCut[iRun].update({"John" : [190, 235]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run
