@@ -617,7 +617,8 @@ def plot_energySingle(
         fig, ax = plt.subplots(nrows=1, ncols=1, figsize=[newXSize, newYSize], num=newFigName)
             
     # spectrum is created only if ax has the right typing (plt.subplots() output np.array in case of multidimensional figures)
-    if str(type(ax))=="<class 'matplotlib.axes._subplots.AxesSubplot'>":
+    if str(type(ax))=="<class 'matplotlib.axes._axes.Axes'>":  # small tweak applied on 22/2/2024!
+    # if str(type(ax))=="<class 'matplotlib.axes._subplots.AxesSubplot'>":
         
         # plot boolean & title (corresponding to boolean if title0 is None, else title0) & variable
         title = "" if title0==None else title0
