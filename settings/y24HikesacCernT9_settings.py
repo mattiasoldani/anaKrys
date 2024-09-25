@@ -31,41 +31,151 @@ nLinesEv = 1
 #     (0, 0), ..., (0, nCol(0)), (1,0), ..., (1, nCol(1)), ...,  (nLines, 0), ..., (nLines, nCol(nLines))
 # mandatory with ASCII/NPZ, useless with ROOT files
 asciiMap = list()
-#for i in [0, 1, 2, 3]: asciiMap.append("xRaw"+str(i))
-#for i in [0, 1, 2, 3]: asciiMap.append("nStripHit"+str(i))
-#for i in [0, 1, 2, 3]: asciiMap.append("nHit"+str(i))
-#    
-#for i in range(16): asciiMap.append("digiBaseAll"+str(i))
+
+for i in range(4): asciiMap.append("xRaw"+str(i))
+#for i in range(4): asciiMap.append("nStripHit"+str(i))
+
+#icrilin=0
+#for i in range(64):
+#    if (i==57):
+#        asciiMap.append("digiBaseCaloFwd")
+#    elif (i==53):
+#        asciiMap.append("digiBaseTiming0")
+#    elif (i==54):
+#        asciiMap.append("digiBaseTiming1")
+#    elif (((i>=0) & (i<32)) | (i>=49) & (i<53)):
+#        asciiMap.append("digiBaseCrilin%d"%icrilin)
+#        icrilin+=1
+#    else:
+#        asciiMap.append("digiBase%d"%i)
 #
-#asciiMap.append("digiPHRawCherenkov")
-#asciiMap.append("digiPHRawCaloFwd")
-#asciiMap.append("digiPHRawAPC1")
-#asciiMap.append("digiPHRawAPC0")
-#asciiMap.append("digiPHRawEmpty0")
-#asciiMap.append("digiPHRawEmpty1")
-#asciiMap.append("digiPHRawEmpty2")
-#asciiMap.append("digiPHRawEmpty3")
-#for i in range(8): asciiMap.append("digiPHRawEmpty"+str(i+4))
-#    
-#asciiMap.append("digiTimeCherenkov")
-#asciiMap.append("digiTimeCaloFwd")
-#asciiMap.append("digiTimeAPC1")
-#asciiMap.append("digiTimeAPC0")
-#asciiMap.append("digiTimeEmpty0")
-#asciiMap.append("digiTimeEmpty1")
-#asciiMap.append("digiTimeEmpty2")
-#asciiMap.append("digiTimeEmpty3")
-#for i in range(8): asciiMap.append("digiTimeEmpty"+str(i+4))
+#icrilin=0
+#for i in range(64):
+#    if (i==57):
+#        asciiMap.append("digiTimeCaloFwd")
+#    elif (i==53):
+#        asciiMap.append("digiTimeTiming0")
+#    elif (i==54):
+#        asciiMap.append("digiTimeTiming1")
+#    elif (((i>=0) & (i<32)) | (i>=49) & (i<53)):
+#        asciiMap.append("digiTimeCrilin%d"%icrilin)
+#        icrilin+=1
+#    else:
+#        asciiMap.append("digiTime%d"%i)
 #
-#asciiMap.append("xGonioRawRot")
-#asciiMap.append("xGonioRawCrad")
-#asciiMap.append("xGonioRawHorsa")
-#asciiMap.append("xGonioRawHorsaBig")
-#asciiMap.append("xGonioRawVersa")
+#icrilin=0
+#for i in range(64):
+#    if (i==57):
+#        asciiMap.append("digiHalfTimeCaloFwd")
+#    elif (i==53):
+#        asciiMap.append("digiHalfTimeTiming0")
+#    elif (i==54):
+#        asciiMap.append("digiHalfTimeTiming1")
+#    elif (((i>=0) & (i<32)) | (i>=49) & (i<53)):
+#        asciiMap.append("digiHalfTimeCrilin%d"%icrilin)
+#        icrilin+=1
+#    else:
+#        asciiMap.append("digiHalfTime%d"%i)
 #
-#asciiMap.append("iSpill")
-#asciiMap.append("iStep")
-#asciiMap.append("iAEv")
+#icrilin=0
+#for i in range(64):
+#    if (i==57):
+#        asciiMap.append("digiPHRawCaloFwd")
+#    elif (i==53):
+#        asciiMap.append("digiPHRawTiming0")
+#    elif (i==54):
+#        asciiMap.append("digiPHRawTiming1")
+#    elif (((i>=0) & (i<32)) | (i>=49) & (i<53)):
+#        asciiMap.append("digiPHRawCrilin%d"%icrilin)
+#        icrilin+=1
+#    else:
+#        asciiMap.append("digiPHRaw%d"%i)
+
+igarbage=0
+
+for i in range(64):
+    if (i==57):
+        asciiMap.append("digiBaseCaloFwd")
+    elif (i==8):
+        asciiMap.append("digiBaseCrilin8")
+    elif (i==9):
+        asciiMap.append("digiBaseCrilin9")
+    elif (i==60):
+        asciiMap.append("digiBaseCher0")
+    elif (i==61):
+        asciiMap.append("digiBaseCher1")
+    elif (i==62):
+        asciiMap.append("digiBaseFiorello0")
+    elif (i==63):
+        asciiMap.append("digiBaseFiorello1")
+    else:
+        asciiMap.append("Garbage%d"%igarbage)
+        igarbage+=1
+
+for i in range(64):
+    if (i==57):
+        asciiMap.append("digiTimeCaloFwd")
+    elif (i==8):
+        asciiMap.append("digiTimeCrilin8")
+    elif (i==9):
+        asciiMap.append("digiTimeCrilin9")
+    elif (i==60):
+        asciiMap.append("digiTimeCher0")
+    elif (i==61):
+        asciiMap.append("digiTimeCher1")
+    elif (i==62):
+        asciiMap.append("digiTimeFiorello0")
+    elif (i==63):
+        asciiMap.append("digiTimeFiorello1")
+    else:
+        asciiMap.append("Garbage%d"%igarbage)
+        igarbage+=1
+
+for i in range(64):
+    if (i==57):
+        asciiMap.append("digiHalfTimeCaloFwd")
+    elif (i==8):
+        asciiMap.append("digiHalfTimeCrilin8")
+    elif (i==9):
+        asciiMap.append("digiHalfTimeCrilin9")
+    elif (i==60):
+        asciiMap.append("digiHalfTimeCher0")
+    elif (i==61):
+        asciiMap.append("digiHalfTimeCher1")
+    elif (i==62):
+        asciiMap.append("digiHalfTimeFiorello0")
+    elif (i==63):
+        asciiMap.append("digiHalfTimeFiorello1")
+    else:
+        asciiMap.append("Garbage%d"%igarbage)
+        igarbage+=1
+
+for i in range(64):
+    if (i==57):
+        asciiMap.append("digiPHRawCaloFwd")
+    elif (i==8):
+        asciiMap.append("digiPHRawCrilin8")
+    elif (i==9):
+        asciiMap.append("digiPHRawCrilin9")
+    elif (i==60):
+        asciiMap.append("digiPHRawCher0")
+    elif (i==61):
+        asciiMap.append("digiPHRawCher1")
+    elif (i==62):
+        asciiMap.append("digiPHRawFiorello0")
+    elif (i==63):
+        asciiMap.append("digiPHRawFiorello1")
+    else:
+        asciiMap.append("Garbage%d"%igarbage)
+        igarbage+=1
+
+asciiMap.append("xGonioRawRot")
+asciiMap.append("xGonioRawCrad")
+asciiMap.append("xGonioRawHorsa")
+asciiMap.append("xGonioRawHorsaBig")
+asciiMap.append("xGonioRawVersa")
+
+for i in range(9): asciiMap.append("iDummy%d"%i)
 
 # map of the ROOT tree variables
 # dictionary -- shape: {newName: oldName} (all string)
@@ -73,25 +183,66 @@ asciiMap = list()
 # if oldName refers to a multivariable branch, each element must be inserted individually
 # mandatory, but can be left empty --> no variable mapping
 treeMap = {}
+
 for i in range(4): treeMap.update({"xRaw%d" % i: "xpos%d" % i})
-for i in range(4): treeMap.update({"nHit%d" % i: "nclu%d" % i})
-for i in range(4): treeMap.update({"nStripPerHit%d" % i: "nstrip%d" % i})
-treeMap.update({"digiPHRawCaloFwd": "digiPH0"})
-treeMap.update({"digiPHRawAPC": "digiPH1"})
-treeMap.update({"digiPHRawCher0": "digiPH2"})
-treeMap.update({"digiPHRawCher1": "digiPH3"})
-treeMap.update({"digiPHRawGeorge": "digiPH4"})
-treeMap.update({"digiPHRawJohn": "digiPH5"})
-treeMap.update({"digiPHRawPaul": "digiPH6"})
-treeMap.update({"digiPHRawRingo": "digiPH7"})
-treeMap.update({"digiTimeCaloFwd": "digiTime0"})
-treeMap.update({"digiTimeAPC": "digiTime1"})
-treeMap.update({"digiTimeCher0": "digiTime2"})
-treeMap.update({"digiTimeCher1": "digiTime3"})
-treeMap.update({"digiTimeGeorge": "digiTime4"})
-treeMap.update({"digiTimeJohn": "digiTime5"})
-treeMap.update({"digiTimePaul": "digiTime6"})
-treeMap.update({"digiTimeRingo": "digiTime7"})
+for i in range(4): treeMap.update({"nStripHit%d" % i: "nstrip%d" % i})
+
+icrilin=0
+for i in range(64):
+    if (i==57):
+        treeMap.update({"digiBaseCaloFwd": "digiBase%d"%i})
+    elif (i==53):
+        treeMap.update({"digiBaseTiming0": "digiBase%d"%i})
+    elif (i==54):
+        treeMap.update({"digiBaseTiming1": "digiBase%d"%i})
+    elif (((i>=0) & (i<32)) | (i>=49) & (i<53)):
+        treeMap.update({"digiBaseCrilin%d"%icrilin: "digiBase%d"%i})
+        icrilin+=1
+    else:
+        treeMap.update({"digiBase%d"%i: "digiBase%d"%i})
+
+icrilin=0
+for i in range(64):
+    if (i==57):
+        treeMap.update({"digiTimeCaloFwd": "digiTime%d"%i})
+    elif (i==53):
+        treeMap.update({"digiTimeTiming0": "digiTime%d"%i})
+    elif (i==54):
+        treeMap.update({"digiTimeTiming1": "digiTime%d"%i})
+    elif (((i>=0) & (i<32)) | (i>=49) & (i<53)):
+        treeMap.update({"digiTimeCrilin%d"%icrilin: "digiTime%d"%i})
+        icrilin+=1
+    else:
+        treeMap.update({"digiTime%d"%i: "digiTime%d"%i})
+
+icrilin=0
+for i in range(64):
+    if (i==57):
+        treeMap.update({"digiHalfTimeCaloFwd": "digiHalfTime%d"%i})
+    elif (i==53):
+        treeMap.update({"digiHalfTimeTiming0": "digiHalfTime%d"%i})
+    elif (i==54):
+        treeMap.update({"digiHalfTimeTiming1": "digiHalfTime%d"%i})
+    elif (((i>=0) & (i<32)) | (i>=49) & (i<53)):
+        treeMap.update({"digiHalfTimeCrilin%d"%icrilin: "digiHalfTime%d"%i})
+        icrilin+=1
+    else:
+        treeMap.update({"digiHalfTime%d"%i: "digiHalfTime%d"%i})
+
+icrilin=0
+for i in range(64):
+    if (i==57):
+        treeMap.update({"digiPHRawCaloFwd": "digiPH%d"%i})
+    elif (i==53):
+        treeMap.update({"digiPHRawTiming0": "digiPH%d"%i})
+    elif (i==54):
+        treeMap.update({"digiPHRawTiming1": "digiPH%d"%i})
+    elif (((i>=0) & (i<32)) | (i>=49) & (i<53)):
+        treeMap.update({"digiPHRawCrilin%d"%icrilin: "digiPH%d"%i})
+        icrilin+=1
+    else:
+        treeMap.update({"digiPHRaw%d"%i: "digiPH%d"%i})
+
 treeMap.update({"xGonioRawRot" : "xinfo0"})
 treeMap.update({"xGonioRawCrad" : "xinfo1"})
 treeMap.update({"xGonioRawHorsa" : "xinfo2"})
@@ -136,10 +287,10 @@ for iRun in nRun0:
     z.update({iRun: {
         "0": 0,
         "1": 0,
-        "2": 500,
-        "3": 500,
-        "gonio": 549,
-        "caloFwd": 572,
+        "2": 620.5,
+        "3": 620.5,
+        "gonio": 620.5+90.5+4.0,
+        "caloFwd": 620.5+90.5+4.0+4.0+5.0,
     }})
     
 # base tracking modules, i.e. 4 (2) in the input (output) stage
@@ -156,7 +307,7 @@ baseTrackingMap = [["0", "1", "2", "3"], ["2", "3"]]
 # mandatory for all the runs
 thInCentres = {}
 for iRun in nRun0:
-    thInCentres.update({iRun: [-0.0013068250+1.316343e-04, 0.0013552250+1.552463e-04]})
+    thInCentres.update({iRun: [-1.288368e-03, 2.577419e-03]})
     
 # raw output angle distribution centres for modules alignment
 # has to be set run by run
@@ -191,8 +342,13 @@ for iRun in nRun0:
 # mandatory, but can be skipped for some/all runs --> no cut defined, i.e. boolean always True, in missing runs
 xCryCut = {}
 for iRun in nRun0:
-    if ("PWO2times2" in nRun0[iRun]):
-        xCryCut.update({iRun: [2.5, 6, 2, 5.5]})
+    if ("Crilin" in nRun0[iRun]):
+        if (int(iRun)<=800093):
+            xCryCut.update({iRun: [4.65, 5.45, 1.85, 2.65]})
+        elif (int(iRun)<=800119):
+            xCryCut.update({iRun: [4.65, 5.45, 2.85, 3.65]})
+        else:
+            xCryCut.update({iRun: [5.15, 5.95, 2.85, 3.65]})
     else:
         xCryCut.update({iRun: [-10, 10, -10, 10]})
 
@@ -215,7 +371,7 @@ outMultCut = {}
 gonioMap = {}
 gonioMap = { 
     "Rot": ["thIn1", False, -10**6],
-    "Crad": ["thIn0", False, 10**6],
+    "Crad": ["thIn0", False, -10**6],
     "Horsa": ["xCry1", True, -10],
     "HorsaBig": ["xCry1", True, -2*10],
 }
@@ -232,7 +388,11 @@ gonioMap = {
 digiPHCut = {}
 for iRun in nRun0:
     digiPHCut.update({iRun : {}})
-    digiPHCut[iRun].update({iRun: {"CaloFwd" : [1000, 20000]}})
+    digiPHCut[iRun].update({iRun: {"CaloFwd" : [0, 5000]}})
+    digiPHCut[iRun].update({"CaloFwd" : [0, 5000]})
+    digiPHCut[iRun].update({"Cher0" : [13, 5000]})
+    for icrilin in range(36):
+        digiPHCut[iRun].update({"Crilin%d"%icrilin : [0, 5000]})
 
 # time cut interval -- inner events kept, boundaries excluded
 # has to be set run by run
@@ -243,11 +403,14 @@ for iRun in nRun0:
 digiTimeCut = {}
 for iRun in nRun0:
     digiTimeCut.update({iRun : {}})
-    digiTimeCut[iRun].update({"CaloFwd" : [190, 235]})
-    digiTimeCut[iRun].update({"George" : [190, 235]})
-    digiTimeCut[iRun].update({"Ringo" : [190, 235]})
-    digiTimeCut[iRun].update({"Paul" : [190, 235]})
-    digiTimeCut[iRun].update({"John" : [190, 235]})
+    if (int(iRun)<=800123):
+        digiTimeCut[iRun].update({"CaloFwd" : [525, 550]})
+        digiTimeCut[iRun].update({"Cher0" : [575, 600]})
+    else:
+        digiTimeCut[iRun].update({"CaloFwd" : [525, 550]})
+        digiTimeCut[iRun].update({"Cher0" : [575, 600]})
+    for icrilin in range(36):
+        digiTimeCut[iRun].update({"Crilin%d"%icrilin : [0, 1000]})
 
 # set of channels that are forward calorimeter channels
 # has to be set run by run

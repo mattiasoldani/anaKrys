@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import succolib as sl
+#import succolib as sl
+import succolib_temp as sl  # temporary for 24HikesacCernT9
 from scipy.optimize import curve_fit
 from matplotlib.colors import LogNorm, Normalize
 

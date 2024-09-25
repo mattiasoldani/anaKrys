@@ -1,4 +1,5 @@
-import succolib as sl
+#import succolib as sl
+import succolib_temp as sl  # temporary for 24HikesacCernT9
 import pickle
 
 ###############################################################################
