@@ -38,4 +38,23 @@ nRun0 = {
     "800152" : "Crilin_Axial",
     "800153" : "Crilin_Axial",
     "800154" : "Crilin_Axial",
+    "800168" : "Crilin_Random",
+
+    # Ciofecometro2 axis search
+    "800178" : "OLD_Ciofex_find_axis_0",
+    "800179" : "OLD_Ciofex_find_axis_0",
+    "800180" : "OLD_Ciofex_find_axis_0",  # tentative random, but not too far from best guess
+    "800181" : "Ciofex_find_axis_2",  # best guess, also use in rot scan
+    "800182" : "Ciofex_find_axis_0",  # cradle scan
+    "800183" : "Ciofex_find_axis_1",  # random
+    "800184" : "Ciofex_find_axis_2",  # rot scan (single DAQ)
+    "800185" : "Ciofex_find_axis_2",  # rot scan (single DAQ)
+    "800186" : "Ciofex_find_axis_2",  # rot scan (single DAQ)
+    "800187" : "Ciofex_find_axis_0",  # cradle scan
+    "800188" : "Ciofex_find_axis_0",  # cradle scan
+    "800189" : "Ciofex_find_axis_0",  # cradle scan
+
+    # Ciofecometro2 high statistics
+    "800192" : "OLD_Ciofex_Axial",  # could tweak alignment a little better
+    "800193" : "Ciofex_Axial",
 }

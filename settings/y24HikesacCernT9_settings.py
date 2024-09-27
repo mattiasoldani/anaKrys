@@ -96,6 +96,8 @@ igarbage=0
 for i in range(64):
     if (i==57):
         asciiMap.append("digiBaseCaloFwd")
+    elif (i==56):
+        asciiMap.append("digiBaseCiofex")
     elif (i==8):
         asciiMap.append("digiBaseCrilin8")
     elif (i==9):
@@ -115,6 +117,8 @@ for i in range(64):
 for i in range(64):
     if (i==57):
         asciiMap.append("digiTimeCaloFwd")
+    elif (i==56):
+        asciiMap.append("digiTimeCiofex")
     elif (i==8):
         asciiMap.append("digiTimeCrilin8")
     elif (i==9):
@@ -134,6 +138,8 @@ for i in range(64):
 for i in range(64):
     if (i==57):
         asciiMap.append("digiHalfTimeCaloFwd")
+    elif (i==56):
+        asciiMap.append("digiHalfTimeCiofex")
     elif (i==8):
         asciiMap.append("digiHalfTimeCrilin8")
     elif (i==9):
@@ -153,6 +159,8 @@ for i in range(64):
 for i in range(64):
     if (i==57):
         asciiMap.append("digiPHRawCaloFwd")
+    elif (i==56):
+        asciiMap.append("digiPHRawCiofex")
     elif (i==8):
         asciiMap.append("digiPHRawCrilin8")
     elif (i==9):
@@ -349,6 +357,11 @@ for iRun in nRun0:
             xCryCut.update({iRun: [4.65, 5.45, 2.85, 3.65]})
         else:
             xCryCut.update({iRun: [5.15, 5.95, 2.85, 3.65]})
+    elif ("Ciofex" in nRun0[iRun]):
+        if (int(iRun)<=800191):
+            xCryCut.update({iRun: [5.05, 5.85, 2.29, 3.09]})
+        else:
+            xCryCut.update({iRun: [4.05, 4.85, 2.29, 3.09]})
     else:
         xCryCut.update({iRun: [-10, 10, -10, 10]})
 
