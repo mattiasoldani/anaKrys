@@ -1,9 +1,13 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import succolib as sl
+#import succolib as sl # fixed below
 from scipy.optimize import curve_fit
 from matplotlib.colors import LogNorm, Normalize
+
+import sys
+sys.path.insert(1, '..')
+import succolib_local as sl
 
 ###############################################################################
 ###############################################################################
@@ -617,7 +621,7 @@ def plot_energySingle(
         fig, ax = plt.subplots(nrows=1, ncols=1, figsize=[newXSize, newYSize], num=newFigName)
             
     # spectrum is created only if ax has the right typing (plt.subplots() output np.array in case of multidimensional figures)
-    if str(type(ax))=="<class 'matplotlib.axes._subplots.AxesSubplot'>":
+    if True: #str(type(ax))=="<class 'matplotlib.axes._subplots.AxesSubplot'>":
         
         # plot boolean & title (corresponding to boolean if title0 is None, else title0) & variable
         title = "" if title0==None else title0

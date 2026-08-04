@@ -1,5 +1,9 @@
-import succolib as sl
+#import succolib as sl # fixed below
 import pickle
+
+import sys
+sys.path.insert(1, '..')
+import succolib_local as sl
 
 ###############################################################################
 ###############################################################################
